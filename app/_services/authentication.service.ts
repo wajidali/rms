@@ -25,7 +25,7 @@ export class AuthenticationService {
 
 
     login(username: string, password: string) {
-        this.http.get(this.configData.endpoint+"api/default").subscribe((r)=> {console.log(r);});
+        this.http.get(this.configData.endPoint+"api/default").subscribe((r)=> {console.log(r);});
        // var API_URL = appSettings.settings.serviceApiUrl + '/api/user/authenticate';
 
         // return this.http.post(

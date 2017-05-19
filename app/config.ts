@@ -3,25 +3,22 @@
  */
 export class config {
 
-    public static getEnvironmentVariable() {
+    public static getEnvironmentVariable(): configData{
         var environment:string;
-        var data: configData;
+        var data: configData= {endPoint:''};
         environment = window.location.hostname;
+
         switch (environment) {
-            case'http://localhost:3000':
-
-                    data.endPoint= 'http://localhost:51364/'
-
+            case'localhost':
+                    data.endPoint = 'http://localhost:51364/';
                 break;
-            case 'http://fitsme.azurewebsites.net':
-                data.endPoint=  'http://fitsmeservice.azurewebsites.net/'
-
+            case 'fitsme.azurewebsites.net':
+                data.endPoint =  'http://fitsmeservice.azurewebsites.net/';
                 break;
-
             default:
-                data.endPoint=  'http://localhost:51364/'
-
+                data.endPoint =  'http://localhost:51364/';
         }
+
         return data;
     }
 }
