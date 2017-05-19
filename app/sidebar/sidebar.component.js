@@ -10,15 +10,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var sidebar_routes_config_1 = require('./sidebar-routes.config');
+var router_1 = require('@angular/router');
+var authentication_service_1 = require('../_services/authentication.service');
 var SidebarComponent = (function () {
-    function SidebarComponent() {
+    function SidebarComponent(router, authenticationService) {
+        this.router = router;
+        this.authenticationService = authenticationService;
     }
     SidebarComponent.prototype.ngOnInit = function () {
         $.getScript('../../assets/js/sidebar-moving-tab.js');
-        if (this.loggedIn)
-            this.menuItems = sidebar_routes_config_1.ROUTES.filter(function (menuItem) { return menuItem; });
-        else
-            this.menuItems = sidebar_routes_config_1.ROUTES.filter(function (menuItem) { return menuItem.path === 'login'; });
+        // get login status
+        // var user = this.authenticationService.loggedIn.subscribe((loIn) => {
+        //     this.loggedIn = loIn;
+        // })
+        // if (user != null)
+        //     this.loggedIn = true;
+        this.menuItems = sidebar_routes_config_1.ROUTES.filter(function (i) { return i; });
     };
     SidebarComponent = __decorate([
         core_1.Component({
@@ -26,7 +33,7 @@ var SidebarComponent = (function () {
             selector: 'sidebar-cmp',
             templateUrl: 'sidebar.component.html',
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [router_1.Router, authentication_service_1.AuthenticationService])
     ], SidebarComponent);
     return SidebarComponent;
 }());

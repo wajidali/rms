@@ -2,7 +2,11 @@
  * Created by Wajid Khilji on 17/05/2017.
  */
 import { Component, OnInit  } from '@angular/core';
+
+import {ActivatedRoute, Router} from '@angular/router';
 declare var $:any;
+import { AuthenticationService} from '../../_services/authentication.service';
+import {SidebarComponent} from '../../sidebar/sidebar.component';
 
 @Component({
     selector: 'login-cmp',
@@ -13,8 +17,24 @@ declare var $:any;
 
 export class LoginRegisterComponent implements OnInit{
     public isLogin: true;
-    ngOnInit(){
+    public returnUrl: string;
+    constructor(
+        public authService: AuthenticationService,
+        private route: ActivatedRoute,
+        private router: Router,
+    ){
 
+    }
+    ngOnInit(){
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+
+    }
+
+    login(){
+        this.authService.login('','');
+
+        $('#loginModal').modal('hide');
+        this.router.navigate([this.returnUrl]);
     }
 
     shakeModal(){

@@ -6,7 +6,7 @@
         Zoo Animals
     </a>
 </div>
-<div class="sidebar-wrapper">
+<div class="sidebar-wrapper" [hidden]="!authenticationService.loggedIn">
     <div class="nav-container">
         <ul class="nav">
             <li *ngFor="let menuItem of menuItems" routerLinkActive="active" class="{{menuItem.class}}">
@@ -15,11 +15,7 @@
                     <p>{{menuItem.title}}</p>
                 </a>
             </li>
-            <li routerLinkActive="active" *ngIf="loggedIn">
-                <button (click)="logout()" class="btn btn-warning" >
-                    <i class='material-icons'>exit_to_app</i> Log out
-                </button>
-            </li>
         </ul>
     </div>
 </div>
+

@@ -11,12 +11,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var sidebar_routes_config_1 = require('../.././sidebar/sidebar-routes.config');
 var common_1 = require('@angular/common');
+var authentication_service_1 = require('../../_services/authentication.service');
 var NavbarComponent = (function () {
-    function NavbarComponent(location) {
+    function NavbarComponent(location, authService) {
+        this.authService = authService;
         this.location = location;
     }
     NavbarComponent.prototype.ngOnInit = function () {
         this.listTitles = sidebar_routes_config_1.ROUTES.filter(function (listTitle) { return listTitle; });
+    };
+    NavbarComponent.prototype.logout = function () {
+        this.authService.logout();
     };
     NavbarComponent.prototype.getTitle = function () {
         var titlee = this.location.prepareExternalUrl(this.location.path());
@@ -36,7 +41,7 @@ var NavbarComponent = (function () {
             selector: 'navbar-cmp',
             templateUrl: 'navbar.component.html'
         }), 
-        __metadata('design:paramtypes', [common_1.Location])
+        __metadata('design:paramtypes', [common_1.Location, authentication_service_1.AuthenticationService])
     ], NavbarComponent);
     return NavbarComponent;
 }());

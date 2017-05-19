@@ -36,6 +36,11 @@
                        <i class="material-icons">person</i>
                        <p class="hidden-lg hidden-md">Profile</p>
                     </a>
+                    <ul class="dropdown-menu">
+                        <li *ngIf="!authService.loggedIn"><a [routerLink]="['/login']">Login</a></li>
+                        <li *ngIf="authService.loggedIn"><a (click)="logout()">Log Out</a></li>
+
+                    </ul>
                 </li>
             </ul>
 

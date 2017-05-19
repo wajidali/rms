@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ROUTES } from '../.././sidebar/sidebar-routes.config';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import { AuthenticationService } from '../../_services/authentication.service';
 
 @Component({
     moduleId: module.id,
@@ -11,11 +12,14 @@ import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common'
 export class NavbarComponent implements OnInit{
     private listTitles: any[];
     location: Location;
-    constructor(location:Location) {
+    constructor(location:Location, public authService: AuthenticationService) {
         this.location = location;
     }
     ngOnInit(){
         this.listTitles = ROUTES.filter(listTitle => listTitle);
+    }
+    logout(){
+        this.authService.logout();
     }
     getTitle(){
         var titlee = this.location.prepareExternalUrl(this.location.path());
