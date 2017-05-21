@@ -21,7 +21,7 @@ export class AuthenticationService {
 
     login(email: string, password: string) {
 
-        var url = this.API_URL + 'api/users/authenticate';
+        var url = this.API_URL + 'api/authenticate';
 
         return this.http.post(
             url
