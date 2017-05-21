@@ -15,32 +15,44 @@ var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 require('rxjs/add/operator/map');
 var router_1 = require('@angular/router');
-// import { appSettings } from '../app.module';
-// import { User } from '../_models/index';
 var config_1 = require('../config');
 var AuthenticationService = (function () {
     function AuthenticationService(http, router) {
         this.http = http;
         this.router = router;
-        this.loggedIn = false;
-        this.configData = config_1.config.getEnvironmentVariable();
+        this.API_URL = "";
+        this.API_URL = config_1.config.getEnvironmentVariable().endPoint;
+        this.loggedIn = localStorage.getItem('currentUser') ? true : false;
     }
-    AuthenticationService.prototype.login = function (username, password) {
-        this.http.get(this.configData.endPoint + "api/default").subscribe(function (r) { console.log(r); });
-        // var API_URL = appSettings.settings.serviceApiUrl + '/api/user/authenticate';
-        // return this.http.post(
-        //     API_URL
-        //     , JSON.stringify({ UserName: username, Password: password })
-        //     , this.jwt())
-        //     .map((response: Response) => {
-        //         // login successful if there's a jwt token in the response
-        //         let user: User = response.json();
-        //         if (user) {
-        // store user details and jwt token in local storage to keep user logged in between page refreshes
-        localStorage.setItem('currentUser', JSON.stringify({}));
-        this.loggedIn = true;
-        //     }
-        // });
+    AuthenticationService.prototype.login = function (email, password) {
+        var _this = this;
+        var url = this.API_URL + 'api/users/authenticate';
+        return this.http.post(url, JSON.stringify({ email: email, password: password }), this.jwt())
+            .map(function (response) {
+            // login successful if there's a jwt token in the response
+            console.log(response);
+            var user = response.json();
+            if (user) {
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('currentUser', JSON.stringify({}));
+                _this.loggedIn = true;
+            }
+        });
+    };
+    AuthenticationService.prototype.register = function (user) {
+        var _this = this;
+        var url = this.API_URL + 'api/users/post';
+        return this.http.post(url, JSON.stringify(user), this.jwt())
+            .map(function (response) {
+            // login successful if there's a jwt token in the response
+            console.log(response);
+            var user = response.json();
+            if (user) {
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('currentUser', JSON.stringify({}));
+                _this.loggedIn = true;
+            }
+        });
     };
     AuthenticationService.prototype.logout = function () {
         // remove user from local storage to log user out

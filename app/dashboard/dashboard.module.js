@@ -9,17 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var forms_1 = require('@angular/forms');
 var router_1 = require('@angular/router');
 var dashboard_routes_1 = require('./dashboard.routes');
+var equal_validator_directive_1 = require('../_validators/equal-validator.directive');
+var common_1 = require("@angular/common");
 var DashboardModule = (function () {
     function DashboardModule() {
     }
     DashboardModule = __decorate([
         core_1.NgModule({
             imports: [
-                router_1.RouterModule.forChild(dashboard_routes_1.MODULE_ROUTES)
+                router_1.RouterModule.forChild(dashboard_routes_1.MODULE_ROUTES),
+                forms_1.FormsModule,
+                common_1.CommonModule
             ],
-            declarations: [dashboard_routes_1.MODULE_COMPONENTS],
+            declarations: [dashboard_routes_1.MODULE_COMPONENTS, equal_validator_directive_1.EqualValidator],
             providers: []
         }), 
         __metadata('design:paramtypes', [])

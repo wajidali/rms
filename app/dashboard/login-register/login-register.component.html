@@ -39,10 +39,21 @@
                                     </div>
                                     <div class="error"></div>
                                     <div class="form loginBox">
-                                        <form method="post" action="/login" accept-charset="UTF-8">
-                                            <input id="email" class="form-control" type="text" placeholder="Email" name="email">
-                                            <input id="password" class="form-control" type="password" placeholder="Password" name="password">
-                                            <input class="btn btn-default btn-login" type="button" value="Login" (click)="login()">
+                                        <small  class="text-danger">
+                                            <i>{{errorMessage}}</i>
+                                        </small>
+                                        <form #lf="ngForm" novalidate (ngSubmit)="login(lf.value, lf.valid)">
+                                            <input placeholder="Email" type="email" class="form-control" name="loginEmail" [ngModel]="user.Email"
+                                                   required  pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" #loginEmail="ngModel">
+                                            <small [hidden]="loginEmail.valid || (loginEmail.pristine && !lf.submitted)" class="text-danger">
+                                                Email is required and format should be <i>john@doe.com</i>.
+                                            </small>
+                                            <input placeholder="Password" type="password" class="form-control" name="loginPassword" [ngModel]="user.Password"
+                                                   required #loginPassword="ngModel">
+                                            <small [hidden]="loginPassword.valid || (loginPassword.pristine && !lf.submitted)" class="text-danger">
+                                                Password is required
+                                            </small>
+                                            <input class="btn btn-default btn-login" type="submit" value="Login" >
                                         </form>
                                     </div>
                                 </div>
@@ -50,10 +61,29 @@
                             <div class="box">
                                 <div class="content registerBox" style="display:none;">
                                     <div class="form">
-                                        <form method="post" html="{:multipart=>true}" data-remote="true" action="/register" accept-charset="UTF-8">
-                                            <input id="email" class="form-control" type="text" placeholder="Email" name="email">
-                                            <input id="password" class="form-control" type="password" placeholder="Password" name="password">
-                                            <input id="password_confirmation" class="form-control" type="password" placeholder="Repeat Password" name="password_confirmation">
+                                        <form #f="ngForm" novalidate (ngSubmit)="register(f.value, f.valid)">
+                                            <input placeholder="First Name" type="text" class="form-control" name="firstName" [ngModel]="user.FirstName"
+                                                   required minlength="5" maxlength="15" #firstName="ngModel">
+                                            <small [hidden]="firstName.valid || (firstName.pristine && !f.submitted)" class="text-danger">
+                                                First name is required (minimum 5 characters).
+                                            </small>
+                                            <input placeholder="Last Name" type="text" class="form-control" name="lastName" [ngModel]="user.LastName">
+
+                                            <input placeholder="Email" type="email" class="form-control" name="email" [ngModel]="user.Email"
+                                                   required  pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" #email="ngModel">
+                                            <small [hidden]="email.valid || (email.pristine && !f.submitted)" class="text-danger">
+                                                Email is required and format should be <i>john@doe.com</i>.
+                                            </small>
+                                            <input placeholder="Password" type="password" class="form-control" name="password" [ngModel]="user.Password"
+                                                   required validateEqual="confirmPassword" reverse="true" #password="ngModel">
+                                            <small [hidden]="password.valid || (password.pristine && !f.submitted)" class="text-danger">
+                                                Password is required
+                                            </small>
+                                            <input placeholder="Retype Password" type="password" class="form-control" name="confirmPassword" [ngModel]="retypePassword"
+                                                   required validateEqual="password" reverse="false" #confirmPassword="ngModel">
+                                            <small [hidden]="confirmPassword.valid || (confirmPassword.pristine && !f.submitted)" class="text-danger">
+                                                Password mismatch
+                                            </small>
                                             <input class="btn btn-default btn-register" type="submit" value="Create account" name="commit">
                                         </form>
                                     </div>

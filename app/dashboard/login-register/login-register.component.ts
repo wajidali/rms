@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 declare var $:any;
 import { AuthenticationService} from '../../_services/authentication.service';
 import {SidebarComponent} from '../../sidebar/sidebar.component';
+import {User} from "../../_modals/user";
 
 @Component({
     selector: 'login-cmp',
@@ -17,7 +18,11 @@ import {SidebarComponent} from '../../sidebar/sidebar.component';
 
 export class LoginRegisterComponent implements OnInit{
     public isLogin: true;
+    public user: User;
     public returnUrl: string;
+    public errorMessage ="";
+
+    public retypePassword ="";
     constructor(
         public authService: AuthenticationService,
         private route: ActivatedRoute,
@@ -27,14 +32,37 @@ export class LoginRegisterComponent implements OnInit{
     }
     ngOnInit(){
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        this.user = new User();
+        this.user.Password = '';
+        this.user.LastName = '';
+        this.user.Email = '';
+        this.user.FirstName = '';
 
     }
 
-    login(){
-        this.authService.login('','');
+    login(model: any, isValid: boolean){
 
-        $('#loginModal').modal('hide');
-        this.router.navigate([this.returnUrl]);
+        if(isValid) {
+
+
+            this.authService.login(model.loginEmail, model.loginPassword).subscribe(() => {
+                $('#loginModal').modal('hide');
+                this.router.navigate([this.returnUrl]);
+            }, (error)=> {
+                this.errorMessage = error.statusText + ": check email or password";
+            });
+        }
+    }
+
+    register(model: User, isValid: boolean){
+        console.log(model, isValid);
+        if(isValid) {
+
+            this.authService.register(model).subscribe(() => {
+                $('#loginModal').modal('hide');
+                this.router.navigate([this.returnUrl]);
+            })
+        }
     }
 
     shakeModal(){

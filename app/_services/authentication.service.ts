@@ -1,50 +1,62 @@
 /**
  * Created by Wajid on 5/19/2017.
  */
-import { Injectable, EventEmitter, Output } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 import {Router} from '@angular/router';
-// import { LocalStorageService } from 'angular-2-local-storage';
-import { ROUTES } from '../sidebar/sidebar-routes.config';
-import {isUndefined} from "util";
 
-// import { appSettings } from '../app.module';
-// import { User } from '../_models/index';
+import { User } from '../_modals/user';
 import {config} from '../config';
 
 @Injectable()
 export class AuthenticationService {
-    public menuItems: any[];
-    loggedIn:boolean = false;
-     configData: any;
+
+    loggedIn:boolean;
+    API_URL = "";
     constructor(private http: Http, private router: Router) {
-        this.configData = config.getEnvironmentVariable();
+        this.API_URL = config.getEnvironmentVariable().endPoint;
+        this.loggedIn = localStorage.getItem('currentUser') ? true: false;
     }
 
+    login(email: string, password: string) {
 
-    login(username: string, password: string) {
-        this.http.get(this.configData.endPoint+"api/default").subscribe((r)=> {console.log(r);});
-       // var API_URL = appSettings.settings.serviceApiUrl + '/api/user/authenticate';
+        var url = this.API_URL + 'api/users/authenticate';
 
-        // return this.http.post(
-        //     API_URL
-        //     , JSON.stringify({ UserName: username, Password: password })
-        //     , this.jwt())
-        //     .map((response: Response) => {
-        //         // login successful if there's a jwt token in the response
-        //         let user: User = response.json();
-        //         if (user) {
+        return this.http.post(
+            url
+            , JSON.stringify({ email: email, password: password })
+            , this.jwt())
+            .map((response: Response) => {
+                // login successful if there's a jwt token in the response
+                console.log(response);
+                let user: User = response.json();
+                if (user) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify({}));
                     this.loggedIn = true;
-
-            //     }
-            // });
+                }
+            });
     }
 
+    register(user:User){
+        var url  = this.API_URL + 'api/users/post';
 
+        return this.http.post(
+            url
+            , JSON.stringify(user)
+            , this.jwt())
+            .map((response: Response) => {
+                // login successful if there's a jwt token in the response
+                console.log(response);
+                let user: User = response.json();
+                if (user) {
+                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    localStorage.setItem('currentUser', JSON.stringify({}));
+                    this.loggedIn = true;
+                }
+            });
+    }
 
     logout() {
         // remove user from local storage to log user out

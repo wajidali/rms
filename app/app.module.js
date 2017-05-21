@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
+var forms_1 = require('@angular/forms');
 var router_1 = require('@angular/router');
 var http_1 = require('@angular/http');
 var app_component_1 = require('./app.component');
@@ -19,8 +20,10 @@ var sidebar_module_1 = require('./sidebar/sidebar.module');
 var footer_module_1 = require('./shared/footer/footer.module');
 var navbar_module_1 = require('./shared/navbar/navbar.module');
 var authentication_service_1 = require('./_services/authentication.service');
+var species_service_1 = require('./_services/species.service');
+var users_service_1 = require('./_services/users.service');
+var animals_service_1 = require('./_services/animals.service');
 var auth_guard_1 = require('./_guards/auth.guard');
-var common_1 = require('@angular/common');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -33,10 +36,11 @@ var AppModule = (function () {
                 navbar_module_1.NavbarModule,
                 footer_module_1.FooterModule,
                 router_1.RouterModule.forRoot([]),
-                http_1.HttpModule
+                http_1.HttpModule,
+                forms_1.FormsModule
             ],
             declarations: [app_component_1.AppComponent, dashboard_component_1.DashboardComponent],
-            providers: [{ provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy }, authentication_service_1.AuthenticationService, auth_guard_1.AuthGuard],
+            providers: [authentication_service_1.AuthenticationService, animals_service_1.AnimalsService, species_service_1.SpeciesService, users_service_1.UsersService, auth_guard_1.AuthGuard],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

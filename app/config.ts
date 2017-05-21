@@ -10,7 +10,7 @@ export class config {
 
         switch (environment) {
             case'localhost':
-                    data.endPoint = 'http://localhost:51364/';
+                data.endPoint = 'http://localhost:51364/';
                 break;
             case 'fitsme.azurewebsites.net':
                 data.endPoint =  'http://fitsmeservice.azurewebsites.net/';
