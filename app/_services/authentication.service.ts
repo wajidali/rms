@@ -22,21 +22,22 @@ export class AuthenticationService {
     login(email: string, password: string) {
 
         var url = this.API_URL + 'api/authenticate';
-
-        return this.http.post(
-            url
-            , JSON.stringify({ email: email, password: password })
-            , this.jwt())
-            .map((response: Response) => {
-                // login successful if there's a jwt token in the response
-                console.log(response);
-                let user: User = response.json();
-                if (user) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify({}));
-                    this.loggedIn = true;
-                }
-            });
+        localStorage.setItem('currentUser', JSON.stringify({}));
+        this.loggedIn = true;
+        // return this.http.post(
+        //     url
+        //     , JSON.stringify({ email: email, password: password })
+        //     , this.jwt())
+        //     .map((response: Response) => {
+        //         // login successful if there's a jwt token in the response
+        //         console.log(response);
+        //         let user: User = response.json();
+        //         if (user) {
+        //             // store user details and jwt token in local storage to keep user logged in between page refreshes
+        //             localStorage.setItem('currentUser', JSON.stringify({}));
+        //             this.loggedIn = true;
+        //         }
+        //     });
     }
 
     register(user:User){
