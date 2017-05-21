@@ -14,22 +14,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var authentication_service_1 = require('../../_services/authentication.service');
-var user_1 = require("../../_modals/user");
 var LoginRegisterComponent = (function () {
     function LoginRegisterComponent(authService, route, router) {
         this.authService = authService;
         this.route = route;
         this.router = router;
+        this.user = { Password: '', Email: '', Id: 0, FirstName: '', LastName: '' };
         this.errorMessage = "";
         this.retypePassword = "";
     }
     LoginRegisterComponent.prototype.ngOnInit = function () {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-        this.user = new user_1.User();
-        this.user.Password = '';
-        this.user.LastName = '';
-        this.user.Email = '';
-        this.user.FirstName = '';
     };
     LoginRegisterComponent.prototype.login = function (model, isValid) {
         var _this = this;
@@ -51,14 +46,6 @@ var LoginRegisterComponent = (function () {
                 _this.router.navigate([_this.returnUrl]);
             });
         }
-    };
-    LoginRegisterComponent.prototype.shakeModal = function () {
-        $('#loginModal .modal-dialog').addClass('shake');
-        $('.error').addClass('alert alert-danger').html("Invalid email/password combination");
-        $('input[type="password"]').val('');
-        setTimeout(function () {
-            $('#loginModal .modal-dialog').removeClass('shake');
-        }, 1000);
     };
     LoginRegisterComponent.prototype.showRegisterForm = function () {
         $('.loginBox').fadeOut('fast', function () {

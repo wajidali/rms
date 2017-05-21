@@ -1,10 +1,10 @@
 /**
  * Created by Wajid on 5/21/2017.
  */
-export class User {
-    public Id: number;
-    public FirstName: string;
-    public LastName: string;
-    public Email: string;
-    public Password: string;
+export interface User {
+    Id: number;
+    FirstName: string;
+    LastName: string;
+    Email: string;
+    Password: string;
 }

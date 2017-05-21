@@ -13,17 +13,6 @@ export class UsersService {
         this.API_URL = config.getEnvironmentVariable().endPoint;
     }
 
-    // getByUserId(id: number): Observable<Contract[]> {
-    //     return this.http.get(this.API_URL + 'api/animals/GetByUserId/' + id).map((response: Response) =>  response.json());
-    // }
-    //
-    // getByUserIdForMeterData(id: number): Observable<MeterReadingDataDTO[]> {
-    //     return this.http.get(this.API_URL + 'GetByUserIdForMeterData/' + id).map((response: Response) => response.json());
-    // }
-    //
-    // addNewReading(reading: Reading) {
-    //     return this.http.post(this.API_URL + 'AddNewReading', reading, this.jwt()).map((response: Response) => response.json());
-    // }
 
     // private helper methods
 

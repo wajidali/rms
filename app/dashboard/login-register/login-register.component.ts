@@ -18,7 +18,7 @@ import {User} from "../../_modals/user";
 
 export class LoginRegisterComponent implements OnInit{
     public isLogin: true;
-    public user: User;
+    public user: User= { Password: '', Email: '', Id :0, FirstName:'', LastName: ''};
     public returnUrl: string;
     public errorMessage ="";
 
@@ -32,12 +32,6 @@ export class LoginRegisterComponent implements OnInit{
     }
     ngOnInit(){
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-        this.user = new User();
-        this.user.Password = '';
-        this.user.LastName = '';
-        this.user.Email = '';
-        this.user.FirstName = '';
-
     }
 
     login(model: any, isValid: boolean){
@@ -63,15 +57,6 @@ export class LoginRegisterComponent implements OnInit{
                 this.router.navigate([this.returnUrl]);
             })
         }
-    }
-
-    shakeModal(){
-        $('#loginModal .modal-dialog').addClass('shake');
-        $('.error').addClass('alert alert-danger').html("Invalid email/password combination");
-        $('input[type="password"]').val('');
-        setTimeout( function(){
-            $('#loginModal .modal-dialog').removeClass('shake');
-        }, 1000 );
     }
 
     showRegisterForm(){

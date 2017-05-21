@@ -23,6 +23,22 @@ var AnimalsService = (function () {
     AnimalsService.prototype.getAnimals = function () {
         return this.http.get(this.API_URL + 'api/animals').map(function (response) { return response.json(); });
     };
+    AnimalsService.prototype.getAnimal = function (id) {
+        return this.http.get(this.API_URL + 'api/animals/' + id).map(function (response) {
+            var res = response.json();
+            var species = { Name: res.Species.Name, Id: res.SpceciesFK };
+            var animal = { Name: res.Name, YearOfBirth: res.YearOfBirth, Id: res.Id, Age: res.Age, SpeciesFK: res.SpeciesFK, Species: species };
+            return animal;
+        });
+    };
+    AnimalsService.prototype.saveAnimal = function (model, isValid) {
+        if (isValid) {
+            console.log(model);
+        }
+    };
+    AnimalsService.prototype.deleteAnimal = function (id) {
+        return this.http.delete(this.API_URL + 'api/animals/' + id).map(function (response) { return response.json(); });
+    };
     // getByUserId(id: number): Observable<Contract[]> {
     //     return this.http.get(this.API_URL + 'api/animals/GetByUserId/' + id).map((response: Response) =>  response.json());
     // }

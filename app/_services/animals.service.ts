@@ -6,6 +6,7 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import {config} from "../config";
 import { Observable } from 'rxjs/Observable';
 import {Animal} from "../_modals/animal";
+import {Species} from "../_modals/species";
 
 @Injectable()
 export class AnimalsService {
@@ -16,6 +17,26 @@ export class AnimalsService {
 
     getAnimals(): Observable<Animal[]>{
         return this.http.get(this.API_URL + 'api/animals').map((response: Response) => response.json());
+    }
+
+    getAnimal(id: number){
+        return this.http.get(this.API_URL + 'api/animals/' + id).map((response) => {
+            let res =  response.json();
+            let species:Species = {Name: res.Species.Name, Id: res.SpceciesFK };
+            let animal:Animal = { Name: res.Name, YearOfBirth: res.YearOfBirth, Id: res.Id, Age: res.Age, SpeciesFK: res.SpeciesFK, Species:species };
+            return animal;
+        });
+    }
+
+    saveAnimal(model, isValid){
+        if(isValid){
+            console.log(model);
+
+        }
+    }
+
+    deleteAnimal(id: number){
+        return this.http.delete(this.API_URL + 'api/animals/' + id).map(response => response.json());
     }
 
     // getByUserId(id: number): Observable<Contract[]> {

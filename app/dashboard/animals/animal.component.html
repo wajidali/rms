@@ -15,6 +15,7 @@
                                 <th>Species Name</th>
                                 <th>Year of Birth</th>
                                 <th>Age</th>
+                                <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -23,6 +24,14 @@
                                     <td>{{animal.Species.Name}}</td>
                                     <td>{{animal.YearOfBirth}}</td>
                                     <td>{{animal.Age}}</td>
+                                    <td class="td-actions text-right">
+                                        <button type="button" rel="tooltip" title="Edit Animal" class="btn btn-primary btn-simple btn-xs" (click)="editAnimal(animal.Id)">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                        <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs" (click)="removeAnimal(animal.Id)">
+                                            <i class="material-icons">close</i>
+                                        </button>
+                                    </td>
                                 </tr>
 
                             </tbody>
@@ -32,6 +41,79 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade login" id="animalsModal">
+    <div class="modal-dialog login animated">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Login with</h4>
+            </div>
+            <div class="modal-body">
+                <div class="box">
+                    <div class="content">
+
+                        <div class="division">
+                            <div class="line l"></div>
+                            <span>or</span>
+                            <div class="line r"></div>
+                        </div>
+                        <div class="error"></div>
+                        <div class="form confirmBox">
+                            <strong>Are you sure you want to delete animal {{animal.Name}}</strong>
+                            <button class="btn btn-default btn-register" (click)="deleteAnimal()">Delete</button>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="content animalsBox" style="display:none;">
+                        <div class="form">
+                            <small  class="text-danger">
+                                <i>{{errorMessage}}</i>
+                            </small>
+                            <form #f="ngForm" novalidate (ngSubmit)="saveAnimal(f.value, f.valid)">
+                                <input placeholder="Name" type="text" class="form-control" name="name" [ngModel]="animal.Name"
+                                       required minlength="1" maxlength="15" #name="ngModel">
+                                <small [hidden]="name.valid || (name.pristine && !f.submitted)" class="text-danger">
+                                    First name is required (minimum 1 characters).
+                                </small>
+                                <select class="form-control" name="species" [(ngModel)]="animal.Species">
+                                    <option *ngFor="let s of species" [ngValue]="s">{{s.Name}}</option>
+                                </select>
+                                <!--<small [hidden]="name.valid || (name.pristine && !f.submitted)" class="text-danger">-->
+                                    <!--First name is required (minimum 5 characters).-->
+                                <!--</small>-->
+
+                                <input placeholder="Year Of Birth" type="number" class="form-control" name="yearOfBirth" [ngModel]="animal.YearOfBirth"
+                                       required #yearOfBirth="ngModel">
+                                <small [hidden]="yearOfBirth.valid || (yearOfBirth.pristine && !f.submitted)" class="text-danger">
+                                    Should be 4 numbers <i>john@doe.com</i>.
+                                </small>
+                                <input placeholder="Age" type="number" class="form-control" name="age" [ngModel]="animal.Age"
+                                       required #age="ngModel">
+                                <small [hidden]="age.valid || (age.pristine && !f.submitted)" class="text-danger">
+                                    Age is required
+                                </small>
+
+                                <input class="btn btn-default btn-register" type="submit" value="Save Animal" name="commit">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="forgot confirm-footers" style="display:none">
+                    Footer
+                </div>
+                <div class="forgot animals-footers" style="display:none">
+                   Footer
+                </div>
+            </div>
         </div>
     </div>
 </div>
