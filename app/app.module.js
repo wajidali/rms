@@ -24,6 +24,7 @@ var species_service_1 = require('./_services/species.service');
 var users_service_1 = require('./_services/users.service');
 var animals_service_1 = require('./_services/animals.service');
 var auth_guard_1 = require('./_guards/auth.guard');
+var common_1 = require('@angular/common');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -40,7 +41,7 @@ var AppModule = (function () {
                 forms_1.FormsModule
             ],
             declarations: [app_component_1.AppComponent, dashboard_component_1.DashboardComponent],
-            providers: [authentication_service_1.AuthenticationService, animals_service_1.AnimalsService, species_service_1.SpeciesService, users_service_1.UsersService, auth_guard_1.AuthGuard],
+            providers: [{ provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy }, authentication_service_1.AuthenticationService, animals_service_1.AnimalsService, species_service_1.SpeciesService, users_service_1.UsersService, auth_guard_1.AuthGuard],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

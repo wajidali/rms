@@ -31,7 +31,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
         FormsModule
     ],
     declarations: [ AppComponent, DashboardComponent ],
-    providers: [ AuthenticationService, AnimalsService, SpeciesService, UsersService, AuthGuard],
+    providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, AuthenticationService, AnimalsService, SpeciesService, UsersService, AuthGuard],
     bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
