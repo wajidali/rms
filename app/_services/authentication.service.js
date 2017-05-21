@@ -25,23 +25,19 @@ var AuthenticationService = (function () {
         this.loggedIn = localStorage.getItem('currentUser') ? true : false;
     }
     AuthenticationService.prototype.login = function (email, password) {
+        var _this = this;
         var url = this.API_URL + 'api/authenticate';
-        localStorage.setItem('currentUser', JSON.stringify({}));
-        this.loggedIn = true;
-        // return this.http.post(
-        //     url
-        //     , JSON.stringify({ email: email, password: password })
-        //     , this.jwt())
-        //     .map((response: Response) => {
-        //         // login successful if there's a jwt token in the response
-        //         console.log(response);
-        //         let user: User = response.json();
-        //         if (user) {
-        //             // store user details and jwt token in local storage to keep user logged in between page refreshes
-        //             localStorage.setItem('currentUser', JSON.stringify({}));
-        //             this.loggedIn = true;
-        //         }
-        //     });
+        return this.http.post(url, JSON.stringify({ email: email, password: password }), this.jwt())
+            .map(function (response) {
+            // login successful if there's a jwt token in the response
+            console.log(response);
+            var user = response.json();
+            if (user) {
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('currentUser', JSON.stringify({}));
+                _this.loggedIn = true;
+            }
+        });
     };
     AuthenticationService.prototype.register = function (user) {
         var _this = this;
