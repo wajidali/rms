@@ -31,10 +31,11 @@ var AnimalsService = (function () {
             return animal;
         });
     };
-    AnimalsService.prototype.saveAnimal = function (model, isValid) {
-        if (isValid) {
-            console.log(model);
-        }
+    AnimalsService.prototype.postAnimal = function (model) {
+        return this.http.post(this.API_URL + 'api/animals', JSON.stringify(model), this.jwt()).map(function (response) { return response.json(); });
+    };
+    AnimalsService.prototype.putAnimal = function (model) {
+        return this.http.put(this.API_URL + 'api/animals/' + model.Id, JSON.stringify(model), this.jwt()).map(function (response) { return response.json(); });
     };
     AnimalsService.prototype.deleteAnimal = function (id) {
         return this.http.delete(this.API_URL + 'api/animals/' + id).map(function (response) { return response.json(); });

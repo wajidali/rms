@@ -2,6 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
+
                 <div class="card">
                     <div class="card-header" data-background-color="red">
                         <h4 class="title">Animals</h4>
@@ -38,6 +39,12 @@
                         </table>
 
                     </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons text-danger">warning</i> <a href="#pablo">Average Age of animals in the zoo is {{averageAge | number}}</a>
+                            <button class="btn btn-primary " (click)="addNewAnimal()">Add New</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -59,13 +66,16 @@
 
                         <div class="division">
                             <div class="line l"></div>
-                            <span>or</span>
+                            <!--<span>or</span>-->
                             <div class="line r"></div>
                         </div>
                         <div class="error"></div>
                         <div class="form confirmBox">
+                            <small  class="text-danger">
+                                <i>{{error}}</i>
+                            </small>
                             <strong>Are you sure you want to delete animal {{animal.Name}}</strong>
-                            <button class="btn btn-default btn-register" (click)="deleteAnimal()">Delete</button>
+                            <button class="btn btn-danger btn-register" (click)="deleteAnimal(animal.Id)">Delete</button>
                         </div>
 
                     </div>
@@ -74,33 +84,34 @@
                     <div class="content animalsBox" style="display:none;">
                         <div class="form">
                             <small  class="text-danger">
-                                <i>{{errorMessage}}</i>
+                                <i>{{error}}</i>
                             </small>
-                            <form #f="ngForm" novalidate (ngSubmit)="saveAnimal(f.value, f.valid)">
-                                <input placeholder="Name" type="text" class="form-control" name="name" [ngModel]="animal.Name"
-                                       required minlength="1" maxlength="15" #name="ngModel">
-                                <small [hidden]="name.valid || (name.pristine && !f.submitted)" class="text-danger">
+                            <form #f="ngForm" novalidate >
+                                <input placeholder="Name" type="text" class="form-control" name="Name" [(ngModel)]="animal.Name"
+                                       required minlength="1" maxlength="15" #Name="ngModel">
+                                <small [hidden]="Name.valid || (Name.pristine && !f.submitted)" class="text-danger">
                                     First name is required (minimum 1 characters).
                                 </small>
-                                <select class="form-control" name="species" [(ngModel)]="animal.Species">
-                                    <option *ngFor="let s of species" [ngValue]="s">{{s.Name}}</option>
+                                <select class="form-control" name="SpeciesFK" [(ngModel)]="animal.SpeciesFK" #SpeciesFK="ngModel" required>
+                                    <option *ngFor="let s of species" [ngValue]="s.Id">{{s.Name}}</option>
                                 </select>
-                                <!--<small [hidden]="name.valid || (name.pristine && !f.submitted)" class="text-danger">-->
-                                    <!--First name is required (minimum 5 characters).-->
-                                <!--</small>-->
-
-                                <input placeholder="Year Of Birth" type="number" class="form-control" name="yearOfBirth" [ngModel]="animal.YearOfBirth"
-                                       required #yearOfBirth="ngModel">
-                                <small [hidden]="yearOfBirth.valid || (yearOfBirth.pristine && !f.submitted)" class="text-danger">
-                                    Should be 4 numbers <i>john@doe.com</i>.
+                                <small [hidden]="SpeciesFK.valid || (SpeciesFK.pristine && !f.submitted)" class="text-danger">
+                                    Species is required.
                                 </small>
-                                <input placeholder="Age" type="number" class="form-control" name="age" [ngModel]="animal.Age"
-                                       required #age="ngModel">
-                                <small [hidden]="age.valid || (age.pristine && !f.submitted)" class="text-danger">
+
+                                <input placeholder="Year Of Birth" type="number" class="form-control" name="YearOfBirth" [(ngModel)]="animal.YearOfBirth"
+                                       required #YearOfBirth="ngModel">
+                                <small [hidden]="YearOfBirth.valid || (YearOfBirth.pristine && !f.submitted)" class="text-danger">
+                                    Should be 4 numbers <i>1998</i>.
+                                </small>
+                                <input placeholder="Age" type="number" class="form-control" name="Age" [(ngModel)]="animal.Age"
+                                       required #Age="ngModel">
+                                <small [hidden]="Age.valid || (Age.pristine && !f.submitted)" class="text-danger">
                                     Age is required
                                 </small>
+                                <input hidden name="Id" [ngModel]="animal.Id">
 
-                                <input class="btn btn-default btn-register" type="submit" value="Save Animal" name="commit">
+                                <button class="btn btn-primary btn-register pull-right" name="commit" (click)="saveAnimal(f.value, f.valid)">Save Animal</button>
                             </form>
                         </div>
                     </div>
@@ -108,10 +119,10 @@
             </div>
             <div class="modal-footer">
                 <div class="forgot confirm-footers" style="display:none">
-                    Footer
+
                 </div>
                 <div class="forgot animals-footers" style="display:none">
-                   Footer
+
                 </div>
             </div>
         </div>

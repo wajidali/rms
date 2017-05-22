@@ -60,6 +60,9 @@
                             </div>
                             <div class="box">
                                 <div class="content registerBox" style="display:none;">
+                                    <small  class="text-danger">
+                                        <i>{{errorMessage}}</i>
+                                    </small>
                                     <div class="form">
                                         <form #f="ngForm" novalidate (ngSubmit)="register(f.value, f.valid)">
                                             <input placeholder="First Name" type="text" class="form-control" name="firstName" [ngModel]="user.FirstName"

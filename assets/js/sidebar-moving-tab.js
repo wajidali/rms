@@ -52,6 +52,9 @@ $('.sidebar .nav > li > a').click(function(){
 function animationSidebar($this, animate){
     // console.log('incep animatia si butonul pe care sunt acum este:', $this[0].href );
 
+
+    if($this.parent('li').position() == undefined)
+        return;
     $current_li_distance = $this.parent('li').position().top - 10;
 
     button_text = $this.html();

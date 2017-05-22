@@ -30,7 +30,6 @@ var AuthenticationService = (function () {
         return this.http.post(url, JSON.stringify({ email: email, password: password }), this.jwt())
             .map(function (response) {
             // login successful if there's a jwt token in the response
-            console.log(response);
             var user = response.json();
             if (user) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes

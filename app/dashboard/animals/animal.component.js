@@ -18,15 +18,22 @@ var AnimalComponent = (function () {
     function AnimalComponent(animalService, speciesService) {
         this.animalService = animalService;
         this.speciesService = speciesService;
+        this.averageAge = 0;
         this.animal = { Age: 0, Id: 0, YearOfBirth: 0, Name: "", Species: null, SpeciesFK: 0 };
     }
     AnimalComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.animalService.getAnimals().subscribe(function (response) {
-            _this.animals = response;
-        });
+        this.refreshAnimals();
         this.speciesService.getSpecies().subscribe(function (response) {
             _this.species = response;
+        });
+    };
+    AnimalComponent.prototype.refreshAnimals = function () {
+        var _this = this;
+        this.animalService.getAnimals().subscribe(function (response) {
+            _this.animals = response;
+            _this.animals.forEach(function (p) { return _this.averageAge += p.Age; });
+            _this.averageAge = _this.averageAge / _this.animals.length;
         });
     };
     AnimalComponent.prototype.editAnimal = function (id) {
@@ -40,9 +47,44 @@ var AnimalComponent = (function () {
             }, 230);
         });
     };
+    AnimalComponent.prototype.addNewAnimal = function () {
+        this.animal = { Name: '', YearOfBirth: null, Id: 0, Age: null, SpeciesFK: null, Species: null };
+        this.showAnimalsForm();
+        setTimeout(function () {
+            $('.modal').appendTo("body");
+            $('#animalsModal').modal('show');
+        }, 230);
+    };
+    AnimalComponent.prototype.saveAnimal = function (model, isValid) {
+        var _this = this;
+        if (isValid) {
+            if (model.Id !== 0) {
+                this.animalService.putAnimal(model).subscribe(function (response) {
+                    $('#animalsModal').modal('hide');
+                    model.reset();
+                    _this.refreshAnimals();
+                }, function (error2) {
+                    _this.error = error2;
+                });
+            }
+            else {
+                this.animalService.postAnimal(model).subscribe(function (response) {
+                    $('#animalsModal').modal('hide');
+                    model.reset();
+                    _this.refreshAnimals();
+                }, function (error2) {
+                    _this.error = error2;
+                });
+            }
+        }
+    };
     AnimalComponent.prototype.deleteAnimal = function (id) {
+        var _this = this;
         this.animalService.deleteAnimal(id).subscribe(function (res) {
             $('#animalsModal').modal('hide');
+            _this.animals = _this.animals.filter(function (p) { return p.Id != res.Id; });
+        }, function (error2) {
+            _this.error = error2;
         });
     };
     AnimalComponent.prototype.removeAnimal = function (id) {

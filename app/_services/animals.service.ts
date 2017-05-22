@@ -28,12 +28,14 @@ export class AnimalsService {
         });
     }
 
-    saveAnimal(model, isValid){
-        if(isValid){
-            console.log(model);
-
-        }
+    postAnimal(model){
+        return this.http.post(this.API_URL +'api/animals', JSON.stringify(model), this.jwt()).map(response=> response.json());
     }
+    putAnimal(model){
+        return this.http.put(this.API_URL +'api/animals/' + model.Id, JSON.stringify(model), this.jwt()).map(response=> response.json());
+    }
+
+
 
     deleteAnimal(id: number){
         return this.http.delete(this.API_URL + 'api/animals/' + id).map(response => response.json());

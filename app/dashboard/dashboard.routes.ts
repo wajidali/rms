@@ -14,7 +14,7 @@ export const MODULE_ROUTES: Route[] =[
     { path: 'species', component: SpeciesComponent },
     { path: 'animals', component: AnimalComponent },
     { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
-    { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+    { path: '', redirectTo: 'login', pathMatch: 'full' }
 ]
 
 export const MODULE_COMPONENTS = [
