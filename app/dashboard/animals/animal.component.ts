@@ -65,7 +65,7 @@ export class AnimalComponent implements OnInit{
             if(model.Id !== 0) {
                 this.animalService.putAnimal(model).subscribe((response) => {
                     $('#animalsModal').modal('hide');
-                    model.reset();
+
                     this.refreshAnimals();
                 }, (error2) => {
                     this.error = error2;
@@ -74,7 +74,7 @@ export class AnimalComponent implements OnInit{
             else{
                 this.animalService.postAnimal(model).subscribe((response) => {
                     $('#animalsModal').modal('hide');
-                    model.reset();
+
                     this.refreshAnimals();
                 }, (error2) => {
                     this.error = error2;
