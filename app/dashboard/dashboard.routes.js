@@ -11,7 +11,7 @@ exports.MODULE_ROUTES = [
     { path: 'species', component: species_component_1.SpeciesComponent },
     { path: 'animals', component: animal_component_1.AnimalComponent },
     { path: 'user', component: user_component_1.UserComponent, canActivate: [auth_guard_1.AuthGuard] },
-    { path: '', redirectTo: 'login', pathMatch: 'full' }
+    { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
 ];
 exports.MODULE_COMPONENTS = [
     home_component_1.HomeComponent,

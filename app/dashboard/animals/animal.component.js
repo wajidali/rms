@@ -61,7 +61,6 @@ var AnimalComponent = (function () {
             if (model.Id !== 0) {
                 this.animalService.putAnimal(model).subscribe(function (response) {
                     $('#animalsModal').modal('hide');
-                    model.reset();
                     _this.refreshAnimals();
                 }, function (error2) {
                     _this.error = error2;
@@ -70,7 +69,6 @@ var AnimalComponent = (function () {
             else {
                 this.animalService.postAnimal(model).subscribe(function (response) {
                     $('#animalsModal').modal('hide');
-                    model.reset();
                     _this.refreshAnimals();
                 }, function (error2) {
                     _this.error = error2;
