@@ -8,8 +8,8 @@ var auth_guard_1 = require('../_guards/auth.guard');
 exports.MODULE_ROUTES = [
     { path: 'dashboard', component: home_component_1.HomeComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'login', component: login_register_component_1.LoginRegisterComponent },
-    { path: 'species', component: species_component_1.SpeciesComponent },
-    { path: 'animals', component: animal_component_1.AnimalComponent },
+    { path: 'species', component: species_component_1.SpeciesComponent, canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'animals', component: animal_component_1.AnimalComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'user', component: user_component_1.UserComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
 ];
