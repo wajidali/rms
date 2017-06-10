@@ -5,10 +5,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
 var StandardForm = (function () {
-    function StandardForm() {
+    function StandardForm(http) {
+        this.http = http;
     }
     StandardForm.prototype.ngOnInit = function () {
         // $.getScript('../../../assets/js/material-dashboard.js');
@@ -16,6 +21,12 @@ var StandardForm = (function () {
         $.getScript('../../../../assets/js/plugins/bootstrap-datetimepicker.js');
         //initDatetimepickers();
         this.initForm();
+        this.formModel = {};
+    };
+    StandardForm.prototype.postForm = function () {
+        this.http.post('', this.formModel).subscribe(function (res) {
+            console.log(res);
+        });
     };
     StandardForm.prototype.initForm = function () {
         $(".img-check").click(function () {
@@ -59,7 +70,8 @@ StandardForm = __decorate([
         selector: 'standard-form-camp',
         moduleId: module.id,
         templateUrl: 'standardForm.component.html'
-    })
+    }),
+    __metadata("design:paramtypes", [http_1.Http])
 ], StandardForm);
 exports.StandardForm = StandardForm;
 //# sourceMappingURL=standardForm.component.js.map
