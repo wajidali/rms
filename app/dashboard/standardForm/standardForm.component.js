@@ -14,6 +14,7 @@ var StandardForm = (function () {
     }
     StandardForm.prototype.ngOnInit = function () {
         // $.getScript('../../../assets/js/material-dashboard.js');
+        $.getScript('../../../../assets/js/plugins/jquery.tagsinput.js');
     };
     StandardForm = __decorate([
         core_1.Component({

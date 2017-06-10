@@ -9,6 +9,6 @@ import { Component, OnInit } from '@angular/core';
 export class StandardForm implements OnInit{
     ngOnInit(){
         // $.getScript('../../../assets/js/material-dashboard.js');
-
+        $.getScript('../../../../assets/js/plugins/jquery.tagsinput.js');
     }
 }

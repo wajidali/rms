@@ -8,9 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = require("@angular/core");
-var initDemo = require("../../../assets/js/charts.js");
+var core_1 = require('@angular/core');
+var initDemo = require('../../../assets/js/charts.js');
 var ResultComponent = (function () {
     function ResultComponent() {
         this.counties = [];
@@ -41,15 +40,15 @@ var ResultComponent = (function () {
         // });
         initDemo();
     };
+    ResultComponent = __decorate([
+        core_1.Component({
+            selector: 'result-cmp',
+            moduleId: module.id,
+            templateUrl: 'result.component.html'
+        }), 
+        __metadata('design:paramtypes', [])
+    ], ResultComponent);
     return ResultComponent;
 }());
-ResultComponent = __decorate([
-    core_1.Component({
-        selector: 'result-cmp',
-        moduleId: module.id,
-        templateUrl: 'result.component.html'
-    }),
-    __metadata("design:paramtypes", [])
-], ResultComponent);
 exports.ResultComponent = ResultComponent;
 //# sourceMappingURL=result.component.js.map
