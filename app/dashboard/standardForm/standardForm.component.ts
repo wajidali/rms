@@ -14,9 +14,7 @@ export class StandardForm implements OnInit{
         $.getScript('../../../../assets/js/plugins/bootstrap-datetimepicker.js');
         //initDatetimepickers();
         this.initForm();
-
     }
-
 
     initForm(){
 

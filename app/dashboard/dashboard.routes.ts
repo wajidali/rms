@@ -13,6 +13,7 @@ export const MODULE_ROUTES: Route[] =[
     { path: 'dashboard', component: HomeComponent},
     // { path: 'login', component: LoginRegisterComponent },
     { path: 'standard-form', component: StandardForm },
+    { path: 'result', component: ResultComponent },
 
     { path: 'user', component: UserComponent },
     { path: '', redirectTo: 'standard-form', pathMatch: 'full' }

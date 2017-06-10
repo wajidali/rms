@@ -8,12 +8,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Created by Wajid Khilji on 17/05/2017.
  */
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var authentication_service_1 = require('../../_services/authentication.service');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var authentication_service_1 = require("../../_services/authentication.service");
 var LoginRegisterComponent = (function () {
     function LoginRegisterComponent(authService, route, router) {
         this.authService = authService;
@@ -81,16 +82,18 @@ var LoginRegisterComponent = (function () {
             $('#loginModal').modal('show');
         }, 230);
     };
-    LoginRegisterComponent = __decorate([
-        core_1.Component({
-            selector: 'login-cmp',
-            moduleId: module.id,
-            templateUrl: 'login-register.component.html',
-            styleUrls: ['login-register.css']
-        }), 
-        __metadata('design:paramtypes', [authentication_service_1.AuthenticationService, router_1.ActivatedRoute, router_1.Router])
-    ], LoginRegisterComponent);
     return LoginRegisterComponent;
 }());
+LoginRegisterComponent = __decorate([
+    core_1.Component({
+        selector: 'login-cmp',
+        moduleId: module.id,
+        templateUrl: 'login-register.component.html',
+        styleUrls: ['login-register.css']
+    }),
+    __metadata("design:paramtypes", [authentication_service_1.AuthenticationService,
+        router_1.ActivatedRoute,
+        router_1.Router])
+], LoginRegisterComponent);
 exports.LoginRegisterComponent = LoginRegisterComponent;
 //# sourceMappingURL=login-register.component.js.map
