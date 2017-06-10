@@ -9,8 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var http_1 = require('@angular/http');
 var StandardForm = (function () {
-    function StandardForm() {
+    function StandardForm(http) {
+        this.http = http;
     }
     StandardForm.prototype.ngOnInit = function () {
         // $.getScript('../../../assets/js/material-dashboard.js');
@@ -18,6 +20,12 @@ var StandardForm = (function () {
         $.getScript('../../../../assets/js/plugins/bootstrap-datetimepicker.js');
         //initDatetimepickers();
         this.initForm();
+        this.formModel = {};
+    };
+    StandardForm.prototype.postForm = function () {
+        this.http.post('', this.formModel).subscribe(function (res) {
+            console.log(res);
+        });
     };
     StandardForm.prototype.initForm = function () {
         $(".img-check").click(function () {
@@ -56,7 +64,7 @@ var StandardForm = (function () {
             moduleId: module.id,
             templateUrl: 'standardForm.component.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [http_1.Http])
     ], StandardForm);
     return StandardForm;
 }());

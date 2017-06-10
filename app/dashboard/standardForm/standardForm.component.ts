@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Http} from '@angular/http'
 declare  let initDatetimepickers:any;
 declare  let validity: any;
 @Component({
@@ -8,13 +9,24 @@ declare  let validity: any;
 })
 
 export class StandardForm implements OnInit{
+    formModel: any;
+    constructor(private http: Http){
+
+    }
     ngOnInit(){
         // $.getScript('../../../assets/js/material-dashboard.js');
         $.getScript('../../../../assets/js/plugins/jquery.tagsinput.js');
         $.getScript('../../../../assets/js/plugins/bootstrap-datetimepicker.js');
         //initDatetimepickers();
         this.initForm();
+        this.formModel = {};
 
+    }
+
+    postForm(){
+        this.http.post('',this.formModel).subscribe((res)=>{
+            console.log(res);
+        })
     }
 
 
