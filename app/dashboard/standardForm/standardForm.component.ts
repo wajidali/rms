@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Http} from '@angular/http'
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
 declare  let initDatetimepickers:any;
 declare  let validity: any;
 @Component({
@@ -20,11 +20,15 @@ export class StandardForm implements OnInit{
         //initDatetimepickers();
         this.initForm();
         this.formModel = {};
-
+        this.formModel.workPreference = {};
+        this.formModel.importantNearMe ={};
+        this.formModel.settlement ={};
+        this.formModel.locationPreference = {};
     }
 
     postForm(){
-        this.http.post('',this.formModel).subscribe((res)=>{
+        console.log(this.formModel);
+        $.post('https://test.n8rth.online/api/add',this.formModel, function (res) {
             console.log(res);
         })
     }
@@ -85,4 +89,11 @@ export class StandardForm implements OnInit{
             $('div.setup-panel div a.btn-primary').trigger('click');
 
     }
+
+    private jwt() {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return options;
+    }
+
 }

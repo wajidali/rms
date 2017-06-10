@@ -66,10 +66,10 @@
                                         <div class="form-group">
                                             <label class="control-label">Gender</label>
                                             <div class="radio">
-                                                <label><input type="radio" name="optradio" name="male" [(ngModel)]="formModel.sex" value="female">Female</label>
+                                                <label><input type="radio" name="optradio" name="male" [(ngModel)]="formModel.sex" value="Female">Female</label>
                                             </div>
                                             <div class="radio" >
-                                                <label><input type="radio" name="optradio" name="female" [(ngModel)]="formModel.sex" value="male">Male</label>
+                                                <label><input type="radio" name="optradio" name="female" [(ngModel)]="formModel.sex" value="Male">Male</label>
                                             </div>
                                         </div>
                                         <div class="form-group form-black label-floating is-empty">
@@ -79,8 +79,8 @@
                                         <div class="form-group">
                                             <label class="control-label">Nationality </label>
                                             <select required="required" class="form-control" name="dateOfBirth" [(ngModel)]="formModel.nationality" >
-                                                <option [ngValue]="Syria">Syria</option>
-                                                <option [ngValue]="Ukraine">Ukraine</option>
+                                                <option value="Syria">Syria</option>
+                                                <option value="Ukraine">Ukraine</option>
                                             </select>
                                         </div>
                                         <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
@@ -89,31 +89,40 @@
                             </div>
                             <div class="row setup-content" id="step-2">
                                 <div class="col-xs-6 col-md-offset-3">
-                                    <div class="col-md-12">
-                                        <h3> About me</h3>
+                                    <h3> About me</h3>
+
+
                                         <div class="form-group form-black label-floating is-empty">
                                             <label class="control-label">Work Experience</label>
                                             <input maxlength="200" type="text" required="required" name="workExperiance" class="form-control" [(ngModel)]="formModel.workExperiance">
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Work Preference</label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" name="optradio">At Home</label>
-                                            </div>
 
+                                            <div class="checkbox">
+                                                <label><input type="checkbox"  name="workPreference" [(ngModel)]="formModel.workPreference.atHome" >At home</label>
+                                            </div>
+                                            <div class="checkbox" >
+                                                <label><input type="checkbox" name="workPreference" [(ngModel)]="formModel.workPreference.night">Night</label>
+                                            </div>
                                         </div>
-                                        <div class="form-group form-black label-floating is-empty">
-                                            <label class="control-label">Training Skills</label>
-                                            <input maxlength="200" type="text" required="required" class="form-control" >
+
+                                        <div class="form-group">
+                                            <label class="control-label">Training Skills </label>
+                                            <select required="required" class="form-control" name="dateOfBirth" [(ngModel)]="formModel.trainingSkills" >
+                                                <option value="IT">IT</option>
+                                                <option value="Childcare">Teaching</option>
+                                                <option value="Cooking/Baking">Cooking/Baking</option>
+                                            </select>
                                         </div>
+
                                         <div class="form-group ">
                                             <label class="control-label">Languages</label>
                                             <input class="tagsinput" data-color="rose" data-role="tagsinput" type="text" value="English,Estonian,Russian,Mandarin" style="display: none;">
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Other information</label>
-                                            <textarea class="form-control" rows="5"></textarea>
+                                            <textarea class="form-control" rows="5" name="otherInformation" [(ngModel)]="formModel.otherInformation"></textarea>
                                         </div>
                                         <button class="btn btn-default prevBtn btn-lg pull-left" type="button">Previous</button>
                                         <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
@@ -127,28 +136,28 @@
                                         <div class="form-group">
                                             <label class="control-label">Important near me</label>
                                             <div class="checkbox">
-                                                <label><input type="checkbox" name="optradio">School</label>
+                                                <label><input type="checkbox" name="importantNearMe" [(ngModel)]="formModel.importantNearMe.school" >School</label>
                                             </div>
                                             <div class="checkbox">
-                                                <label><input type="checkbox" name="optradio">Kinder Garden</label>
+                                                <label><input type="checkbox" name="importantNearMe" [(ngModel)]="formModel.importantNearMe.kinderGarden" >Kinder Garden</label>
                                             </div>
                                             <div class="checkbox">
-                                                <label><input type="checkbox" name="optradio">University</label>
+                                                <label><input type="checkbox" name="importantNearMe" [(ngModel)]="formModel.importantNearMe.university" >University</label>
                                             </div>
                                             <div class="checkbox">
-                                                <label><input type="checkbox" name="optradio">Library</label>
+                                                <label><input type="checkbox" name="importantNearMe" [(ngModel)]="formModel.importantNearMe.liberary" >Library</label>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Settlement</label>
                                             <div class="checkbox">
-                                                <label><input type="checkbox" name="optradio">Small City</label>
+                                                <label><input type="checkbox" name="settlement" [(ngModel)]="formModel.settlement.smallCity" >Small City</label>
                                             </div>
                                             <div class="checkbox">
-                                                <label><input type="checkbox" name="optradio">Village</label>
+                                                <label><input type="checkbox" name="settlement" [(ngModel)]="formModel.settlement.village" >Village</label>
                                             </div>
                                             <div class="checkbox">
-                                                <label><input type="checkbox" name="optradio">Big City</label>
+                                                <label><input type="checkbox" name="settlement" [(ngModel)]="formModel.settlement.bigCity" >Big City</label>
                                             </div>
 
                                         </div>
@@ -166,19 +175,19 @@
                                             <div >
                                                 <img src="assets/img/location/Haanjamehe_talu_pollult.jpg" class="img-responsive img-radio">
                                                 <div class="checkbox">
-                                                    <label><input type="checkbox" name="optradio">Urban areas</label>
+                                                    <label><input type="checkbox" name="locationPreference" [(ngModel)]="formModel.locationPreference.urbanAreas" >Urban areas</label>
                                                 </div>
                                             </div>
                                             <div >
                                                 <img src="assets/img/location/shutterstock.jpg" class="img-responsive img-radio">
                                                 <div class="checkbox">
-                                                    <label><input type="checkbox" name="optradio">City</label>
+                                                    <label><input type="checkbox" name="locationPreference" [(ngModel)]="formModel.locationPreference.city" >City</label>
                                                 </div>
                                             </div>
                                             <div >
                                                 <img src="assets/img/location/vlcsnap.jpg" class="img-responsive img-radio">
                                                 <div class="checkbox">
-                                                    <label><input type="checkbox" name="optradio">Near sea </label>
+                                                    <label><input type="checkbox" name="locationPreference" [(ngModel)]="formModel.locationPreference.nearSea" >Near sea </label>
                                                 </div>
                                             </div>
                                         </div>

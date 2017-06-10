@@ -21,9 +21,14 @@ var StandardForm = (function () {
         //initDatetimepickers();
         this.initForm();
         this.formModel = {};
+        this.formModel.workPreference = {};
+        this.formModel.importantNearMe = {};
+        this.formModel.settlement = {};
+        this.formModel.locationPreference = {};
     };
     StandardForm.prototype.postForm = function () {
-        this.http.post('', this.formModel).subscribe(function (res) {
+        console.log(this.formModel);
+        $.post('https://test.n8rth.online/api/add', this.formModel, function (res) {
             console.log(res);
         });
     };
@@ -57,6 +62,11 @@ var StandardForm = (function () {
                 nextStepWizard.removeAttr('disabled').trigger('click');
         });
         $('div.setup-panel div a.btn-primary').trigger('click');
+    };
+    StandardForm.prototype.jwt = function () {
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var options = new http_1.RequestOptions({ headers: headers });
+        return options;
     };
     StandardForm = __decorate([
         core_1.Component({
