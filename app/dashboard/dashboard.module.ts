@@ -4,12 +4,15 @@ import { RouterModule } from '@angular/router';
 import { MODULE_COMPONENTS, MODULE_ROUTES } from './dashboard.routes';
 import { EqualValidator} from '../_validators/equal-validator.directive';
 import {CommonModule} from "@angular/common";
+// Import your library
+
 
 @NgModule({
     imports: [
         RouterModule.forChild(MODULE_ROUTES),
         FormsModule,
         CommonModule
+
     ],
     declarations: [ MODULE_COMPONENTS, EqualValidator ],
     providers: [  ]

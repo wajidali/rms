@@ -14,6 +14,7 @@ var router_1 = require('@angular/router');
 var dashboard_routes_1 = require('./dashboard.routes');
 var equal_validator_directive_1 = require('../_validators/equal-validator.directive');
 var common_1 = require("@angular/common");
+// Import your library
 var DashboardModule = (function () {
     function DashboardModule() {
     }
