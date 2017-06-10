@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.ROUTES = [
     { path: 'dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
     // { path: 'animals', title: 'Animals', icon: 'pets', class: ''},

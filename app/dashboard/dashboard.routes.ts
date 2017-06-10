@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
+import { ResultComponent } from './result/result.component';
 import { UserComponent } from './user/user.component';
 
 
@@ -20,5 +21,6 @@ export const MODULE_COMPONENTS = [
     HomeComponent,
     // LoginRegisterComponent,
     UserComponent,
+    ResultComponent,
 
 ]
