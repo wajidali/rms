@@ -15,7 +15,7 @@ export const MODULE_ROUTES: Route[] =[
     { path: 'standard-form', component: StandardForm },
 
     { path: 'user', component: UserComponent },
-    { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+    { path: '', redirectTo: 'standard-form', pathMatch: 'full' }
 ]
 
 export const MODULE_COMPONENTS = [

@@ -8,7 +8,7 @@ exports.MODULE_ROUTES = [
     // { path: 'login', component: LoginRegisterComponent },
     { path: 'standard-form', component: standardForm_component_1.StandardForm },
     { path: 'user', component: user_component_1.UserComponent },
-    { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+    { path: '', redirectTo: 'standard-form', pathMatch: 'full' }
 ];
 exports.MODULE_COMPONENTS = [
     home_component_1.HomeComponent,
