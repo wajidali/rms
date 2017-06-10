@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/fitsme.iml" filepath="$PROJECT_DIR$/.idea/fitsme.iml" />
+      <module fileurl="file://C:\Users\Wajid\WebstormProjects\rms\.idea\fitsme.iml" filepath="C:\Users\Wajid\WebstormProjects\rms\.idea\fitsme.iml" />
       <module fileurl="file://C:\Users\Wajid\WebstormProjects\fitsme\.idea\material-dashboard-free-angular-v1.2.0.iml" filepath="C:\Users\Wajid\WebstormProjects\fitsme\.idea\material-dashboard-free-angular-v1.2.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/rms.iml" filepath="$PROJECT_DIR$/.idea/rms.iml" />
     </modules>
   </component>
 </project>
