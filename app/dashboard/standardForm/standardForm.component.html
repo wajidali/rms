@@ -30,6 +30,10 @@
                                     <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled" >3</a>
                                     <p>Step 4</p>
                                 </div>
+                                <div class="stepwizard-step" hidden>
+                                    <a href="#step-5" type="button" class="btn btn-default btn-circle" disabled="disabled" >3</a>
+                                    <p>Step 5</p>
+                                </div>
                             </div>
                         </div>
 
@@ -38,10 +42,27 @@
                                 <div class="col-xs-6 col-md-offset-3">
                                     <div class="col-md-12">
                                         <h3> General </h3>
-                                        <div class="form-group">
-                                            <label class="control-label">Name</label>
-                                            <input maxlength="100" type="text" required="required" class="form-control" placeholder="Enter Full Name">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <div class="form-group form-black label-floating is-empty">
+                                                    <label class="control-label">First Name</label>
+                                                    <input type="text" class="form-control" required="required">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group form-black label-floating is-empty">
+                                                    <label class="control-label">Middle Name</label>
+                                                    <input type="text" class="form-control" >
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group form-black label-floating is-empty">
+                                                    <label class="control-label">Last Name</label>
+                                                    <input type="text" class="form-control" required="required">
+                                                </div>
+                                            </div>
                                         </div>
+
                                         <div class="form-group">
                                             <label class="control-label">Gender</label>
                                             <div class="radio">
@@ -51,9 +72,9 @@
                                                 <label><input type="radio" name="optradio">Female</label>
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group form-black label-floating is-empty">
                                             <label class="control-label">Date of Birth</label>
-                                            <input required="required" class="form-control" placeholder="Date of birth">
+                                            <input required="required" class="form-control" >
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Nationality </label>
@@ -70,25 +91,21 @@
                                 <div class="col-xs-6 col-md-offset-3">
                                     <div class="col-md-12">
                                         <h3> About me</h3>
-                                        <div class="form-group">
+                                        <div class="form-group form-black label-floating is-empty">
                                             <label class="control-label">Work Experience</label>
-                                            <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name">
+                                            <input maxlength="200" type="text" required="required" class="form-control" >
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Work Preference</label>
-                                            <div class="radio">
-                                                <label><input type="radio" name="optradio">At Night</label>
                                             </div>
-                                            <div class="radio">
-                                                <label><input type="radio" name="optradio">At Home</label>
+                                            <div class="checkbox">
+                                                <label><input type="checkbox" name="optradio">At Home</label>
                                             </div>
-                                            <div class="radio">
-                                                <label><input type="radio" name="optradio">Any</label>
-                                            </div>
+
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group form-black label-floating is-empty">
                                             <label class="control-label">Training Skills</label>
-                                            <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Address">
+                                            <input maxlength="200" type="text" required="required" class="form-control" >
                                         </div>
                                         <div class="form-group ">
                                             <label class="control-label">Languages</label>
@@ -98,7 +115,7 @@
                                             <label class="control-label">Other information</label>
                                             <textarea class="form-control" rows="5"></textarea>
                                         </div>
-                                        <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
+                                        <button class="btn btn-default prevBtn btn-lg pull-left" type="button">Previous</button>
                                         <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
                                     </div>
                                 </div>
@@ -107,24 +124,76 @@
                                 <div class="col-xs-6 col-md-offset-3">
                                     <div class="col-md-12">
                                         <h3> Preferences</h3>
-                                        <div class="form-group ">
+                                        <div class="form-group">
                                             <label class="control-label">Important near me</label>
-                                            <input class="tagsinput" data-color="rose" data-role="tagsinput" type="text" value="School,Kinder Garden,University,Library" style="display: none;">
+                                            <div class="checkbox">
+                                                <label><input type="checkbox" name="optradio">School</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label><input type="checkbox" name="optradio">Kinder Garden</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label><input type="checkbox" name="optradio">University</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label><input type="checkbox" name="optradio">Library</label>
+                                            </div>
                                         </div>
-                                        <div class="form-group ">
+                                        <div class="form-group">
                                             <label class="control-label">Settlement</label>
-                                            <input class="tagsinput" data-color="rose" data-role="tagsinput" type="text" value="Small City,Village,Big City,Countries" style="display: none;">
+                                            <div class="checkbox">
+                                                <label><input type="checkbox" name="optradio">Small City</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label><input type="checkbox" name="optradio">Village</label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label><input type="checkbox" name="optradio">Big City</label>
+                                            </div>
+
                                         </div>
-                                        <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
-                                        <button class="btn btn-success btn-lg pull-right" type="submit">Submit</button>
+
+                                        <button class="btn btn-default prevBtn btn-lg pull-left" type="button">Previous</button>
+                                        <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="row setup-content" id="step-4">
                                 <div class="col-xs-6 col-md-offset-3">
                                     <div class="col-md-12">
-                                        <h3> Step 3</h3>
-                                        <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
+                                        <h3> Location Preference</h3>
+                                        <div class="form-group">
+                                            <div >
+                                                <img src="assets/img/location/Haanjamehe_talu_pollult.jpg" class="img-responsive img-radio">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" name="optradio">Urban areas</label>
+                                                </div>
+                                            </div>
+                                            <div >
+                                                <img src="assets/img/location/shutterstock.jpg" class="img-responsive img-radio">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" name="optradio">City</label>
+                                                </div>
+                                            </div>
+                                            <div >
+                                                <img src="assets/img/location/vlcsnap.jpg" class="img-responsive img-radio">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" name="optradio">Near sea </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button class="btn btn-default prevBtn btn-lg pull-left" type="button">Previous</button>
+                                        <button class="btn btn-success btn-lg pull-right" type="submit">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row setup-content" id="step-5">
+                                <div class="col-xs-6 col-md-offset-3">
+                                    <div class="col-md-12">
+                                        <h3> Step 5</h3>
+                                        <button class="btn btn-default prevBtn btn-lg pull-left" type="button">Previous</button>
                                         <button class="btn btn-success btn-lg pull-right" type="submit">Submit</button>
                                     </div>
                                 </div>

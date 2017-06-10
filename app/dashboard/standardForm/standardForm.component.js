@@ -18,6 +18,9 @@ var StandardForm = (function () {
         this.initForm();
     };
     StandardForm.prototype.initForm = function () {
+        $(".img-check").click(function () {
+            $(this).toggleClass("check");
+        });
         var navListItems = $('div.setup-panel div a'), allWells = $('.setup-content'), allNextBtn = $('.nextBtn'), allPrevBtn = $('.prevBtn');
         allWells.hide();
         navListItems.click(function (e) {

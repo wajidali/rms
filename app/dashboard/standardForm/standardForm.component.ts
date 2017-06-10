@@ -17,7 +17,9 @@ export class StandardForm implements OnInit{
     }
 
     initForm(){
-
+        $(".img-check").click(function(){
+            $(this).toggleClass("check");
+        });
             var navListItems = $('div.setup-panel div a'),
                 allWells = $('.setup-content'),
                 allNextBtn = $('.nextBtn'),
