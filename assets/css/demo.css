@@ -5,6 +5,26 @@ my-app .main-panel .main-content .card{
     animation-fill-mode: forwards;
 }
 
+#chartdiv {
+    width: 100%;
+    height: 500px;
+}
+
+.matchBarContainer{
+    height: 5vh;
+    width: 30vw;
+}
+.matchBar{
+    height: 100%;
+    width: 100%;
+    background-color: #cccccc;
+    box-shadow: 10px 5px 5px #888888;
+}
+.matchFill{
+    height: 100%;
+    width: 0%;
+    background-color: #42c8f4;
+}
 @keyframes fadeIn {
   from {
     opacity: 0;
