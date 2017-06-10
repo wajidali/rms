@@ -8,11 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = require("@angular/core");
-var sidebar_routes_config_1 = require("./sidebar-routes.config");
-var router_1 = require("@angular/router");
-var authentication_service_1 = require("../_services/authentication.service");
+var core_1 = require('@angular/core');
+var sidebar_routes_config_1 = require('./sidebar-routes.config');
+var router_1 = require('@angular/router');
+var authentication_service_1 = require('../_services/authentication.service');
 var SidebarComponent = (function () {
     function SidebarComponent(router, authenticationService) {
         this.router = router;
@@ -28,15 +27,15 @@ var SidebarComponent = (function () {
         //     this.loggedIn = true;
         this.menuItems = sidebar_routes_config_1.ROUTES.filter(function (i) { return i; });
     };
+    SidebarComponent = __decorate([
+        core_1.Component({
+            moduleId: module.id,
+            selector: 'sidebar-cmp',
+            templateUrl: 'sidebar.component.html',
+        }), 
+        __metadata('design:paramtypes', [router_1.Router, authentication_service_1.AuthenticationService])
+    ], SidebarComponent);
     return SidebarComponent;
 }());
-SidebarComponent = __decorate([
-    core_1.Component({
-        moduleId: module.id,
-        selector: 'sidebar-cmp',
-        templateUrl: 'sidebar.component.html',
-    }),
-    __metadata("design:paramtypes", [router_1.Router, authentication_service_1.AuthenticationService])
-], SidebarComponent);
 exports.SidebarComponent = SidebarComponent;
 //# sourceMappingURL=sidebar.component.js.map
