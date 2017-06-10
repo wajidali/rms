@@ -12,29 +12,30 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var ResultComponent = (function () {
+    // public data = [
+    //     {id:0, name:"Harju", match: 30},
+    //     {id:1, name:"Hiiu", match: 30},
+    //     {id:2, name:"Ida-Viru", match: 30},
+    //     {id:3, name:"Jõgeva", match: 30},
+    //     {id:4, name:"Järva" , match: 30},
+    //     {id:5, name:"Lääne" , match: 30},
+    //     {id:6, name:"Lääne-Viru", match: 30},
+    //     {id:7, name:"Põlva", match: 30},
+    //     {id:8, name:"Pärnu", match: 30},
+    //     {id:9, name:"Rapla", match: 30},
+    //     {id:10, name:"Saare", match: 30},
+    //     {id:11, name:"Tartu", match: 30},
+    //     {id:12, name:"Valga", match: 30},
+    //     {id:13, name:"Viljandi", match: 30},
+    //     {id:14, name:"Võru", match: 30},
+    // ]
     function ResultComponent(http) {
         this.http = http;
         this.counties = [];
-        this.data = [
-            { id: 0, name: "Harju", match: 30 },
-            { id: 1, name: "Hiiu", match: 30 },
-            { id: 2, name: "Ida-Viru", match: 30 },
-            { id: 3, name: "Jõgeva", match: 30 },
-            { id: 4, name: "Järva", match: 30 },
-            { id: 5, name: "Lääne", match: 30 },
-            { id: 6, name: "Lääne-Viru", match: 30 },
-            { id: 7, name: "Põlva", match: 30 },
-            { id: 8, name: "Pärnu", match: 30 },
-            { id: 9, name: "Rapla", match: 30 },
-            { id: 10, name: "Saare", match: 30 },
-            { id: 11, name: "Tartu", match: 30 },
-            { id: 12, name: "Valga", match: 30 },
-            { id: 13, name: "Viljandi", match: 30 },
-            { id: 14, name: "Võru", match: 30 },
-        ];
     }
     ResultComponent.prototype.ngOnInit = function () {
         this.returnMap();
+        this.returnJobOffers();
         // this.counties = [
         //     {id:0, name:"Harju"},
         //     {id:1, name:"Hiiu"},
@@ -63,7 +64,6 @@ var ResultComponent = (function () {
         id.css("width", num + "%");
     };
     ResultComponent.prototype.returnMap = function () {
-        //$(document).ready(function() {
         $.get('https://test.n8rth.online/api/aggr/offers/county', function (data) {
             console.log(AmCharts);
             console.log(TweenMax);
@@ -148,10 +148,14 @@ var ResultComponent = (function () {
                 }
                 map.dataGenerated = true;
                 map.validateNow();
-                //map.dataProvider.areas[1].value = 500;
                 map.dataGenerated = true;
                 map.validateNow();
             }
+        });
+    };
+    ResultComponent.prototype.returnJobOffers = function () {
+        $.get('https://test.n8rth.online/api/offers?isco=veoautojuht', function (data) {
+            $('#numberOfJobOffers').append("Job Offeres: " + data.length);
         });
     };
     return ResultComponent;
