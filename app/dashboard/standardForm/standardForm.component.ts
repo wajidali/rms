@@ -89,9 +89,10 @@ export class StandardForm implements OnInit{
 
     postForm(){
         console.log(this.formModel);
-        $.post('https://test.n8rth.online/api/add',this.formModel, function (res) {
+        $.post('https://settlebetter.eu/api/add',this.formModel, function (res) {
             console.log(res);
-        })
+            window.location.hash = '#/result/'
+        }.bind(window))
     }
 
     onChange(){
