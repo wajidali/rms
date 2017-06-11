@@ -202,37 +202,16 @@ var ResultComponent = (function () {
     ResultComponent.prototype.returnPie = function () {
         $.get(this.filteredURL, function (data) {
             var context = this;
-            var isco = data.data.suggestions.group.isco;
-            var jobName = Object.keys(isco);
-            var newData = [];
-            for (var _i = 0, isco_1 = isco; _i < isco_1.length; _i++) {
-                var el = isco_1[_i];
-                console.log(el);
-            }
+            // let isco = data.data.suggestions.group.isco
+            // let jobName = Object.keys(isco)
+            // let newData = []
+            console.log(data.data.suggestions);
             var chart = AmCharts.makeChart("tagCloud", {
                 "type": "pie",
                 "theme": "light",
                 "innerRadius": "40%",
                 "gradientRatio": [-0.4, -0.4, -0.4, -0.4, -0.4, -0.4, 0, 0.1, 0.2, 0.1, 0, -0.2, -0.5],
-                "dataProvider": [{
-                        "job": "Lithuania",
-                        "numbers": 501.9
-                    }, {
-                        "job": "Czech Republic",
-                        "numbers": 301.9
-                    }, {
-                        "job": "Ireland",
-                        "numbers": 201.1
-                    }, {
-                        "job": "Germany",
-                        "numbers": 165.8
-                    }, {
-                        "job": "Australia",
-                        "numbers": 139.9
-                    }, {
-                        "job": "Austria",
-                        "numbers": 128.3
-                    }],
+                "dataProvider": data.data.suggestions.iscos,
                 "balloonText": "[[value]]",
                 "valueField": "numbers",
                 "titleField": "job",
@@ -243,14 +222,16 @@ var ResultComponent = (function () {
                     "fontSize": 16
                 },
             });
-            function updateHeatmap(event) {
-                var innstance = event.chart;
-                innstance.dataProvider = {
-                    job: "test",
-                    numbers: 4
-                };
-                console.log(innstance.dataProvider);
-            }
+            // chart.dataProvider.push()
+            // function updateHeatmap(event) {
+            //
+            //     let innstance = event.chart
+            //     innstance.dataProvider = {
+            //         job: "test",
+            //         numbers: 4
+            //     }
+            //     console.log(innstance.dataProvider)
+            // }
         }.bind(this));
     };
     return ResultComponent;

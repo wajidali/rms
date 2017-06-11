@@ -156,38 +156,18 @@ export class ResultComponent implements OnInit{
     returnPie(){
         $.get(this.filteredURL, function(data) {
             var context = this
-            let isco = data.data.suggestions.group.isco
-            let jobName = Object.keys(isco)
-            let newData = []
+            // let isco = data.data.suggestions.group.isco
+            // let jobName = Object.keys(isco)
+            // let newData = []
 
-            for (let el of isco){
-                console.log(el)
-            }
+            console.log(data.data.suggestions)
 
             let chart = AmCharts.makeChart("tagCloud", {
                 "type": "pie",
                 "theme": "light",
                 "innerRadius": "40%",
                 "gradientRatio": [-0.4, -0.4, -0.4, -0.4, -0.4, -0.4, 0, 0.1, 0.2, 0.1, 0, -0.2, -0.5],
-                "dataProvider": [{
-                        "job": "Lithuania",
-                        "numbers": 501.9
-                    }, {
-                        "job": "Czech Republic",
-                        "numbers": 301.9
-                    }, {
-                        "job": "Ireland",
-                        "numbers": 201.1
-                    }, {
-                        "job": "Germany",
-                        "numbers": 165.8
-                    }, {
-                        "job": "Australia",
-                        "numbers": 139.9
-                    }, {
-                        "job": "Austria",
-                        "numbers": 128.3
-                    }],
+                "dataProvider": data.data.suggestions.iscos,
                 "balloonText": "[[value]]",
                 "valueField": "numbers",
                 "titleField": "job",
@@ -203,15 +183,20 @@ export class ResultComponent implements OnInit{
                 // }]
             });
 
-            function updateHeatmap(event) {
+            // chart.dataProvider.push()
 
-                let innstance = event.chart
-                innstance.dataProvider = {
-                    job: "test",
-                    numbers: 4
-                }
-                console.log(innstance.dataProvider)
-            }
+
+
+
+            // function updateHeatmap(event) {
+            //
+            //     let innstance = event.chart
+            //     innstance.dataProvider = {
+            //         job: "test",
+            //         numbers: 4
+            //     }
+            //     console.log(innstance.dataProvider)
+            // }
         }.bind(this))
     }
 
