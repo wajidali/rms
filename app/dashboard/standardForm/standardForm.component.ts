@@ -107,7 +107,8 @@ export class StandardForm implements OnInit{
             });
 
             function updateProgress(pageId) {
-                $('#pages_progress').css('width', parseInt(pageId/4*100, 10) + '%');
+                let width = pageId / 4*100;
+                $('#pages_progress').css('width', width + '%');
             }
 
             allPrevBtn.click(function(){

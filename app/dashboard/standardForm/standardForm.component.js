@@ -84,7 +84,8 @@ var StandardForm = (function () {
             }
         });
         function updateProgress(pageId) {
-            $('#pages_progress').css('width', parseInt(pageId / 4 * 100, 10) + '%');
+            var width = pageId / 4 * 100;
+            $('#pages_progress').css('width', width + '%');
         }
         allPrevBtn.click(function () {
             var curStep = $(this).closest(".setup-content"), curStepBtn = curStep.attr("id"), prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
