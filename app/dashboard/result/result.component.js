@@ -10,21 +10,79 @@ var core_1 = require("@angular/core");
 var ResultComponent = (function () {
     function ResultComponent() {
         this.top5 = [];
-        this.currentCounty = { name: "Estonia", jobs: this.totalOffers };
+        this.currentCounty = { name: "Estonia", numbers: this.totalOffers };
+        // setDataProvider(arr){
+        //     for(let el of arr){
+        //         this.chart.dataProvider.push({job: el.job, numbers: el.numbers})
+        //     }
+        // }
+        //
+        // returnTop5Matches(){
+        //     $.get('https://test.n8rth.online/api/offers?isco=veoautojuht', function(data) {
+        //         let arrMode = [];
+        //         let mapping = {};
+        //         let counter = 0;
+        //
+        //         for(let obj of data){
+        //             arrMode.push(obj.location.county)
+        //         }
+        //         for(let i = 0;i < arrMode.length; i++){
+        //             if (!mapping[arrMode[i]]) mapping[arrMode[i]] = 0;
+        //             mapping[arrMode[i]] += 1
+        //         }
+        //         let keys = Object.keys(mapping)
+        //         for(let i = 0;i < 5; i++){
+        //             this.top5[i] = keys[i]
+        //         }
+        //         console.log(this.top5)
+        //     }.bind(this))
+        // }
+        //
+        // returnTop5Field(){
+        //     $.get(this.filteredURL, function(data) {
+        //
+        //         let isco = data.data.suggestions.group.isco
+        //         let jobName = Object.keys(isco)
+        //
+        //         let arrMode = [];
+        //         let mapping = {};
+        //         let counter = 0;
+        //
+        //         var array = []
+        //
+        //
+        //         for(let name of jobName){
+        //             array.push({text: name, weight: isco.name})
+        //         }
+        //
+        //         $('#tagCloud').jQCloud(array);
+        //
+        //         // for(let obj of isco){
+        //         //     arrMode.push(obj)
+        //         // }
+        //         // for(let i = 0;i < arrMode.length; i++){
+        //         //     if (!mapping[arrMode[i]]) mapping[arrMode[i]] = 0;
+        //         //     mapping[arrMode[i]] += 1
+        //         // }
+        //         console.log(mapping)
+        //
+        //
+        //         // console.log(isco);
+        //         // console.log(jobName)
+        //
+        //     }.bind(this))
+        // }
+        // setMatch(county, num){
+        //     let id = $('#'+county.name)
+        //     id.css("width", num+"%")
+        // }
     }
     ResultComponent.prototype.ngOnInit = function () {
-        //console.log(jQCloud)
-        this.setTotalJobs();
+        this.setTotalnumbers();
         this.returnMap();
-        // this.returnTop5Field();
-        // this.returnTop5Matches();
     };
     ResultComponent.prototype.ngAfterViewInit = function () {
-        this.returnPie();
-    };
-    ResultComponent.prototype.setMatch = function (county, num) {
-        var id = $('#' + county.name);
-        id.css("width", num + "%");
+        // this.returnPie();
     };
     ResultComponent.prototype.returnMap = function () {
         $.get('https://settlebetter.eu/api/profile/593d0288c35008000f63216e', function (data) {
@@ -119,107 +177,60 @@ var ResultComponent = (function () {
                 map.validateNow();
                 map.addListener("clickMapObject", function (event) {
                     context.currentCounty.name = event.mapObject.enTitle;
-                    context.currentCounty.jobs = event.mapObject.value;
+                    context.currentCounty.numbers = event.mapObject.value || 3;
                     var nn = mapping[event.mapObject.enTitle];
                     var url = 'https://settlebetter.eu/api/profile/593d0288c35008000f63216e?location.county=' + encodeURIComponent(nn);
                     context.filteredURL = url;
-                    context.returnTop5Field();
+                    // context.returnPie();
                 });
+                $('.amcharts-chart-div > a').css('visible', 'hidden');
             }
         }.bind(this));
     };
-    ResultComponent.prototype.setTotalJobs = function () {
+    ResultComponent.prototype.setTotalnumbers = function () {
         $.get('https://settlebetter.eu/api/profile/593d0288c35008000f63216e', function (data) {
             console.log(data);
-            this.currentCounty.jobs = data.data.suggestions.count;
-        }.bind(this));
-    };
-    ResultComponent.prototype.returnTop5Matches = function () {
-        $.get('https://test.n8rth.online/api/offers?isco=veoautojuht', function (data) {
-            var arrMode = [];
-            var mapping = {};
-            var counter = 0;
-            for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
-                var obj = data_1[_i];
-                arrMode.push(obj.location.county);
-            }
-            for (var i = 0; i < arrMode.length; i++) {
-                if (!mapping[arrMode[i]])
-                    mapping[arrMode[i]] = 0;
-                mapping[arrMode[i]] += 1;
-            }
-            var keys = Object.keys(mapping);
-            for (var i = 0; i < 5; i++) {
-                this.top5[i] = keys[i];
-            }
-            console.log(this.top5);
-        }.bind(this));
-    };
-    ResultComponent.prototype.returnTop5Field = function () {
-        $.get(this.filteredURL, function (data) {
-            var isco = data.data.suggestions.group.isco;
-            var jobName = Object.keys(isco);
-            var arrMode = [];
-            var mapping = {};
-            var counter = 0;
-            var array = [];
-            for (var _i = 0, jobName_1 = jobName; _i < jobName_1.length; _i++) {
-                var name_1 = jobName_1[_i];
-                array.push({ text: name_1, weight: isco.name });
-            }
-            $('#tagCloud').jQCloud(array);
-            // for(let obj of isco){
-            //     arrMode.push(obj)
-            // }
-            // for(let i = 0;i < arrMode.length; i++){
-            //     if (!mapping[arrMode[i]]) mapping[arrMode[i]] = 0;
-            //     mapping[arrMode[i]] += 1
-            // }
-            console.log(mapping);
-            // console.log(isco);
-            // console.log(jobName)
+            this.currentCounty.numbers = data.data.suggestions.count;
         }.bind(this));
     };
     ResultComponent.prototype.returnPie = function () {
-        // $.get(this.filteredURL, function(data) {
-        var chart = AmCharts.makeChart("tagCloud", {
-            "type": "pie",
-            "theme": "light",
-            "innerRadius": "40%",
-            "gradientRatio": [-0.4, -0.4, -0.4, -0.4, -0.4, -0.4, 0, 0.1, 0.2, 0.1, 0, -0.2, -0.5],
-            "dataProvider": [{
-                    "country": "Lithuania",
-                    "litres": 501.9
-                }, {
-                    "country": "Czech Republic",
-                    "litres": 301.9
-                }, {
-                    "country": "Ireland",
-                    "litres": 201.1
-                }, {
-                    "country": "Germany",
-                    "litres": 165.8
-                }, {
-                    "country": "Australia",
-                    "litres": 139.9
-                }, {
-                    "country": "Austria",
-                    "litres": 128.3
-                }],
-            "balloonText": "[[value]]",
-            "valueField": "litres",
-            "titleField": "country",
-            "balloon": {
-                "drop": true,
-                "adjustBorderColor": false,
-                "color": "#FFFFFF",
-                "fontSize": 16
-            },
-            "export": {
-                "enabled": true
+        $.get(this.filteredURL, function (data) {
+            var context = this;
+            var isco = data.data.suggestions.group.isco;
+            var jobName = Object.keys(isco);
+            var newData = [];
+            for (var _i = 0, isco_1 = isco; _i < isco_1.length; _i++) {
+                var el = isco_1[_i];
+                console.log(el);
             }
-        });
-        // }.bind(this))
+            var chart = AmCharts.makeChart("tagCloud", {
+                "type": "pie",
+                "theme": "light",
+                "innerRadius": "40%",
+                "gradientRatio": [-0.4, -0.4, -0.4, -0.4, -0.4, -0.4, 0, 0.1, 0.2, 0.1, 0, -0.2, -0.5],
+                "dataProvider": [],
+                "balloonText": "[[value]]",
+                "valueField": "numbers",
+                "titleField": "job",
+                "balloon": {
+                    "drop": true,
+                    "adjustBorderColor": false,
+                    "color": "#FFFFFF",
+                    "fontSize": 16
+                },
+                "listeners": [{
+                        "event": "init",
+                        "method": updateHeatmap
+                    }]
+            });
+            function updateHeatmap(event) {
+                var innstance = event.chart;
+                innstance.dataProvider.push({
+                    job: "test",
+                    numbers: 4
+                });
+            }
+        }.bind(this));
     };
     return ResultComponent;
 }());
