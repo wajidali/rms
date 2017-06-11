@@ -14,12 +14,12 @@ declare var jQCloud:any;
 export class ResultComponent implements OnInit{
     totalOffers;
     top5=[];
-    currentCounty = {name: "Estonia", numbers: this.totalOffers};
+    currentCounty = {name: "Estonia", jobs: this.totalOffers};
     filteredURL;
     chart;
 
     ngOnInit(){
-        this.setTotalnumbers();
+        this.setTotalJobs();
         this.returnMap();
     }
     ngAfterViewInit(){
@@ -126,29 +126,27 @@ export class ResultComponent implements OnInit{
 
                     map.addListener("clickMapObject", function(event){
                         context.currentCounty.name = event.mapObject.enTitle;
-                        context.currentCounty.numbers = event.mapObject.value || 3;
+                        context.currentCounty.jobs = event.mapObject.value || 3;
                         var nn = mapping[event.mapObject.enTitle]
                         let url = 'https://settlebetter.eu/api/profile/593d0288c35008000f63216e?location.county='+ encodeURIComponent(nn)
                         context.filteredURL = url
-                        // context.returnPie();
+                        context.returnPie();
                     });
 
-                    $('.amcharts-chart-div > a').css('visible', 'hidden');
-                }
 
+                }
+            $('.amcharts-chart-div > a').css('visible', 'hidden');
             }.bind(this));
     }
 
-    setTotalnumbers(){
+    setTotalJobs(){
         $.get('https://settlebetter.eu/api/profile/593d0288c35008000f63216e', function(data) {
             console.log(data);
-            this.currentCounty.numbers = data.data.suggestions.count
+            this.currentCounty.jobs = data.data.suggestions.count
         }.bind(this))
     }
 
     // returnPie(){
-    //     return;
-    //
     //     $.get(this.filteredURL, function(data) {
     //         var context = this
     //         let isco = data.data.suggestions.group.isco
@@ -164,7 +162,25 @@ export class ResultComponent implements OnInit{
     //             "theme": "light",
     //             "innerRadius": "40%",
     //             "gradientRatio": [-0.4, -0.4, -0.4, -0.4, -0.4, -0.4, 0, 0.1, 0.2, 0.1, 0, -0.2, -0.5],
-    //             "dataProvider": [],
+    //             "dataProvider": [{
+    //                     "country": "Lithuania",
+    //                     "litres": 501.9
+    //                 }, {
+    //                     "country": "Czech Republic",
+    //                     "litres": 301.9
+    //                 }, {
+    //                     "country": "Ireland",
+    //                     "litres": 201.1
+    //                 }, {
+    //                     "country": "Germany",
+    //                     "litres": 165.8
+    //                 }, {
+    //                     "country": "Australia",
+    //                     "litres": 139.9
+    //                 }, {
+    //                     "country": "Austria",
+    //                     "litres": 128.3
+    //                 }],
     //             "balloonText": "[[value]]",
     //             "valueField": "numbers",
     //             "titleField": "job",
@@ -174,19 +190,21 @@ export class ResultComponent implements OnInit{
     //                 "color": "#FFFFFF",
     //                 "fontSize": 16
     //             },
-    //             "listeners": [{
-    //                 "event": "init",
-    //                 "method": updateHeatmap
-    //             }]
+    //             // "listeners": [{
+    //             //     "event": "init",
+    //             //     "method": updateHeatmap
+    //             // }]
     //         });
-    //         function updateHeatmap(event) {
-    //
-    //             let innstance = event.chart
-    //             innstance.dataProvider.push({
-    //                 job: "test",
-    //                 numbers: 4
-    //             })
-    //         }
+
+            // function updateHeatmap(event) {
+            //
+            //     let innstance = event.chart
+            //     innstance.dataProvider = {
+            //         job: "test",
+            //         numbers: 4
+            //     }
+            //     console.log(innstance.dataProvider)
+            // }
     //     }.bind(this))
     // }
 
