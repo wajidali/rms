@@ -33,6 +33,10 @@ export class ResultComponent implements OnInit{
                 let suggestions = data.data.suggestions
                 let county = suggestions.group["location.county"]
 
+                context.currentCounty.jobs = suggestions.count;
+
+                console.log('suggestions', suggestions);
+
                 let map;
                 var keys = Object.keys(suggestions.group["location.county"])
                 var mapping = {
@@ -126,11 +130,18 @@ export class ResultComponent implements OnInit{
 
                     map.addListener("clickMapObject", function(event){
                         context.currentCounty.name = event.mapObject.enTitle;
-                        context.currentCounty.numbers = event.mapObject.value || 3;
+                        context.currentCounty.numbers = event.mapObject.value; // || 3;
                         var nn = mapping[event.mapObject.enTitle]
                         let url = 'https://settlebetter.eu/api/profile/593d0288c35008000f63216e?location.county='+ encodeURIComponent(nn)
                         context.filteredURL = url
                         // context.returnPie();
+
+                        //$.get(context.filteredURL, function(data) {
+                            context.currentCounty.jobs = event.mapObject.value;
+                                //data.data.suggestions.count
+                        //});
+
+
                     });
 
                     $('.amcharts-chart-div > a').css('visible', 'hidden');
@@ -141,8 +152,7 @@ export class ResultComponent implements OnInit{
 
     setTotalnumbers(){
         $.get('https://settlebetter.eu/api/profile/593d0288c35008000f63216e', function(data) {
-            console.log(data);
-            this.currentCounty.numbers = data.data.suggestions.count
+            this.currentCounty.jobs = data.data.suggestions.count
         }.bind(this))
     }
 
