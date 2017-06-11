@@ -6,8 +6,9 @@
                 <div class="card">
 
                     <div class="card-header" data-background-color="blue">
-                        <h4 class="title">Standard Form</h4>
+                        <h4 class="title">Tell us what are your skills and how would your home look like</h4>
                         <p class="category">Complete your preferences</p>
+                        <img class="pull-right" src="../../../assets/img/Settlbetterlogo.png" style="width: 440px; height: 146px;" >
                     </div>
                     <div class="card-content">
                         <div class="container">
@@ -175,33 +176,33 @@
                                 <div class="col-xs-10 col-md-offset-1">
                                     <div class="col-md-12">
                                         <h3> Location Preference</h3>
-                                        <!--<div class="form-group">-->
-                                            <!--<div >-->
-                                                <!--<img src="assets/img/location/Haanjamehe_talu_pollult.jpg" class="img-responsive img-radio">-->
-                                                <!--<div class="checkbox">-->
-                                                    <!--<label><input type="checkbox" name="locationPreference" [(ngModel)]="formModel.locationPreference.urbanAreas" >Urban areas</label>-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                            <!--<div >-->
-                                                <!--<img src="assets/img/location/shutterstock.jpg" class="img-responsive img-radio">-->
-                                                <!--<div class="checkbox">-->
-                                                    <!--<label><input type="checkbox" name="locationPreference" [(ngModel)]="formModel.locationPreference.city" >City</label>-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                            <!--<div >-->
-                                                <!--<img src="assets/img/location/vlcsnap.jpg" class="img-responsive img-radio">-->
-                                                <!--<div class="checkbox">-->
-                                                    <!--<label><input type="checkbox" name="locationPreference" [(ngModel)]="formModel.locationPreference.nearSea" >Near sea </label>-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
+                                        <div class="form-group">
+                                            <div >
+                                                <img src="assets/img/location/Haanjamehe_talu_pollult.jpg" class="img-responsive img-radio">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" name="locationPreference" [(ngModel)]="formModel.locationPreference.urbanAreas" >Urban areas</label>
+                                                </div>
+                                            </div>
+                                            <div >
+                                                <img src="assets/img/location/shutterstock.jpg" class="img-responsive img-radio">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" name="locationPreference" [(ngModel)]="formModel.locationPreference.city" >City</label>
+                                                </div>
+                                            </div>
+                                            <div >
+                                                <img src="assets/img/location/vlcsnap.jpg" class="img-responsive img-radio">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" name="locationPreference" [(ngModel)]="formModel.locationPreference.nearSea" >Near sea </label>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                        <select #imagePicker class="image-picker show-labels show-html">
-                                            <option data-img-src="assets/img/location/Haanjamehe_talu_pollult.jpg" value="1" selected>Urban areas</option>
-                                            <option data-img-src="assets/img/location/shutterstock.jpg" value="2">City</option>
-                                            <option data-img-src="assets/img/location/vlcsnap.jpg" value="3">Near sea</option>
+                                        <!--<select #imagePicker class="image-picker show-labels show-html">-->
+                                            <!--<option data-img-src="assets/img/location/Haanjamehe_talu_pollult.jpg" value="1" selected>Urban areas</option>-->
+                                            <!--<option data-img-src="assets/img/location/shutterstock.jpg" value="2">City</option>-->
+                                            <!--<option data-img-src="assets/img/location/vlcsnap.jpg" value="3">Near sea</option>-->
 
-                                        </select>
+                                        <!--</select>-->
 
                                         <button class="btn btn-default prevBtn btn-lg pull-left" type="button">Previous</button>
                                         <button class="btn btn-success btn-lg pull-right" type="submit" (click)="postForm()">Submit</button>
