@@ -55,7 +55,15 @@ var StandardForm = (function () {
         $.each(this.specialities, function (i, v) {
             $.each(event, function (index, value) {
                 if (v.id == value) {
-                    self.formModel.specialities.push(v);
+                    var exist_1 = false;
+                    $.each(self.formModel.specialities, function (k, j) {
+                        if (v.id == j.id) {
+                            exist_1 = true;
+                        }
+                    });
+                    if (!exist_1) {
+                        self.formModel.specialities.push(v);
+                    }
                 }
             });
         });
@@ -65,6 +73,8 @@ var StandardForm = (function () {
         $.post('https://test.n8rth.online/api/add', this.formModel, function (res) {
             console.log(res);
         });
+    };
+    StandardForm.prototype.onChange = function () {
     };
     StandardForm.prototype.initForm = function () {
         $(".img-check").click(function () {
