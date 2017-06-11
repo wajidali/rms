@@ -163,6 +163,11 @@ export class StandardForm implements OnInit{
 
             $('div.setup-panel div a.btn-primary').trigger('click');
 
+
+            $('.location-selector img').click(function () {
+                $('.location-selector img').removeClass('selectedImg');
+                $(this).addClass('selectedImg');
+            });
     }
 
     private jwt() {

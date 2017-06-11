@@ -16,7 +16,16 @@ export const MODULE_ROUTES: Route[] =[
     { path: 'result', component: ResultComponent },
 
     { path: 'user', component: UserComponent },
-    { path: '', redirectTo: 'standard-form', pathMatch: 'full' }
+    { path: ' ', redirectTo: 'standard-form', pathMatch: 'full' },
+
+    // { path: 'public',
+    //   redirectTo: '',
+    //   children: [
+    //     { path: '', redirectTo: 'standard-form', pathMatch: 'full' },
+    //     { path: 'standard-form', component: StandardForm},
+    //     { path: 'result', component: ResultComponent}
+    //  ]
+    // }
 ]
 
 export const MODULE_COMPONENTS = [
