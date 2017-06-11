@@ -1,8 +1,7 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var home_component_1 = require("./home/home.component");
-var result_component_1 = require("./result/result.component");
-var user_component_1 = require("./user/user.component");
+var home_component_1 = require('./home/home.component');
+var result_component_1 = require('./result/result.component');
+var user_component_1 = require('./user/user.component');
 var standardForm_component_1 = require("./standardForm/standardForm.component");
 exports.MODULE_ROUTES = [
     { path: 'dashboard', component: home_component_1.HomeComponent },

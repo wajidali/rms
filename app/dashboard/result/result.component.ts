@@ -1,5 +1,4 @@
 import { Component, OnInit} from '@angular/core';
-import { Http } from '@angular/http';
 
 declare var AmCharts:any;
 declare var TweenMax:any;
@@ -11,54 +10,14 @@ declare var $:any;
 })
 
 export class ResultComponent implements OnInit{
-    public counties = [];
-    // public data = [
-    //     {id:0, name:"Harju", match: 30},
-    //     {id:1, name:"Hiiu", match: 30},
-    //     {id:2, name:"Ida-Viru", match: 30},
-    //     {id:3, name:"Jõgeva", match: 30},
-    //     {id:4, name:"Järva" , match: 30},
-    //     {id:5, name:"Lääne" , match: 30},
-    //     {id:6, name:"Lääne-Viru", match: 30},
-    //     {id:7, name:"Põlva", match: 30},
-    //     {id:8, name:"Pärnu", match: 30},
-    //     {id:9, name:"Rapla", match: 30},
-    //     {id:10, name:"Saare", match: 30},
-    //     {id:11, name:"Tartu", match: 30},
-    //     {id:12, name:"Valga", match: 30},
-    //     {id:13, name:"Viljandi", match: 30},
-    //     {id:14, name:"Võru", match: 30},
-    // ]
-    constructor(private http: Http){
-
-    }
+    totalOffers;
+    top5=[];
+    currentCounty = {name: "Estonia", jobs: this.totalOffers};
 
     ngOnInit(){
-
+        this.setTotalJobs();
         this.returnMap();
-        this.returnJobOffers();
-        // this.counties = [
-        //     {id:0, name:"Harju"},
-        //     {id:1, name:"Hiiu"},
-        //     {id:2, name:"Ida-Viru"},
-        //     {id:3, name:"Jõgeva"},
-        //     {id:4, name:"Järva"},
-        //     {id:5, name:"Lääne"},
-        //     {id:6, name:"Lääne-Viru"},
-        //     {id:7, name:"Põlva"},
-        //     {id:8, name:"Pärnu"},
-        //     {id:9, name:"Rapla"},
-        //     {id:10, name:"Saare"},
-        //     {id:11, name:"Tartu"},
-        //     {id:12, name:"Valga"},
-        //     {id:13, name:"Viljandi"},
-        //     {id:14, name:"Võru"},
-        // ]
-        // setTimeout(function() {
-        //     for(let county of this.counties ){
-        //         this.setMatch(county, 50)
-        //     }
-        // }.bind(this), 1000);
+        this.returnTop5Matches();
     }
     setMatch(county, num){
         let id = $('#'+county.name)
@@ -66,9 +25,8 @@ export class ResultComponent implements OnInit{
     }
 
     returnMap(){
-            $.get('https://test.n8rth.online/api/aggr/offers/county', function(data) {
-                console.log( AmCharts )
-                console.log( TweenMax )
+        $.get('https://test.n8rth.online/api/aggr/offers/county', function(data) {
+                var context = this
                 let map;
                 var mapping = {
                     // map => tootukassa
@@ -120,7 +78,6 @@ export class ResultComponent implements OnInit{
                             "autoZoom": true,
                             "balloonText": "[[title]]: <strong>[[value]]</strong>"
                         },
-
                         "zoomControl": {
                             "minZoomLevel": 0.9
                         },
@@ -131,7 +88,6 @@ export class ResultComponent implements OnInit{
                         }]
                 });
                 function updateHeatmap(event) {
-
                     var map = event.chart;
                     if (map.dataGenerated)
                         return;
@@ -152,21 +108,52 @@ export class ResultComponent implements OnInit{
 
                         str += map.dataProvider.areas[i].enTitle + "\n";
                     }
+                    //test
+                    map.autoZoomReal = false;
+                    map.autoResize = false;
+                    map.mouseEnabled = false;
+                    map.balloon.enabled = false;
+                    console.log(map);
 
                     map.dataGenerated = true;
                     map.validateNow();
-                    map.dataGenerated = true;
-                    map.validateNow();
+
+                    map.addListener("clickMapObject", function(event){
+                        console.log('enTitle', event.mapObject);
+                        context.currentCounty.name = event.mapObject.enTitle;
+                        context.currentCounty.jobs = event.mapObject.value;
+                    });
                 }
-            });
-
+            }.bind(this));
     }
-
-    returnJobOffers(){
+    setTotalJobs(){
+        $.get('https://test.n8rth.online/api/aggr/offers/county', function(data) {
+            let total = 0
+            for (let obj of data){
+                total += obj.count
+            }
+            this.currentCounty.jobs = total
+        }.bind(this))
+    }
+    returnTop5Matches(){
         $.get('https://test.n8rth.online/api/offers?isco=veoautojuht', function(data) {
-            $('#numberOfJobOffers').append("Job Offeres: " + data.length)
-        })
+            let arrMode = [];
+            let mapping = {};
+            let counter = 0;
+
+            for(let obj of data){
+                arrMode.push(obj.location.county)
+            }
+            for(let i = 0;i < arrMode.length; i++){
+                if (!mapping[arrMode[i]]) mapping[arrMode[i]] = 0;
+                mapping[arrMode[i]] += 1
+            }
+
+            let keys = Object.keys(mapping)
+            for(let i = 0;i < 5; i++){
+                this.top5[i] = keys[i]
+            }
+            console.log(this.top5)
+        }.bind(this))
     }
-
-
 }

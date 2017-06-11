@@ -8,12 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Created by Wajid on 5/21/2017.
  */
-var core_1 = require("@angular/core");
-var http_1 = require("@angular/http");
+var core_1 = require('@angular/core');
+var http_1 = require('@angular/http');
 var config_1 = require("../config");
 var SpeciesService = (function () {
     function SpeciesService(http) {
@@ -30,11 +29,11 @@ var SpeciesService = (function () {
         var options = new http_1.RequestOptions({ headers: headers });
         return options;
     };
+    SpeciesService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [http_1.Http])
+    ], SpeciesService);
     return SpeciesService;
 }());
-SpeciesService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
-], SpeciesService);
 exports.SpeciesService = SpeciesService;
 //# sourceMappingURL=species.service.js.map

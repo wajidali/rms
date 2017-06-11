@@ -1,8 +1,24 @@
 <div class="main-content">
     <div id="chartdiv"></div>
-    <div id="jobOffersDiv">
-        <div id="numberOfJobOffers"></div>
+    <div id="totalOffersDiv">
+        <div id="totalOffers">There are <strong>{{currentCounty.jobs}}</strong> Job Offers in <strong>{{currentCounty.name}}</strong></div>
     </div>
+    <div id="backPanel">
+        <div id="top5Div">
+            <div id="top5Message">TOP 5 Counties for You</div>
+            <div class="top5" *ngFor="let county of top5">
+                 <div class="countyName">
+                     <strong>{{county}}</strong>
+                 </div>
+                 <div class="matchBarContainer">
+                     <div class="matchBar">
+                         <div class="matchFill" id = {{county}}></div>
+                     </div>
+                 </div>
+            </div>
+        </div>
+    </div>
+
         <!-- <div class="container-fluid">
 
             <div class="row" *ngFor="let county of counties" style="margin-bottom: 1%; font-size: 2em;">
