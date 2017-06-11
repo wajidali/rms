@@ -15,12 +15,16 @@ export class ResultComponent implements OnInit{
     totalOffers;
     top5=[];
     currentCounty = {name: "Estonia", jobs: this.totalOffers};
+    downloadButtonVisible=false;
     filteredURL;
     chart;
 
     ngOnInit(){
-        this.setTotalJobs();
-        this.returnMap();
+
+        setTimeout(()=>{
+            this.setTotalJobs();
+            this.returnMap();
+        },250)
     }
     ngAfterViewInit(){
 
@@ -28,106 +32,107 @@ export class ResultComponent implements OnInit{
     returnMap(){
         $.get('https://settlebetter.eu/api/profile/593d0288c35008000f63216e', function(data) {
 
-                var context = this
-                let profile = data.data.profile
-                let suggestions = data.data.suggestions
-                let county = suggestions.group["location.county"]
+            var context = this
+            let profile = data.data.profile
+            let suggestions = data.data.suggestions
+            let county = suggestions.group["location.county"]
 
-                context.currentCounty.jobs = suggestions.count;
+            context.currentCounty.jobs = suggestions.count;
 
-                console.log('suggestions', suggestions);
+            console.log('suggestions', suggestions);
 
-                let map;
-                var keys = Object.keys(suggestions.group["location.county"])
-                var mapping = {
-                    // map => tootukassa
-                    "Viljandimaa": "Viljandi maakond",
-                    "Põlvamaa": "Põlva maakond",
-                    "Ida-Virumaa": "Ida-Viru maakond",
-                    "Tartumaa": "Tartu maakond",
-                    "Järvamaa": "Järva maakond",
-                    "Võrumaa": "Võru maakond",
-                    "Pärnumaa": "Pärnu maakond",
-                    "Lääne-Virumaa": "Lääne-Viru maakond",
-                    "Hiiumaa": "Hiiu maakond",
-                    "Läänemaa": "Lääne maakond",
-                    "Valgamaa": "Valga maakond",
-                    "Jõgevamaa": "Jõgeva maakond",
-                    "Raplamaa": "Rapla maakond",
-                    "Saaremaa": "Saare maakond",
-                    "Harjumaa": "Harju maakond"
-                };
-                var total = 0;
-                var max = 0;
+            let map;
+            var keys = Object.keys(suggestions.group["location.county"])
+            var mapping = {
+                // map => tootukassa
+                "Viljandimaa": "Viljandi maakond",
+                "Põlvamaa": "Põlva maakond",
+                "Ida-Virumaa": "Ida-Viru maakond",
+                "Tartumaa": "Tartu maakond",
+                "Järvamaa": "Järva maakond",
+                "Võrumaa": "Võru maakond",
+                "Pärnumaa": "Pärnu maakond",
+                "Lääne-Virumaa": "Lääne-Viru maakond",
+                "Hiiumaa": "Hiiu maakond",
+                "Läänemaa": "Lääne maakond",
+                "Valgamaa": "Valga maakond",
+                "Jõgevamaa": "Jõgeva maakond",
+                "Raplamaa": "Rapla maakond",
+                "Saaremaa": "Saare maakond",
+                "Harjumaa": "Harju maakond"
+            };
+            var total = 0;
+            var max = 0;
+            var str = '';
+            var listValues = {};
+
+            for(let i = 0;i < keys.length; i++){
+                str += keys[i]  + "\n"
+            }
+
+            for (let key of keys){
+                total += county[key]
+                max = Math.max(max, county[key]);
+            }
+            var currentMap = "estoniaHigh";
+            var titles = {
+                "text": "Estonia"
+            };
+            AmCharts.makeChart("chartdiv", {
+                "type": "map",
+                "theme": "light",
+                "colorSteps": 10,
+                "dataProvider": {
+                    "mapURL": "/assets/img/" + currentMap + ".svg",
+                    "getAreasFromMap": true,
+                    "zoomLevel": 0.9,
+                    "areas": []
+                },
+                "areasSettings": {
+                    "autoZoom": true,
+                    "balloonText": "[[title]]: <strong>[[value]]</strong>"
+                },
+                "zoomControl": {
+                    "minZoomLevel": 0.9
+                },
+                "titles": titles,
+                "listeners": [{
+                    "event": "init",
+                    "method": updateHeatmap
+                }]
+            });
+            function updateHeatmap(event) {
+                var map = event.chart;
+                if (map.dataGenerated)
+                    return;
+                if (map.dataProvider.areas.length === 0) {
+                    setTimeout(updateHeatmap, 100);
+                    return;
+                }
                 var str = '';
-                var listValues = {};
+                for (var i = 0; i < map.dataProvider.areas.length; i++) {
+                    var c = map.dataProvider.areas[i].enTitle;
 
-                for(let i = 0;i < keys.length; i++){
-                    str += keys[i]  + "\n"
+                    $.each(keys, function(i2, e) {
+                        if (e != mapping[c] || !county[e]) {
+                            return;
+                        }
+                        map.dataProvider.areas[i].value = county[e];
+
+                    });
+                    str += map.dataProvider.areas[i].enTitle + "\n";
                 }
-
-                for (let key of keys){
-                    total += county[key]
-                    max = Math.max(max, county[key]);
-                }
-                var currentMap = "estoniaHigh";
-                var titles = {
-                    "text": "Estonia"
-                };
-                AmCharts.makeChart("chartdiv", {
-                        "type": "map",
-                        "theme": "light",
-                        "colorSteps": 10,
-                        "dataProvider": {
-                            "mapURL": "/assets/img/" + currentMap + ".svg",
-                            "getAreasFromMap": true,
-                            "zoomLevel": 0.9,
-                            "areas": []
-                        },
-                        "areasSettings": {
-                            "autoZoom": true,
-                            "balloonText": "[[title]]: <strong>[[value]]</strong>"
-                        },
-                        "zoomControl": {
-                            "minZoomLevel": 0.9
-                        },
-                        "titles": titles,
-                        "listeners": [{
-                            "event": "init",
-                            "method": updateHeatmap
-                        }]
-                });
-                function updateHeatmap(event) {
-                    var map = event.chart;
-                    if (map.dataGenerated)
-                        return;
-                    if (map.dataProvider.areas.length === 0) {
-                        setTimeout(updateHeatmap, 100);
-                        return;
-                    }
-                    var str = '';
-                    for (var i = 0; i < map.dataProvider.areas.length; i++) {
-                        var c = map.dataProvider.areas[i].enTitle;
-
-                        $.each(keys, function(i2, e) {
-                            if (e != mapping[c] || !county[e]) {
-                                return;
-                            }
-                            map.dataProvider.areas[i].value = county[e];
-
-                        });
-                        str += map.dataProvider.areas[i].enTitle + "\n";
-                    }
-                    //test
-                    map.autoZoomReal = false;
-                    map.autoResize = false;
-                    map.mouseEnabled = false;
-                    map.balloon.enabled = false;
+                //test
+                map.autoZoomReal = false;
+                map.autoResize = false;
+                map.mouseEnabled = false;
+                map.balloon.enabled = false;
 
                     map.dataGenerated = true;
                     map.validateNow();
 
                     map.addListener("clickMapObject", function(event){
+                        context.downloadButtonVisible = true;
                         context.currentCounty.name = event.mapObject.enTitle;
                         context.currentCounty.jobs = event.mapObject.value;
                         var nn = mapping[event.mapObject.enTitle]
@@ -138,6 +143,7 @@ export class ResultComponent implements OnInit{
                 }
             $('.amcharts-chart-div > a').css('visible', 'hidden');
             }.bind(this));
+
     }
 
     setTotalJobs(){

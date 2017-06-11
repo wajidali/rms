@@ -11,6 +11,7 @@ var ResultComponent = (function () {
     function ResultComponent() {
         this.top5 = [];
         this.currentCounty = { name: "Estonia", jobs: this.totalOffers };
+        this.downloadButtonVisible = false;
         // setDataProvider(arr){
         //     for(let el of arr){
         //         this.chart.dataProvider.push({job: el.job, numbers: el.numbers})
@@ -78,8 +79,11 @@ var ResultComponent = (function () {
         // }
     }
     ResultComponent.prototype.ngOnInit = function () {
-        this.setTotalJobs();
-        this.returnMap();
+        var _this = this;
+        setTimeout(function () {
+            _this.setTotalJobs();
+            _this.returnMap();
+        }, 250);
     };
     ResultComponent.prototype.ngAfterViewInit = function () {
     };
@@ -177,6 +181,7 @@ var ResultComponent = (function () {
                 map.dataGenerated = true;
                 map.validateNow();
                 map.addListener("clickMapObject", function (event) {
+                    context.downloadButtonVisible = true;
                     context.currentCounty.name = event.mapObject.enTitle;
                     context.currentCounty.jobs = event.mapObject.value;
                     var nn = mapping[event.mapObject.enTitle];
