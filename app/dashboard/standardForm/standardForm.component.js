@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var occupation_1 = require("../../_modals/occupation");
+var speciality_1 = require("../../_modals/speciality");
 var dataservice_1 = require("../../_services/dataservice");
 var StandardForm = (function () {
     function StandardForm(http, _dataService) {
@@ -33,6 +34,7 @@ var StandardForm = (function () {
         this.formModel.importantNearMe = {};
         this.formModel.settlement = {};
         this.formModel.locationPreference = {};
+        this.formModel.specialities = [new speciality_1.Speciality(1, 1, 'Chief executive')];
         this.languages = [
             { id: 'English', name: 'English' },
             { id: 'Estonian', name: 'Estonian' },
@@ -44,9 +46,13 @@ var StandardForm = (function () {
             buttonClasses: 'btn btn-default btn-block',
             dynamicTitleMaxItems: 11,
         };
-        $(this.imagePicker.nativeElement).imagepicker({ show_label: true });
+        //$(this.imagePicker.nativeElement).imagepicker({show_label: true})
     };
-    StandardForm.prototype.onChange = function (event) {
+    StandardForm.prototype.onSpecialityChange = function (event) {
+        console.log(event);
+        console.log(this.formModel.specialities);
+        //this.formModel.specialities.push(this.specialities.filter((item) =>  event.filter((i)=> item.id == i)));
+        //event = null;
     };
     StandardForm.prototype.postForm = function () {
         console.log(this.formModel);

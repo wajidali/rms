@@ -19,7 +19,7 @@ export class StandardForm implements OnInit{
     languages:any;
     selectedOccupation:Occupation = new Occupation(0, 'Pakistan');
     occupations: Occupation[];
-    specialities: Speciality[];
+    specialities: any[];
     @ViewChild('imagePicker') imagePicker;
     constructor(private http: Http, private _dataService: DataService){
         this.occupations = this._dataService.getOccupations();
@@ -38,6 +38,7 @@ export class StandardForm implements OnInit{
         this.formModel.importantNearMe ={};
         this.formModel.settlement ={};
         this.formModel.locationPreference = {};
+        this.formModel.specialities = [new Speciality(1, 1, 'Chief executive' )];
         this.languages = [
             { id: 'English', name: 'English' },
             { id: 'Estonian', name: 'Estonian' },
@@ -51,10 +52,14 @@ export class StandardForm implements OnInit{
             dynamicTitleMaxItems: 11,
             //displayAllSelectedText: true
         };
-        $(this.imagePicker.nativeElement).imagepicker({show_label: true})
+        //$(this.imagePicker.nativeElement).imagepicker({show_label: true})
     }
-    onChange(event) {
+    onSpecialityChange(event) {
+console.log(event);
+console.log(this.formModel.specialities);
 
+//this.formModel.specialities.push(this.specialities.filter((item) =>  event.filter((i)=> item.id == i)));
+//event = null;
     }
 
     postForm(){

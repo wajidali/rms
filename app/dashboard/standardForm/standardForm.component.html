@@ -15,23 +15,23 @@
 
                         <div class="stepwizard col-md-offset-3">
                             <div class="stepwizard-row setup-panel">
-                                <div class="stepwizard-step" hidden>
-                                    <a href="#step-1" type="button" class="btn btn-primary btn-circle" hidden>1</a>
+                                <div class="stepwizard-step" >
+                                    <a href="#step-1" type="button" class="btn btn-primary btn-circle" >1</a>
                                     <p>Step 1</p>
                                 </div>
-                                <div class="stepwizard-step" hidden>
+                                <div class="stepwizard-step" >
                                     <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled" >2</a>
                                     <p>Step 2</p>
                                 </div>
-                                <div class="stepwizard-step" hidden>
+                                <div class="stepwizard-step" >
                                     <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled" >3</a>
                                     <p>Step 3</p>
                                 </div>
-                                <div class="stepwizard-step" hidden>
+                                <div class="stepwizard-step" >
                                     <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled" >3</a>
                                     <p>Step 4</p>
                                 </div>
-                                <div class="stepwizard-step" hidden>
+                                <div class="stepwizard-step" >
                                     <a href="#step-5" type="button" class="btn btn-default btn-circle" disabled="disabled" >3</a>
                                     <p>Step 5</p>
                                 </div>
@@ -106,9 +106,13 @@
                                                 <option value="0">--Select--</option>
                                                 <option *ngFor="let occupation of occupations" value= {{occupation.id}}>{{occupation.name}}</option>
                                             </select>
-                                            <select class="form-control">
-                                                <option *ngIf='selectedOccupation.id == 0' value="0">--Select--</option>
-                                                <option *ngFor="let speciality of specialities" value= {{speciality.id}}>{{speciality.name}}</option>
+                                            <!--<select class="form-control">-->
+                                                <!--<option *ngIf='selectedOccupation.id == 0' value="0">&#45;&#45;Select&#45;&#45;</option>-->
+                                                <!--<option *ngFor="let speciality of specialities" value= {{speciality.id}}>{{speciality.name}}</option>-->
+                                            <!--</select>-->
+                                            <ss-multiselect-dropdown name="speciality" [options]="specialities" [settings]="mySettings" [(ngModel)]="formModel.specialities" (ngModelChange)="onSpecialityChange($event)"></ss-multiselect-dropdown>
+                                            <select name="sometext" size="5" class="form-control">
+                                                <option *ngFor="let speciality of formModel.specialities" value="{{speciality.name}}" > {{speciality.name}}</option>
                                             </select>
                                         </div>
 
