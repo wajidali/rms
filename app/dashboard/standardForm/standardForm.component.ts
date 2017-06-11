@@ -3,6 +3,7 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import {Occupation} from "../../_modals/occupation";
 import {Speciality} from "../../_modals/speciality";
 import {DataService} from "../../_services/dataservice";
+import forEach = require("core-js/fn/array/for-each");
 declare  let initDatetimepickers:any;
 declare  let validity: any;
 
@@ -38,7 +39,7 @@ export class StandardForm implements OnInit{
         this.formModel.importantNearMe ={};
         this.formModel.settlement ={};
         this.formModel.locationPreference = {};
-        this.formModel.specialities = [new Speciality(1, 1, 'Chief executive' )];
+        this.formModel.specialities = [];
         this.languages = [
             { id: 'English', name: 'English' },
             { id: 'Estonian', name: 'Estonian' },
@@ -54,12 +55,22 @@ export class StandardForm implements OnInit{
         };
         //$(this.imagePicker.nativeElement).imagepicker({show_label: true})
     }
+    ngAfterViewInit(){
+        this.formModel.specialities = [];
+    }
     onSpecialityChange(event) {
-console.log(event);
-console.log(this.formModel.specialities);
 
-//this.formModel.specialities.push(this.specialities.filter((item) =>  event.filter((i)=> item.id == i)));
-//event = null;
+
+        var self = this;
+
+        $.each(this.specialities, function(i, v){
+            $.each(event, function (index, value) {
+                if(v.id == value){
+                    self.formModel.specialities.push(v);
+                }
+
+            })
+        })
     }
 
     postForm(){

@@ -110,10 +110,10 @@
                                                 <!--<option *ngIf='selectedOccupation.id == 0' value="0">&#45;&#45;Select&#45;&#45;</option>-->
                                                 <!--<option *ngFor="let speciality of specialities" value= {{speciality.id}}>{{speciality.name}}</option>-->
                                             <!--</select>-->
-                                            <ss-multiselect-dropdown name="speciality" [options]="specialities" [settings]="mySettings" [(ngModel)]="formModel.specialities" (ngModelChange)="onSpecialityChange($event)"></ss-multiselect-dropdown>
-                                            <select name="sometext" size="5" class="form-control">
-                                                <option *ngFor="let speciality of formModel.specialities" value="{{speciality.name}}" > {{speciality.name}}</option>
-                                            </select>
+                                            <ss-multiselect-dropdown name="speciality" [options]="specialities" [settings]="mySettings" [(ngModel)]="selectedSpecialities" (ngModelChange)="onSpecialityChange($event)"></ss-multiselect-dropdown>
+                                            <!--<select name="sometext" size="5" class="form-control">-->
+                                                <!--<option *ngFor="let speciality of formModel.specialities" value="{{speciality.name}}" > {{speciality.name}}</option>-->
+                                            <!--</select>-->
                                         </div>
 
                                         <div class="form-group">
