@@ -5,6 +5,11 @@ my-app .main-panel .main-content .card{
     animation-fill-mode: forwards;
 }
 
+div.amcharts-chart-div > a {
+     display:none!important;
+     visibility: hidden!important;
+}
+
 #main-content{
     align-items: center;
 }
