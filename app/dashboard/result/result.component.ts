@@ -1,5 +1,4 @@
 import { Component, OnInit} from '@angular/core';
-import { Http } from '@angular/http';
 
 declare var AmCharts:any;
 declare var TweenMax:any;
@@ -13,13 +12,11 @@ declare var $:any;
 export class ResultComponent implements OnInit{
     totalOffers;
     top5=[];
-    constructor(private http: Http){
-    }
+    currentCounty = {name: "Estonia", jobs: this.totalOffers};
 
     ngOnInit(){
+        this.setTotalJobs();
         this.returnMap();
-        // this.returnJobOffers();
-        this.returnTotalJobOffers();
         this.returnTop5Matches();
     }
     setMatch(county, num){
@@ -29,7 +26,7 @@ export class ResultComponent implements OnInit{
 
     returnMap(){
         $.get('https://test.n8rth.online/api/aggr/offers/county', function(data) {
-
+                var context = this
                 let map;
                 var mapping = {
                     // map => tootukassa
@@ -81,7 +78,6 @@ export class ResultComponent implements OnInit{
                             "autoZoom": true,
                             "balloonText": "[[title]]: <strong>[[value]]</strong>"
                         },
-
                         "zoomControl": {
                             "minZoomLevel": 0.9
                         },
@@ -112,19 +108,31 @@ export class ResultComponent implements OnInit{
 
                         str += map.dataProvider.areas[i].enTitle + "\n";
                     }
+                    //test
+                    map.autoZoomReal = false;
+                    map.autoResize = false;
+                    map.mouseEnabled = false;
+                    map.balloon.enabled = false;
+                    console.log(map);
 
                     map.dataGenerated = true;
                     map.validateNow();
+
+                    map.addListener("clickMapObject", function(event){
+                        console.log('enTitle', event.mapObject);
+                        context.currentCounty.name = event.mapObject.enTitle;
+                        context.currentCounty.jobs = event.mapObject.value;
+                    });
                 }
-            });
+            }.bind(this));
     }
-    returnTotalJobOffers(){
+    setTotalJobs(){
         $.get('https://test.n8rth.online/api/aggr/offers/county', function(data) {
             let total = 0
             for (let obj of data){
                 total += obj.count
             }
-            this.totalOffers = total
+            this.currentCounty.jobs = total
         }.bind(this))
     }
     returnTop5Matches(){

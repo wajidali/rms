@@ -9,16 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
 var ResultComponent = (function () {
-    function ResultComponent(http) {
-        this.http = http;
+    function ResultComponent() {
         this.top5 = [];
+        this.currentCounty = { name: "Estonia", jobs: this.totalOffers };
     }
     ResultComponent.prototype.ngOnInit = function () {
+        this.setTotalJobs();
         this.returnMap();
-        // this.returnJobOffers();
-        this.returnTotalJobOffers();
         this.returnTop5Matches();
     };
     ResultComponent.prototype.setMatch = function (county, num) {
@@ -27,6 +25,7 @@ var ResultComponent = (function () {
     };
     ResultComponent.prototype.returnMap = function () {
         $.get('https://test.n8rth.online/api/aggr/offers/county', function (data) {
+            var context = this;
             var map;
             var mapping = {
                 // map => tootukassa
@@ -106,19 +105,30 @@ var ResultComponent = (function () {
                     });
                     str += map.dataProvider.areas[i].enTitle + "\n";
                 }
+                //test
+                map.autoZoomReal = false;
+                map.autoResize = false;
+                map.mouseEnabled = false;
+                map.balloon.enabled = false;
+                console.log(map);
                 map.dataGenerated = true;
                 map.validateNow();
+                map.addListener("clickMapObject", function (event) {
+                    console.log('enTitle', event.mapObject);
+                    context.currentCounty.name = event.mapObject.enTitle;
+                    context.currentCounty.jobs = event.mapObject.value;
+                });
             }
-        });
+        }.bind(this));
     };
-    ResultComponent.prototype.returnTotalJobOffers = function () {
+    ResultComponent.prototype.setTotalJobs = function () {
         $.get('https://test.n8rth.online/api/aggr/offers/county', function (data) {
             var total = 0;
             for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
                 var obj = data_1[_i];
                 total += obj.count;
             }
-            this.totalOffers = total;
+            this.currentCounty.jobs = total;
         }.bind(this));
     };
     ResultComponent.prototype.returnTop5Matches = function () {
@@ -148,7 +158,7 @@ var ResultComponent = (function () {
             moduleId: module.id,
             templateUrl: 'result.component.html'
         }), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [])
     ], ResultComponent);
     return ResultComponent;
 }());
