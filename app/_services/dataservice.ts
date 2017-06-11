@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Occupation } from '../_modals/occupation';
 import { Speciality } from '../_modals/speciality';
-import {Skill} from "../_modals/skill";
+
 
 
 @Injectable()
