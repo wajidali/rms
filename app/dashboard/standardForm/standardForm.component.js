@@ -99,6 +99,10 @@ var StandardForm = (function () {
                 nextStepWizard.removeAttr('disabled').trigger('click');
         });
         $('div.setup-panel div a.btn-primary').trigger('click');
+        $('.location-selector img').click(function () {
+            $('.location-selector img').removeClass('selectedImg');
+            $(this).addClass('selectedImg');
+        });
     };
     StandardForm.prototype.jwt = function () {
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
