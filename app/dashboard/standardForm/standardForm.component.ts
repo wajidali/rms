@@ -20,6 +20,7 @@ export class StandardForm implements OnInit{
     languages:any;
     selectedOccupation:Occupation = new Occupation(0, 'Pakistan');
     occupations: Occupation[];
+    countriesList: any[];
     specialities: any[];
     @ViewChild('imagePicker') imagePicker;
     constructor(private http: Http, private _dataService: DataService){
@@ -54,6 +55,8 @@ export class StandardForm implements OnInit{
             //displayAllSelectedText: true
         };
         //$(this.imagePicker.nativeElement).imagepicker({show_label: true})
+
+
     }
     ngAfterViewInit(){
         this.formModel.specialities = [];
@@ -63,10 +66,21 @@ export class StandardForm implements OnInit{
 
         var self = this;
 
+
         $.each(this.specialities, function(i, v){
             $.each(event, function (index, value) {
                 if(v.id == value){
-                    self.formModel.specialities.push(v);
+                    let exist = false;
+                    $.each(self.formModel.specialities, function (k, j) {
+
+                        if(v.id == j.id) {
+                            exist = true;
+                        }
+                    });
+
+                    if(!exist) {
+                        self.formModel.specialities.push(v);
+                    }
                 }
 
             })
@@ -78,6 +92,10 @@ export class StandardForm implements OnInit{
         $.post('https://test.n8rth.online/api/add',this.formModel, function (res) {
             console.log(res);
         })
+    }
+
+    onChange(){
+
     }
 
 

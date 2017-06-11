@@ -3,6 +3,7 @@ import { Occupation } from '../_modals/occupation';
 import { Speciality } from '../_modals/speciality';
 
 
+
 @Injectable()
 export class DataService {
     getOccupations() {
@@ -66,4 +67,19 @@ export class DataService {
 
         ];
     }
+
+    // getOccupations() {
+    //     return [
+    //         new Skill(1, 'Managers' ),
+    //         new Skill(2, 'Professionals' ),
+    //         new Skill(3, 'Technicians and Associate Professionals' ),
+    //         new Skill(4, 'Clerical Support Workers' ),
+    //         new Skill(5, 'Services and Sales Workers' ),
+    //         new Skill(6, 'Skilled Agricultural, Forestry and Fishery Workers' ),
+    //         new Skill(7, 'Craft and Related Trades Workers' ),
+    //         new Skill(8, 'Plant and Machine Operators and Assemblers' ),
+    //         new Skill(9, 'Elementary Occupations' ),
+    //         new Skill(10, 'Armed Forces Occupations' )
+    //     ];
+    // }
 }
