@@ -8,15 +8,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
 var StandardForm = (function () {
     function StandardForm(http) {
         this.http = http;
     }
     StandardForm.prototype.ngOnInit = function () {
         // $.getScript('../../../assets/js/material-dashboard.js');
-        $.getScript('../../../../assets/js/plugins/jquery.tagsinput.js');
         $.getScript('../../../../assets/js/plugins/bootstrap-datetimepicker.js');
         //initDatetimepickers();
         this.initForm();
@@ -25,6 +25,14 @@ var StandardForm = (function () {
         this.formModel.importantNearMe = {};
         this.formModel.settlement = {};
         this.formModel.locationPreference = {};
+        this.languages = [
+            { id: 'English', name: 'English' },
+            { id: 'Estonian', name: 'Estonian' },
+            { id: 'Russian', name: 'Russian' },
+        ];
+    };
+    StandardForm.prototype.onChange = function (event) {
+        console.log(event);
     };
     StandardForm.prototype.postForm = function () {
         console.log(this.formModel);
@@ -57,6 +65,10 @@ var StandardForm = (function () {
             var curStep = $(this).closest(".setup-content"), curStepBtn = curStep.attr("id"), nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"), curInputs = curStep.find("input[type='text'],input[type='url']"), isValid = true;
             $(".form-group").removeClass("has-error");
             for (var i = 0; i < curInputs.length; i++) {
+                // if (!<HTMLInputElement>curInputs[i].validity.valid){
+                //     isValid = false;
+                //     $(curInputs[i]).closest(".form-group").addClass("has-error");
+                // }
             }
             if (isValid)
                 nextStepWizard.removeAttr('disabled').trigger('click');
@@ -68,15 +80,15 @@ var StandardForm = (function () {
         var options = new http_1.RequestOptions({ headers: headers });
         return options;
     };
-    StandardForm = __decorate([
-        core_1.Component({
-            selector: 'standard-form-camp',
-            moduleId: module.id,
-            templateUrl: 'standardForm.component.html'
-        }), 
-        __metadata('design:paramtypes', [http_1.Http])
-    ], StandardForm);
     return StandardForm;
 }());
+StandardForm = __decorate([
+    core_1.Component({
+        selector: 'standard-form-camp',
+        moduleId: module.id,
+        templateUrl: 'standardForm.component.html'
+    }),
+    __metadata("design:paramtypes", [http_1.Http])
+], StandardForm);
 exports.StandardForm = StandardForm;
 //# sourceMappingURL=standardForm.component.js.map

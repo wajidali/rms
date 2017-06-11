@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 declare  let initDatetimepickers:any;
 declare  let validity: any;
+
+
 @Component({
     selector: 'standard-form-camp',
     moduleId: module.id,
@@ -10,12 +12,14 @@ declare  let validity: any;
 
 export class StandardForm implements OnInit{
     formModel: any;
+
+    languages:any;
     constructor(private http: Http){
 
     }
     ngOnInit(){
         // $.getScript('../../../assets/js/material-dashboard.js');
-        $.getScript('../../../../assets/js/plugins/jquery.tagsinput.js');
+
         $.getScript('../../../../assets/js/plugins/bootstrap-datetimepicker.js');
         //initDatetimepickers();
         this.initForm();
@@ -24,6 +28,16 @@ export class StandardForm implements OnInit{
         this.formModel.importantNearMe ={};
         this.formModel.settlement ={};
         this.formModel.locationPreference = {};
+        this.languages = [
+            { id: 'English', name: 'English' },
+            { id: 'Estonian', name: 'Estonian' },
+            { id: 'Russian', name: 'Russian' },
+
+        ];
+
+    }
+    onChange(event) {
+        console.log(event)
     }
 
     postForm(){

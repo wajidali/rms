@@ -12,6 +12,8 @@ var router_1 = require("@angular/router");
 var dashboard_routes_1 = require("./dashboard.routes");
 var equal_validator_directive_1 = require("../_validators/equal-validator.directive");
 var common_1 = require("@angular/common");
+var animations_1 = require("@angular/platform-browser/animations"); // this is needed!
+var angular_2_dropdown_multiselect_1 = require("angular-2-dropdown-multiselect");
 // Import your library
 var DashboardModule = (function () {
     function DashboardModule() {
@@ -23,7 +25,9 @@ DashboardModule = __decorate([
         imports: [
             router_1.RouterModule.forChild(dashboard_routes_1.MODULE_ROUTES),
             forms_1.FormsModule,
-            common_1.CommonModule
+            common_1.CommonModule,
+            animations_1.BrowserAnimationsModule,
+            angular_2_dropdown_multiselect_1.MultiselectDropdownModule
         ],
         declarations: [dashboard_routes_1.MODULE_COMPONENTS, equal_validator_directive_1.EqualValidator],
         providers: []
