@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import {Occupation} from "../../_modals/occupation";
+import {Speciality} from "../../_modals/speciality";
+import {DataService} from "../../_services/dataservice";
 declare  let initDatetimepickers:any;
 declare  let validity: any;
 
@@ -12,10 +15,17 @@ declare  let validity: any;
 
 export class StandardForm implements OnInit{
     formModel: any;
-
+    mySettings: any;
     languages:any;
-    constructor(private http: Http){
-
+    selectedOccupation:Occupation = new Occupation(0, 'Pakistan');
+    occupations: Occupation[];
+    specialities: Speciality[];
+    @ViewChild('imagePicker') imagePicker;
+    constructor(private http: Http, private _dataService: DataService){
+        this.occupations = this._dataService.getOccupations();
+    }
+    onSelect(occupationId) {
+        this.specialities = this._dataService.getSpecialities().filter((item)=> item.occupationId == occupationId);
     }
     ngOnInit(){
         // $.getScript('../../../assets/js/material-dashboard.js');
@@ -34,10 +44,17 @@ export class StandardForm implements OnInit{
             { id: 'Russian', name: 'Russian' },
 
         ];
-
+        this.mySettings = {
+            enableSearch: true,
+            checkedStyle: 'fontawesome',
+            buttonClasses: 'btn btn-default btn-block',
+            dynamicTitleMaxItems: 11,
+            //displayAllSelectedText: true
+        };
+        $(this.imagePicker.nativeElement).imagepicker({show_label: true})
     }
     onChange(event) {
-        console.log(event)
+
     }
 
     postForm(){

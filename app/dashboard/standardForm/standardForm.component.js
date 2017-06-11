@@ -11,10 +11,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var occupation_1 = require("../../_modals/occupation");
+var dataservice_1 = require("../../_services/dataservice");
 var StandardForm = (function () {
-    function StandardForm(http) {
+    function StandardForm(http, _dataService) {
         this.http = http;
+        this._dataService = _dataService;
+        this.selectedOccupation = new occupation_1.Occupation(0, 'Pakistan');
+        this.occupations = this._dataService.getOccupations();
     }
+    StandardForm.prototype.onSelect = function (occupationId) {
+        this.specialities = this._dataService.getSpecialities().filter(function (item) { return item.occupationId == occupationId; });
+    };
     StandardForm.prototype.ngOnInit = function () {
         // $.getScript('../../../assets/js/material-dashboard.js');
         $.getScript('../../../../assets/js/plugins/bootstrap-datetimepicker.js');
@@ -30,9 +38,15 @@ var StandardForm = (function () {
             { id: 'Estonian', name: 'Estonian' },
             { id: 'Russian', name: 'Russian' },
         ];
+        this.mySettings = {
+            enableSearch: true,
+            checkedStyle: 'fontawesome',
+            buttonClasses: 'btn btn-default btn-block',
+            dynamicTitleMaxItems: 11,
+        };
+        $(this.imagePicker.nativeElement).imagepicker({ show_label: true });
     };
     StandardForm.prototype.onChange = function (event) {
-        console.log(event);
     };
     StandardForm.prototype.postForm = function () {
         console.log(this.formModel);
@@ -82,13 +96,17 @@ var StandardForm = (function () {
     };
     return StandardForm;
 }());
+__decorate([
+    core_1.ViewChild('imagePicker'),
+    __metadata("design:type", Object)
+], StandardForm.prototype, "imagePicker", void 0);
 StandardForm = __decorate([
     core_1.Component({
         selector: 'standard-form-camp',
         moduleId: module.id,
         templateUrl: 'standardForm.component.html'
     }),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [http_1.Http, dataservice_1.DataService])
 ], StandardForm);
 exports.StandardForm = StandardForm;
 //# sourceMappingURL=standardForm.component.js.map
