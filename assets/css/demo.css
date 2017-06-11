@@ -21,6 +21,7 @@ my-app .main-panel .main-content .card{
 #totalOffers{
     font-size: 5vw;
     margin-top: 5%;
+    line-height: 65px;
     text-align: center;
 }
 #backPanel{
