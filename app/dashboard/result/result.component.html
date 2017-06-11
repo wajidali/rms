@@ -7,6 +7,15 @@
 
     </div>
 
+    <div class="form-group" style="margin-top: 10%;" [hidden]="!downloadButtonVisible">
+        <label class="col-md-4 control-label" for="singlebutton"></label>
+        <div class="col-md-4 center-block">
+            <a id="singlebutton" name="singlebutton" [routerLink]="['/standard-form']" class="btn btn-default center-block" style="background-color: #F171A7; width: 340px; height: 80px; font-size: x-large; line-height: 60px; margin: 0 auto;" >
+                Download PDF
+            </a>
+        </div>
+    </div>
+
     <!-- <div id="backPanel">
         <div id="top5Div">
             <div id="top5Message">TOP 5 Counties for You</div>

@@ -14,13 +14,18 @@ declare var jQCloud:any;
 export class ResultComponent implements OnInit{
     totalOffers;
     top5=[];
+    downloadButtonVisible= false;
     currentCounty = {name: "Estonia", jobs: this.totalOffers};
     filteredURL;
 
     ngOnInit(){
         //console.log(jQCloud)
-        this.setTotalJobs();
-        this.returnMap();
+
+        setTimeout(()=>{
+            this.setTotalJobs();
+            this.returnMap();
+        },250)
+
 
         // this.returnTop5Field();
         // this.returnTop5Matches();
@@ -29,6 +34,7 @@ export class ResultComponent implements OnInit{
         this.returnPie();   
     }
     setMatch(county, num){
+
         let id = $('#'+county.name)
         id.css("width", num+"%")
     }
@@ -133,6 +139,8 @@ export class ResultComponent implements OnInit{
                     map.validateNow();
 
                     map.addListener("clickMapObject", function(event){
+                        context.downloadButtonVisible =true;
+
                         context.currentCounty.name = event.mapObject.enTitle;
                         context.currentCounty.jobs = event.mapObject.value;
                         var nn = mapping[event.mapObject.enTitle]
@@ -174,6 +182,7 @@ export class ResultComponent implements OnInit{
         }.bind(this))
     }
     returnTop5Field(){
+
         $.get(this.filteredURL, function(data) {
 
             let isco = data.data.suggestions.group.isco

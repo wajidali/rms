@@ -10,12 +10,16 @@ var core_1 = require("@angular/core");
 var ResultComponent = (function () {
     function ResultComponent() {
         this.top5 = [];
+        this.downloadButtonVisible = false;
         this.currentCounty = { name: "Estonia", jobs: this.totalOffers };
     }
     ResultComponent.prototype.ngOnInit = function () {
         //console.log(jQCloud)
-        this.setTotalJobs();
-        this.returnMap();
+        var _this = this;
+        setTimeout(function () {
+            _this.setTotalJobs();
+            _this.returnMap();
+        }, 250);
         // this.returnTop5Field();
         // this.returnTop5Matches();
     };
@@ -118,6 +122,7 @@ var ResultComponent = (function () {
                 map.dataGenerated = true;
                 map.validateNow();
                 map.addListener("clickMapObject", function (event) {
+                    context.downloadButtonVisible = true;
                     context.currentCounty.name = event.mapObject.enTitle;
                     context.currentCounty.jobs = event.mapObject.value;
                     var nn = mapping[event.mapObject.enTitle];
