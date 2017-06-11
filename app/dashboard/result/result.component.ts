@@ -137,6 +137,7 @@ export class ResultComponent implements OnInit{
                         context.currentCounty.jobs = event.mapObject.value;
                         var nn = mapping[event.mapObject.enTitle]
                         let url = 'https://settlebetter.eu/api/profile/593d0288c35008000f63216e?location.county='+ encodeURIComponent(nn)
+                            +  '&workExperienceCode=KOGEMUS_0';
                         context.filteredURL = url
                         context.returnPie();
                     });

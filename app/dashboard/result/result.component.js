@@ -185,7 +185,8 @@ var ResultComponent = (function () {
                     context.currentCounty.name = event.mapObject.enTitle;
                     context.currentCounty.jobs = event.mapObject.value;
                     var nn = mapping[event.mapObject.enTitle];
-                    var url = 'https://settlebetter.eu/api/profile/593d0288c35008000f63216e?location.county=' + encodeURIComponent(nn);
+                    var url = 'https://settlebetter.eu/api/profile/593d0288c35008000f63216e?location.county=' + encodeURIComponent(nn)
+                        + '&workExperienceCode=KOGEMUS_0';
                     context.filteredURL = url;
                     context.returnPie();
                 });
