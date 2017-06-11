@@ -23,7 +23,7 @@ export class ResultComponent implements OnInit{
         this.returnMap();
     }
     ngAfterViewInit(){
-        // this.returnPie();
+
     }
     returnMap(){
         $.get('https://settlebetter.eu/api/profile/593d0288c35008000f63216e', function(data) {
@@ -32,6 +32,10 @@ export class ResultComponent implements OnInit{
                 let profile = data.data.profile
                 let suggestions = data.data.suggestions
                 let county = suggestions.group["location.county"]
+
+                context.currentCounty.jobs = suggestions.count;
+
+                console.log('suggestions', suggestions);
 
                 let map;
                 var keys = Object.keys(suggestions.group["location.county"])
@@ -120,20 +124,17 @@ export class ResultComponent implements OnInit{
                     map.mouseEnabled = false;
                     map.balloon.enabled = false;
 
-
                     map.dataGenerated = true;
                     map.validateNow();
 
                     map.addListener("clickMapObject", function(event){
                         context.currentCounty.name = event.mapObject.enTitle;
-                        context.currentCounty.jobs = event.mapObject.value || 3;
+                        context.currentCounty.jobs = event.mapObject.value;
                         var nn = mapping[event.mapObject.enTitle]
                         let url = 'https://settlebetter.eu/api/profile/593d0288c35008000f63216e?location.county='+ encodeURIComponent(nn)
                         context.filteredURL = url
                         context.returnPie();
                     });
-
-
                 }
             $('.amcharts-chart-div > a').css('visible', 'hidden');
             }.bind(this));
@@ -146,67 +147,67 @@ export class ResultComponent implements OnInit{
         }.bind(this))
     }
 
-    // returnPie(){
-    //     $.get(this.filteredURL, function(data) {
-    //         var context = this
-    //         let isco = data.data.suggestions.group.isco
-    //         let jobName = Object.keys(isco)
-    //         let newData = []
-    //
-    //         for (let el of isco){
-    //             console.log(el)
-    //         }
-    //
-    //         let chart = AmCharts.makeChart("tagCloud", {
-    //             "type": "pie",
-    //             "theme": "light",
-    //             "innerRadius": "40%",
-    //             "gradientRatio": [-0.4, -0.4, -0.4, -0.4, -0.4, -0.4, 0, 0.1, 0.2, 0.1, 0, -0.2, -0.5],
-    //             "dataProvider": [{
-    //                     "country": "Lithuania",
-    //                     "litres": 501.9
-    //                 }, {
-    //                     "country": "Czech Republic",
-    //                     "litres": 301.9
-    //                 }, {
-    //                     "country": "Ireland",
-    //                     "litres": 201.1
-    //                 }, {
-    //                     "country": "Germany",
-    //                     "litres": 165.8
-    //                 }, {
-    //                     "country": "Australia",
-    //                     "litres": 139.9
-    //                 }, {
-    //                     "country": "Austria",
-    //                     "litres": 128.3
-    //                 }],
-    //             "balloonText": "[[value]]",
-    //             "valueField": "numbers",
-    //             "titleField": "job",
-    //             "balloon": {
-    //                 "drop": true,
-    //                 "adjustBorderColor": false,
-    //                 "color": "#FFFFFF",
-    //                 "fontSize": 16
-    //             },
-    //             // "listeners": [{
-    //             //     "event": "init",
-    //             //     "method": updateHeatmap
-    //             // }]
-    //         });
+    returnPie(){
+        $.get(this.filteredURL, function(data) {
+            var context = this
+            let isco = data.data.suggestions.group.isco
+            let jobName = Object.keys(isco)
+            let newData = []
 
-            // function updateHeatmap(event) {
-            //
-            //     let innstance = event.chart
-            //     innstance.dataProvider = {
-            //         job: "test",
-            //         numbers: 4
-            //     }
-            //     console.log(innstance.dataProvider)
-            // }
-    //     }.bind(this))
-    // }
+            for (let el of isco){
+                console.log(el)
+            }
+
+            let chart = AmCharts.makeChart("tagCloud", {
+                "type": "pie",
+                "theme": "light",
+                "innerRadius": "40%",
+                "gradientRatio": [-0.4, -0.4, -0.4, -0.4, -0.4, -0.4, 0, 0.1, 0.2, 0.1, 0, -0.2, -0.5],
+                "dataProvider": [{
+                        "job": "Lithuania",
+                        "numbers": 501.9
+                    }, {
+                        "job": "Czech Republic",
+                        "numbers": 301.9
+                    }, {
+                        "job": "Ireland",
+                        "numbers": 201.1
+                    }, {
+                        "job": "Germany",
+                        "numbers": 165.8
+                    }, {
+                        "job": "Australia",
+                        "numbers": 139.9
+                    }, {
+                        "job": "Austria",
+                        "numbers": 128.3
+                    }],
+                "balloonText": "[[value]]",
+                "valueField": "numbers",
+                "titleField": "job",
+                "balloon": {
+                    "drop": true,
+                    "adjustBorderColor": false,
+                    "color": "#FFFFFF",
+                    "fontSize": 16
+                },
+                // "listeners": [{
+                //     "event": "init",
+                //     "method": updateHeatmap
+                // }]
+            });
+
+            function updateHeatmap(event) {
+
+                let innstance = event.chart
+                innstance.dataProvider = {
+                    job: "test",
+                    numbers: 4
+                }
+                console.log(innstance.dataProvider)
+            }
+        }.bind(this))
+    }
 
     // setDataProvider(arr){
     //     for(let el of arr){

@@ -11,66 +11,6 @@ var ResultComponent = (function () {
     function ResultComponent() {
         this.top5 = [];
         this.currentCounty = { name: "Estonia", jobs: this.totalOffers };
-        // returnPie(){
-        //     $.get(this.filteredURL, function(data) {
-        //         var context = this
-        //         let isco = data.data.suggestions.group.isco
-        //         let jobName = Object.keys(isco)
-        //         let newData = []
-        //
-        //         for (let el of isco){
-        //             console.log(el)
-        //         }
-        //
-        //         let chart = AmCharts.makeChart("tagCloud", {
-        //             "type": "pie",
-        //             "theme": "light",
-        //             "innerRadius": "40%",
-        //             "gradientRatio": [-0.4, -0.4, -0.4, -0.4, -0.4, -0.4, 0, 0.1, 0.2, 0.1, 0, -0.2, -0.5],
-        //             "dataProvider": [{
-        //                     "country": "Lithuania",
-        //                     "litres": 501.9
-        //                 }, {
-        //                     "country": "Czech Republic",
-        //                     "litres": 301.9
-        //                 }, {
-        //                     "country": "Ireland",
-        //                     "litres": 201.1
-        //                 }, {
-        //                     "country": "Germany",
-        //                     "litres": 165.8
-        //                 }, {
-        //                     "country": "Australia",
-        //                     "litres": 139.9
-        //                 }, {
-        //                     "country": "Austria",
-        //                     "litres": 128.3
-        //                 }],
-        //             "balloonText": "[[value]]",
-        //             "valueField": "numbers",
-        //             "titleField": "job",
-        //             "balloon": {
-        //                 "drop": true,
-        //                 "adjustBorderColor": false,
-        //                 "color": "#FFFFFF",
-        //                 "fontSize": 16
-        //             },
-        //             // "listeners": [{
-        //             //     "event": "init",
-        //             //     "method": updateHeatmap
-        //             // }]
-        //         });
-        // function updateHeatmap(event) {
-        //
-        //     let innstance = event.chart
-        //     innstance.dataProvider = {
-        //         job: "test",
-        //         numbers: 4
-        //     }
-        //     console.log(innstance.dataProvider)
-        // }
-        //     }.bind(this))
-        // }
         // setDataProvider(arr){
         //     for(let el of arr){
         //         this.chart.dataProvider.push({job: el.job, numbers: el.numbers})
@@ -142,7 +82,6 @@ var ResultComponent = (function () {
         this.returnMap();
     };
     ResultComponent.prototype.ngAfterViewInit = function () {
-        // this.returnPie();
     };
     ResultComponent.prototype.returnMap = function () {
         $.get('https://settlebetter.eu/api/profile/593d0288c35008000f63216e', function (data) {
@@ -150,6 +89,8 @@ var ResultComponent = (function () {
             var profile = data.data.profile;
             var suggestions = data.data.suggestions;
             var county = suggestions.group["location.county"];
+            context.currentCounty.jobs = suggestions.count;
+            console.log('suggestions', suggestions);
             var map;
             var keys = Object.keys(suggestions.group["location.county"]);
             var mapping = {
@@ -237,7 +178,7 @@ var ResultComponent = (function () {
                 map.validateNow();
                 map.addListener("clickMapObject", function (event) {
                     context.currentCounty.name = event.mapObject.enTitle;
-                    context.currentCounty.jobs = event.mapObject.value || 3;
+                    context.currentCounty.jobs = event.mapObject.value;
                     var nn = mapping[event.mapObject.enTitle];
                     var url = 'https://settlebetter.eu/api/profile/593d0288c35008000f63216e?location.county=' + encodeURIComponent(nn);
                     context.filteredURL = url;
@@ -251,6 +192,60 @@ var ResultComponent = (function () {
         $.get('https://settlebetter.eu/api/profile/593d0288c35008000f63216e', function (data) {
             console.log(data);
             this.currentCounty.jobs = data.data.suggestions.count;
+        }.bind(this));
+    };
+    ResultComponent.prototype.returnPie = function () {
+        $.get(this.filteredURL, function (data) {
+            var context = this;
+            var isco = data.data.suggestions.group.isco;
+            var jobName = Object.keys(isco);
+            var newData = [];
+            for (var _i = 0, isco_1 = isco; _i < isco_1.length; _i++) {
+                var el = isco_1[_i];
+                console.log(el);
+            }
+            var chart = AmCharts.makeChart("tagCloud", {
+                "type": "pie",
+                "theme": "light",
+                "innerRadius": "40%",
+                "gradientRatio": [-0.4, -0.4, -0.4, -0.4, -0.4, -0.4, 0, 0.1, 0.2, 0.1, 0, -0.2, -0.5],
+                "dataProvider": [{
+                        "job": "Lithuania",
+                        "numbers": 501.9
+                    }, {
+                        "job": "Czech Republic",
+                        "numbers": 301.9
+                    }, {
+                        "job": "Ireland",
+                        "numbers": 201.1
+                    }, {
+                        "job": "Germany",
+                        "numbers": 165.8
+                    }, {
+                        "job": "Australia",
+                        "numbers": 139.9
+                    }, {
+                        "job": "Austria",
+                        "numbers": 128.3
+                    }],
+                "balloonText": "[[value]]",
+                "valueField": "numbers",
+                "titleField": "job",
+                "balloon": {
+                    "drop": true,
+                    "adjustBorderColor": false,
+                    "color": "#FFFFFF",
+                    "fontSize": 16
+                },
+            });
+            function updateHeatmap(event) {
+                var innstance = event.chart;
+                innstance.dataProvider = {
+                    job: "test",
+                    numbers: 4
+                };
+                console.log(innstance.dataProvider);
+            }
         }.bind(this));
     };
     return ResultComponent;
