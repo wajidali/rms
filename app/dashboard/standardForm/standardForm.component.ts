@@ -3,6 +3,7 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import {Occupation} from "../../_modals/occupation";
 import {Speciality} from "../../_modals/speciality";
 import {DataService} from "../../_services/dataservice";
+import forEach = require("core-js/fn/array/for-each");
 declare  let initDatetimepickers:any;
 declare  let validity: any;
 
@@ -19,7 +20,7 @@ export class StandardForm implements OnInit{
     languages:any;
     selectedOccupation:Occupation = new Occupation(0, 'Pakistan');
     occupations: Occupation[];
-    specialities: Speciality[];
+    specialities: any[];
     @ViewChild('imagePicker') imagePicker;
     constructor(private http: Http, private _dataService: DataService){
         this.occupations = this._dataService.getOccupations();
@@ -38,6 +39,7 @@ export class StandardForm implements OnInit{
         this.formModel.importantNearMe ={};
         this.formModel.settlement ={};
         this.formModel.locationPreference = {};
+        this.formModel.specialities = [];
         this.languages = [
             { id: 'English', name: 'English' },
             { id: 'Estonian', name: 'Estonian' },
@@ -51,10 +53,24 @@ export class StandardForm implements OnInit{
             dynamicTitleMaxItems: 11,
             //displayAllSelectedText: true
         };
-        $(this.imagePicker.nativeElement).imagepicker({show_label: true})
+        //$(this.imagePicker.nativeElement).imagepicker({show_label: true})
     }
-    onChange(event) {
+    ngAfterViewInit(){
+        this.formModel.specialities = [];
+    }
+    onSpecialityChange(event) {
 
+
+        var self = this;
+
+        $.each(this.specialities, function(i, v){
+            $.each(event, function (index, value) {
+                if(v.id == value){
+                    self.formModel.specialities.push(v);
+                }
+
+            })
+        })
     }
 
     postForm(){
@@ -90,20 +106,30 @@ export class StandardForm implements OnInit{
                 }
             });
 
+            function updateProgress(pageId) {
+                let width = pageId / 4*100;
+                $('#pages_progress').css('width', width + '%');
+            }
+
             allPrevBtn.click(function(){
                 var curStep = $(this).closest(".setup-content"),
                     curStepBtn = curStep.attr("id"),
                     prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
 
                 prevStepWizard.removeAttr('disabled').trigger('click');
+
+                updateProgress(parseInt(curStepBtn.replace('step-', ''), 10));
             });
 
             allNextBtn.click(function(){
+
                 var curStep = $(this).closest(".setup-content"),
                     curStepBtn = curStep.attr("id"),
                     nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
                     curInputs = curStep.find("input[type='text'],input[type='url']"),
                     isValid = true;
+
+                updateProgress(parseInt(curStepBtn.replace('step-', ''), 10));
 
                 $(".form-group").removeClass("has-error");
                 for(var i=0; i<curInputs.length; i++){
@@ -119,6 +145,11 @@ export class StandardForm implements OnInit{
 
             $('div.setup-panel div a.btn-primary').trigger('click');
 
+
+            $('.location-selector img').click(function () {
+                $('.location-selector img').removeClass('selectedImg');
+                $(this).addClass('selectedImg');
+            });
     }
 
     private jwt() {

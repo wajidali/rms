@@ -160,3 +160,15 @@ my-app .main-panel .main-content .card{
 .tim-row h3{
     margin-top: 0;
 }
+
+.location-selector img {
+    padding: 0;
+    border-radius: 5px;
+    border: 5px transparent solid;
+    opacity: 0.6;
+}
+
+.location-selector img.selectedImg {
+    border: 5px green solid;
+    opacity: 1;
+}

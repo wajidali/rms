@@ -33,6 +33,7 @@ var StandardForm = (function () {
         this.formModel.importantNearMe = {};
         this.formModel.settlement = {};
         this.formModel.locationPreference = {};
+        this.formModel.specialities = [];
         this.languages = [
             { id: 'English', name: 'English' },
             { id: 'Estonian', name: 'Estonian' },
@@ -44,9 +45,20 @@ var StandardForm = (function () {
             buttonClasses: 'btn btn-default btn-block',
             dynamicTitleMaxItems: 11,
         };
-        $(this.imagePicker.nativeElement).imagepicker({ show_label: true });
+        //$(this.imagePicker.nativeElement).imagepicker({show_label: true})
     };
-    StandardForm.prototype.onChange = function (event) {
+    StandardForm.prototype.ngAfterViewInit = function () {
+        this.formModel.specialities = [];
+    };
+    StandardForm.prototype.onSpecialityChange = function (event) {
+        var self = this;
+        $.each(this.specialities, function (i, v) {
+            $.each(event, function (index, value) {
+                if (v.id == value) {
+                    self.formModel.specialities.push(v);
+                }
+            });
+        });
     };
     StandardForm.prototype.postForm = function () {
         console.log(this.formModel);
@@ -71,12 +83,18 @@ var StandardForm = (function () {
                 $target.find('input:eq(0)').focus();
             }
         });
+        function updateProgress(pageId) {
+            var width = pageId / 4 * 100;
+            $('#pages_progress').css('width', width + '%');
+        }
         allPrevBtn.click(function () {
             var curStep = $(this).closest(".setup-content"), curStepBtn = curStep.attr("id"), prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
             prevStepWizard.removeAttr('disabled').trigger('click');
+            updateProgress(parseInt(curStepBtn.replace('step-', ''), 10));
         });
         allNextBtn.click(function () {
             var curStep = $(this).closest(".setup-content"), curStepBtn = curStep.attr("id"), nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"), curInputs = curStep.find("input[type='text'],input[type='url']"), isValid = true;
+            updateProgress(parseInt(curStepBtn.replace('step-', ''), 10));
             $(".form-group").removeClass("has-error");
             for (var i = 0; i < curInputs.length; i++) {
                 // if (!<HTMLInputElement>curInputs[i].validity.valid){
@@ -88,6 +106,10 @@ var StandardForm = (function () {
                 nextStepWizard.removeAttr('disabled').trigger('click');
         });
         $('div.setup-panel div a.btn-primary').trigger('click');
+        $('.location-selector img').click(function () {
+            $('.location-selector img').removeClass('selectedImg');
+            $(this).addClass('selectedImg');
+        });
     };
     StandardForm.prototype.jwt = function () {
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
