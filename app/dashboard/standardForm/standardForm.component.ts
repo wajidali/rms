@@ -95,20 +95,29 @@ console.log(this.formModel.specialities);
                 }
             });
 
+            function updateProgress(pageId) {
+                $('#pages_progress').css('width', parseInt(pageId/4*100, 10) + '%');
+            }
+
             allPrevBtn.click(function(){
                 var curStep = $(this).closest(".setup-content"),
                     curStepBtn = curStep.attr("id"),
                     prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
 
                 prevStepWizard.removeAttr('disabled').trigger('click');
+
+                updateProgress(parseInt(curStepBtn.replace('step-', ''), 10));
             });
 
             allNextBtn.click(function(){
+
                 var curStep = $(this).closest(".setup-content"),
                     curStepBtn = curStep.attr("id"),
                     nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
                     curInputs = curStep.find("input[type='text'],input[type='url']"),
                     isValid = true;
+
+                updateProgress(parseInt(curStepBtn.replace('step-', ''), 10));
 
                 $(".form-group").removeClass("has-error");
                 for(var i=0; i<curInputs.length; i++){
