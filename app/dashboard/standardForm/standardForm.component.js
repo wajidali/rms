@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var occupation_1 = require("../../_modals/occupation");
-var speciality_1 = require("../../_modals/speciality");
 var dataservice_1 = require("../../_services/dataservice");
 var StandardForm = (function () {
     function StandardForm(http, _dataService) {
@@ -34,7 +33,7 @@ var StandardForm = (function () {
         this.formModel.importantNearMe = {};
         this.formModel.settlement = {};
         this.formModel.locationPreference = {};
-        this.formModel.specialities = [new speciality_1.Speciality(1, 1, 'Chief executive')];
+        this.formModel.specialities = [];
         this.languages = [
             { id: 'English', name: 'English' },
             { id: 'Estonian', name: 'Estonian' },
@@ -48,11 +47,18 @@ var StandardForm = (function () {
         };
         //$(this.imagePicker.nativeElement).imagepicker({show_label: true})
     };
+    StandardForm.prototype.ngAfterViewInit = function () {
+        this.formModel.specialities = [];
+    };
     StandardForm.prototype.onSpecialityChange = function (event) {
-        console.log(event);
-        console.log(this.formModel.specialities);
-        //this.formModel.specialities.push(this.specialities.filter((item) =>  event.filter((i)=> item.id == i)));
-        //event = null;
+        var self = this;
+        $.each(this.specialities, function (i, v) {
+            $.each(event, function (index, value) {
+                if (v.id == value) {
+                    self.formModel.specialities.push(v);
+                }
+            });
+        });
     };
     StandardForm.prototype.postForm = function () {
         console.log(this.formModel);
@@ -78,7 +84,8 @@ var StandardForm = (function () {
             }
         });
         function updateProgress(pageId) {
-            $('#pages_progress').css('width', parseInt(pageId / 4 * 100, 10) + '%');
+            var width = pageId / 4 * 100;
+            $('#pages_progress').css('width', width + '%');
         }
         allPrevBtn.click(function () {
             var curStep = $(this).closest(".setup-content"), curStepBtn = curStep.attr("id"), prevStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().prev().children("a");
