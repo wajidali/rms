@@ -10,7 +10,7 @@ exports.MODULE_ROUTES = [
     { path: 'standard-form', component: standardForm_component_1.StandardForm },
     { path: 'result', component: result_component_1.ResultComponent },
     { path: 'user', component: user_component_1.UserComponent },
-    { path: ' ', redirectTo: 'standard-form', pathMatch: 'full' },
+    { path: '', redirectTo: 'standard-form', pathMatch: 'full' },
 ];
 exports.MODULE_COMPONENTS = [
     home_component_1.HomeComponent,

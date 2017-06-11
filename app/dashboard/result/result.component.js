@@ -13,9 +13,14 @@ var ResultComponent = (function () {
         this.currentCounty = { name: "Estonia", jobs: this.totalOffers };
     }
     ResultComponent.prototype.ngOnInit = function () {
+        //console.log(jQCloud)
         this.setTotalJobs();
         this.returnMap();
-        this.returnTop5Matches();
+        // this.returnTop5Field();
+        // this.returnTop5Matches();
+    };
+    ResultComponent.prototype.ngAfterViewInit = function () {
+        this.returnPie();
     };
     ResultComponent.prototype.setMatch = function (county, num) {
         var id = $('#' + county.name);
@@ -23,10 +28,10 @@ var ResultComponent = (function () {
     };
     ResultComponent.prototype.returnMap = function () {
         $.get('https://settlebetter.eu/api/profile/593d0288c35008000f63216e', function (data) {
-            // $.get('https://test.n8rth.online/api/aggr/offers/county', function(data) {
             var context = this;
             var profile = data.data.profile;
             var suggestions = data.data.suggestions;
+            var county = suggestions.group["location.county"];
             var map;
             var keys = Object.keys(suggestions.group["location.county"]);
             var mapping = {
@@ -51,7 +56,6 @@ var ResultComponent = (function () {
             var max = 0;
             var str = '';
             var listValues = {};
-            var county = suggestions.group["location.county"];
             for (var i = 0; i < keys.length; i++) {
                 str += keys[i] + "\n";
             }
@@ -98,30 +102,11 @@ var ResultComponent = (function () {
                 var str = '';
                 for (var i = 0; i < map.dataProvider.areas.length; i++) {
                     var c = map.dataProvider.areas[i].enTitle;
-                    // console.log(mapping[c])
-                    // console.log(keys[i])
-                    // console.log(suggestions.group["location.county"][keys[i]])
-                    //
-                    // map.dataProvider.areas[i].value = 0;
-                    //
-                    // if (keys[i] != mapping[c] || !suggestions.group["location.county"][keys[i]]) {
-                    //     return;
-                    // }
-                    // map.dataProvider.areas[i].value = suggestions.group["location.county"][keys[i]];
-                    // $.each(data, function(i2, e) {
-                    //     // console.log(keys[num])
-                    //     // console.log(mapping[c])
-                    //     // console.log(e.suggestions.group["location.county"]._id)
-                    //
-                    //
-                    //     num ++
-                    // });
                     $.each(keys, function (i2, e) {
-                        console.log(suggestions[e]);
-                        if (e != mapping[c] || !e.count) {
+                        if (e != mapping[c] || !county[e]) {
                             return;
                         }
-                        map.dataProvider.areas[i].value = e.count;
+                        map.dataProvider.areas[i].value = county[e];
                     });
                     str += map.dataProvider.areas[i].enTitle + "\n";
                 }
@@ -130,132 +115,24 @@ var ResultComponent = (function () {
                 map.autoResize = false;
                 map.mouseEnabled = false;
                 map.balloon.enabled = false;
-                console.log(map);
                 map.dataGenerated = true;
                 map.validateNow();
                 map.addListener("clickMapObject", function (event) {
-                    console.log('enTitle', event.mapObject);
                     context.currentCounty.name = event.mapObject.enTitle;
                     context.currentCounty.jobs = event.mapObject.value;
+                    var nn = mapping[event.mapObject.enTitle];
+                    var url = 'https://settlebetter.eu/api/profile/593d0288c35008000f63216e?location.county=' + encodeURIComponent(nn);
+                    context.filteredURL = url;
+                    context.returnTop5Field();
                 });
             }
         }.bind(this));
     };
-    // returnMap(){
-    // $.get('https://test.n8rth.online/api/aggr/offers/county', function(data) {
-    //         var context = this
-    //         let map;
-    //         var mapping = {
-    //             // map => tootukassa
-    //             "Viljandimaa": "Viljandi maakond",
-    //             "Põlvamaa": "Põlva maakond",
-    //             "Ida-Virumaa": "Ida-Viru maakond",
-    //             "Tartumaa": "Tartu maakond",
-    //             "Järvamaa": "Järva maakond",
-    //             "Võrumaa": "Võru maakond",
-    //             "Pärnumaa": "Pärnu maakond",
-    //             "Lääne-Virumaa": "Lääne-Viru maakond",
-    //             "Hiiumaa": "Hiiu maakond",
-    //             "Läänemaa": "Lääne maakond",
-    //             "Valgamaa": "Valga maakond",
-    //             "Jõgevamaa": "Jõgeva maakond",
-    //             "Raplamaa": "Rapla maakond",
-    //             "Saaremaa": "Saare maakond",
-    //             "Harjumaa": "Harju maakond"
-    //         };
-    //
-    //         var total = 0;
-    //         var max = 0;
-    //         var str = '';
-    //         var listValues = {};
-    //         $.each(data, function(i, e) {
-    //             if (e._id.county == 'unknown') {
-    //                 return;
-    //             }
-    //             max = Math.max(max, e.count);
-    //             total += e.count;
-    //             str += e._id.county + "\n";
-    //         });
-    //         // calculate which map to be used
-    //         var currentMap = "estoniaHigh";
-    //         var titles = {
-    //             "text": "Estonia"
-    //         };
-    //         AmCharts.makeChart("chartdiv", {
-    //                 "type": "map",
-    //                 "theme": "light",
-    //                 "colorSteps": 10,
-    //                 "dataProvider": {
-    //                     "mapURL": "/assets/img/" + currentMap + ".svg",
-    //                     "getAreasFromMap": true,
-    //                     "zoomLevel": 0.9,
-    //                     "areas": []
-    //                 },
-    //                 "areasSettings": {
-    //                     "autoZoom": true,
-    //                     "balloonText": "[[title]]: <strong>[[value]]</strong>"
-    //                 },
-    //                 "zoomControl": {
-    //                     "minZoomLevel": 0.9
-    //                 },
-    //                 "titles": titles,
-    //                 "listeners": [{
-    //                     "event": "init",
-    //                     "method": updateHeatmap
-    //                 }]
-    //         });
-    //         function updateHeatmap(event) {
-    //             var map = event.chart;
-    //             if (map.dataGenerated)
-    //                 return;
-    //             if (map.dataProvider.areas.length === 0) {
-    //                 setTimeout(updateHeatmap, 100);
-    //                 return;
-    //             }
-    //             var str = '';
-    //             for (var i = 0; i < map.dataProvider.areas.length; i++) {
-    //                 var c = map.dataProvider.areas[i].enTitle;
-    //                 map.dataProvider.areas[i].value = 0;
-    //                 $.each(data, function(i2, e) {
-    //                     console.log(e)
-    //                     if (e._id.county != mapping[c] || !e.count) {
-    //                         return;
-    //                     }
-    //                     map.dataProvider.areas[i].value = e.count;
-    //                 });
-    //
-    //                 str += map.dataProvider.areas[i].enTitle + "\n";
-    //             }
-    //             //test
-    //             map.autoZoomReal = false;
-    //             map.autoResize = false;
-    //             map.mouseEnabled = false;
-    //             map.balloon.enabled = false;
-    //             console.log(map);
-    //
-    //             map.dataGenerated = true;
-    //             map.validateNow();
-    //
-    //             map.addListener("clickMapObject", function(event){
-    //                 console.log('enTitle', event.mapObject);
-    //                 context.currentCounty.name = event.mapObject.enTitle;
-    //                 context.currentCounty.jobs = event.mapObject.value;
-    //             });
-    //         }
-    //     }.bind(this));
-    // }
     ResultComponent.prototype.setTotalJobs = function () {
         $.get('https://settlebetter.eu/api/profile/593d0288c35008000f63216e', function (data) {
             console.log(data);
             this.currentCounty.jobs = data.data.suggestions.count;
         }.bind(this));
-        // $.get('https://test.n8rth.online/api/aggr/offers/county', function(data) {
-        //     let total = 0
-        //     for (let obj of data){
-        //         total += obj.count
-        //     }
-        //     this.currentCounty.jobs = total
-        // }.bind(this))
     };
     ResultComponent.prototype.returnTop5Matches = function () {
         $.get('https://test.n8rth.online/api/offers?isco=veoautojuht', function (data) {
@@ -277,6 +154,72 @@ var ResultComponent = (function () {
             }
             console.log(this.top5);
         }.bind(this));
+    };
+    ResultComponent.prototype.returnTop5Field = function () {
+        $.get(this.filteredURL, function (data) {
+            var isco = data.data.suggestions.group.isco;
+            var jobName = Object.keys(isco);
+            var arrMode = [];
+            var mapping = {};
+            var counter = 0;
+            var array = [];
+            for (var _i = 0, jobName_1 = jobName; _i < jobName_1.length; _i++) {
+                var name_1 = jobName_1[_i];
+                array.push({ text: name_1, weight: isco.name });
+            }
+            $('#tagCloud').jQCloud(array);
+            // for(let obj of isco){
+            //     arrMode.push(obj)
+            // }
+            // for(let i = 0;i < arrMode.length; i++){
+            //     if (!mapping[arrMode[i]]) mapping[arrMode[i]] = 0;
+            //     mapping[arrMode[i]] += 1
+            // }
+            console.log(mapping);
+            // console.log(isco);
+            // console.log(jobName)
+        }.bind(this));
+    };
+    ResultComponent.prototype.returnPie = function () {
+        // $.get(this.filteredURL, function(data) {
+        var chart = AmCharts.makeChart("tagCloud", {
+            "type": "pie",
+            "theme": "light",
+            "innerRadius": "40%",
+            "gradientRatio": [-0.4, -0.4, -0.4, -0.4, -0.4, -0.4, 0, 0.1, 0.2, 0.1, 0, -0.2, -0.5],
+            "dataProvider": [{
+                    "country": "Lithuania",
+                    "litres": 501.9
+                }, {
+                    "country": "Czech Republic",
+                    "litres": 301.9
+                }, {
+                    "country": "Ireland",
+                    "litres": 201.1
+                }, {
+                    "country": "Germany",
+                    "litres": 165.8
+                }, {
+                    "country": "Australia",
+                    "litres": 139.9
+                }, {
+                    "country": "Austria",
+                    "litres": 128.3
+                }],
+            "balloonText": "[[value]]",
+            "valueField": "litres",
+            "titleField": "country",
+            "balloon": {
+                "drop": true,
+                "adjustBorderColor": false,
+                "color": "#FFFFFF",
+                "fontSize": 16
+            },
+            "export": {
+                "enabled": true
+            }
+        });
+        // }.bind(this))
     };
     return ResultComponent;
 }());
