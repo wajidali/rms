@@ -91,9 +91,8 @@ LoginRegisterComponent = __decorate([
         templateUrl: 'login-register.component.html',
         styleUrls: ['login-register.css']
     }),
-    __metadata("design:paramtypes", [authentication_service_1.AuthenticationService,
-        router_1.ActivatedRoute,
-        router_1.Router])
+    __metadata("design:paramtypes", [authentication_service_1.AuthenticationService, typeof (_a = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _a || Object, typeof (_b = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _b || Object])
 ], LoginRegisterComponent);
 exports.LoginRegisterComponent = LoginRegisterComponent;
+var _a, _b;
 //# sourceMappingURL=login-register.component.js.map
