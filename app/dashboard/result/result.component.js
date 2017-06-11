@@ -189,6 +189,7 @@ var ResultComponent = (function () {
                         + '&workExperienceCode=KOGEMUS_0';
                     context.filteredURL = url;
                     context.returnPie();
+                    console.log(event.mapObject);
                 });
             }
             $('.amcharts-chart-div > a').css('visible', 'hidden');

@@ -3,13 +3,13 @@
     <div id="totalOffersDiv">
         <div id="totalOffers">There are <strong>{{currentCounty.jobs}}</strong> matching jobs in <strong>{{currentCounty.name}}</strong></div>
     </div>
-    <div style="height: 10vh;">
+    <div id = "buffer" style="height: 10vh;">
 
     </div>
     <div id="tagCloud" style="overflow: scroll; text-align: left; height: 100vh; width: 100%">
 
     </div>
-    <div class="form-group" style="margin-top: 10%;" [hidden]="!downloadButtonVisible">
+    <div class="form-group" style="margin-top: 1%;" [hidden]="!downloadButtonVisible">
         <label class="col-md-4 control-label" for="singlebutton"></label>
         <div class="col-md-4 center-block">
             <a id="singlebutton" name="singlebutton" [routerLink]="['/standard-form']" class="btn btn-default center-block" style="background-color: #F171A7 ; width: 340px; height: 80px; font-size: x-large; line-height: 60px; margin: 0 auto;" >
