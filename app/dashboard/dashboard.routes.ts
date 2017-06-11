@@ -10,13 +10,13 @@ import { AuthGuard } from '../_guards/auth.guard';
 import {StandardForm} from "./standardForm/standardForm.component";
 
 export const MODULE_ROUTES: Route[] =[
-    //{ path: 'dashboard', component: HomeComponent},
+    { path: 'dashboard', component: HomeComponent},
     // { path: 'login', component: LoginRegisterComponent },
     { path: 'standard-form', component: StandardForm },
     { path: 'result', component: ResultComponent },
 
     { path: 'user', component: UserComponent },
-    { path: '', redirectTo: 'standard-form', pathMatch: 'full' },
+    { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
 
     // { path: 'public',
     //   redirectTo: '',
@@ -29,7 +29,7 @@ export const MODULE_ROUTES: Route[] =[
 ]
 
 export const MODULE_COMPONENTS = [
-    //HomeComponent,
+    HomeComponent,
     // LoginRegisterComponent,
     UserComponent,
     ResultComponent,
