@@ -15,7 +15,7 @@ import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
         RouterModule.forChild(MODULE_ROUTES),
         FormsModule,
         CommonModule,
-        BrowserAnimationsModule,
+        //BrowserAnimationsModule,
         MultiselectDropdownModule
 
     ],
