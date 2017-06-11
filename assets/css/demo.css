@@ -16,10 +16,10 @@ my-app .main-panel .main-content .card{
 #totalOffersDiv{
     margin: auto;
     width: 100%;
-    height: 5vh;
+    height: 3vh;
 }
 #totalOffers{
-    font-size: 3em;
+    font-size: 5vw;
     margin-top: 5%;
     text-align: center;
 }
@@ -34,24 +34,23 @@ my-app .main-panel .main-content .card{
     border-radius: 25px;
 }
 #top5Div{
-    font-size: 2em;
+    font-size: 3vw;
     width: 100%;
     margin-top: 5%;
-    align-items: center;
 }
-
 #top5Message{
     margin: auto;
-    font-size: 1.5em;
+    font-size: 3vw;
     text-align: center;
     width: 100%;
-    line-height: 270%;
     height: 10vh;
+    line-height: 10vh; 
     vertical-align: middle;
 }
 
 .top5{
     margin: 5%;
+    font-size: 3vh;
     align-self: center;
     text-align: center;
 }
