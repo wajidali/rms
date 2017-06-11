@@ -11,6 +11,49 @@ var ResultComponent = (function () {
     function ResultComponent() {
         this.top5 = [];
         this.currentCounty = { name: "Estonia", numbers: this.totalOffers };
+        // returnPie(){
+        //     return;
+        //
+        //     $.get(this.filteredURL, function(data) {
+        //         var context = this
+        //         let isco = data.data.suggestions.group.isco
+        //         let jobName = Object.keys(isco)
+        //         let newData = []
+        //
+        //         for (let el of isco){
+        //             console.log(el)
+        //         }
+        //
+        //         let chart = AmCharts.makeChart("tagCloud", {
+        //             "type": "pie",
+        //             "theme": "light",
+        //             "innerRadius": "40%",
+        //             "gradientRatio": [-0.4, -0.4, -0.4, -0.4, -0.4, -0.4, 0, 0.1, 0.2, 0.1, 0, -0.2, -0.5],
+        //             "dataProvider": [],
+        //             "balloonText": "[[value]]",
+        //             "valueField": "numbers",
+        //             "titleField": "job",
+        //             "balloon": {
+        //                 "drop": true,
+        //                 "adjustBorderColor": false,
+        //                 "color": "#FFFFFF",
+        //                 "fontSize": 16
+        //             },
+        //             "listeners": [{
+        //                 "event": "init",
+        //                 "method": updateHeatmap
+        //             }]
+        //         });
+        //         function updateHeatmap(event) {
+        //
+        //             let innstance = event.chart
+        //             innstance.dataProvider.push({
+        //                 job: "test",
+        //                 numbers: 4
+        //             })
+        //         }
+        //     }.bind(this))
+        // }
         // setDataProvider(arr){
         //     for(let el of arr){
         //         this.chart.dataProvider.push({job: el.job, numbers: el.numbers})
@@ -191,45 +234,6 @@ var ResultComponent = (function () {
         $.get('https://settlebetter.eu/api/profile/593d0288c35008000f63216e', function (data) {
             console.log(data);
             this.currentCounty.numbers = data.data.suggestions.count;
-        }.bind(this));
-    };
-    ResultComponent.prototype.returnPie = function () {
-        $.get(this.filteredURL, function (data) {
-            var context = this;
-            var isco = data.data.suggestions.group.isco;
-            var jobName = Object.keys(isco);
-            var newData = [];
-            for (var _i = 0, isco_1 = isco; _i < isco_1.length; _i++) {
-                var el = isco_1[_i];
-                console.log(el);
-            }
-            var chart = AmCharts.makeChart("tagCloud", {
-                "type": "pie",
-                "theme": "light",
-                "innerRadius": "40%",
-                "gradientRatio": [-0.4, -0.4, -0.4, -0.4, -0.4, -0.4, 0, 0.1, 0.2, 0.1, 0, -0.2, -0.5],
-                "dataProvider": [],
-                "balloonText": "[[value]]",
-                "valueField": "numbers",
-                "titleField": "job",
-                "balloon": {
-                    "drop": true,
-                    "adjustBorderColor": false,
-                    "color": "#FFFFFF",
-                    "fontSize": 16
-                },
-                "listeners": [{
-                        "event": "init",
-                        "method": updateHeatmap
-                    }]
-            });
-            function updateHeatmap(event) {
-                var innstance = event.chart;
-                innstance.dataProvider.push({
-                    job: "test",
-                    numbers: 4
-                });
-            }
         }.bind(this));
     };
     return ResultComponent;

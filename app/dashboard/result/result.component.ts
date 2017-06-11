@@ -146,47 +146,49 @@ export class ResultComponent implements OnInit{
         }.bind(this))
     }
 
-    returnPie(){
-        $.get(this.filteredURL, function(data) {
-            var context = this
-            let isco = data.data.suggestions.group.isco
-            let jobName = Object.keys(isco)
-            let newData = []
-
-            for (let el of isco){
-                console.log(el)
-            }
-
-            let chart = AmCharts.makeChart("tagCloud", {
-                "type": "pie",
-                "theme": "light",
-                "innerRadius": "40%",
-                "gradientRatio": [-0.4, -0.4, -0.4, -0.4, -0.4, -0.4, 0, 0.1, 0.2, 0.1, 0, -0.2, -0.5],
-                "dataProvider": [],
-                "balloonText": "[[value]]",
-                "valueField": "numbers",
-                "titleField": "job",
-                "balloon": {
-                    "drop": true,
-                    "adjustBorderColor": false,
-                    "color": "#FFFFFF",
-                    "fontSize": 16
-                },
-                "listeners": [{
-                    "event": "init",
-                    "method": updateHeatmap
-                }]
-            });
-            function updateHeatmap(event) {
-
-                let innstance = event.chart
-                innstance.dataProvider.push({
-                    job: "test",
-                    numbers: 4
-                })
-            }
-        }.bind(this))
-    }
+    // returnPie(){
+    //     return;
+    //
+    //     $.get(this.filteredURL, function(data) {
+    //         var context = this
+    //         let isco = data.data.suggestions.group.isco
+    //         let jobName = Object.keys(isco)
+    //         let newData = []
+    //
+    //         for (let el of isco){
+    //             console.log(el)
+    //         }
+    //
+    //         let chart = AmCharts.makeChart("tagCloud", {
+    //             "type": "pie",
+    //             "theme": "light",
+    //             "innerRadius": "40%",
+    //             "gradientRatio": [-0.4, -0.4, -0.4, -0.4, -0.4, -0.4, 0, 0.1, 0.2, 0.1, 0, -0.2, -0.5],
+    //             "dataProvider": [],
+    //             "balloonText": "[[value]]",
+    //             "valueField": "numbers",
+    //             "titleField": "job",
+    //             "balloon": {
+    //                 "drop": true,
+    //                 "adjustBorderColor": false,
+    //                 "color": "#FFFFFF",
+    //                 "fontSize": 16
+    //             },
+    //             "listeners": [{
+    //                 "event": "init",
+    //                 "method": updateHeatmap
+    //             }]
+    //         });
+    //         function updateHeatmap(event) {
+    //
+    //             let innstance = event.chart
+    //             innstance.dataProvider.push({
+    //                 job: "test",
+    //                 numbers: 4
+    //             })
+    //         }
+    //     }.bind(this))
+    // }
 
     // setDataProvider(arr){
     //     for(let el of arr){
