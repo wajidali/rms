@@ -1,80 +1,85 @@
 
+
 <div class="main-content">
 
-    <nav navbar-affix="" id="fixed-submenu" class="navbar-sub ">
+    <nav class="navbar navbar-transparent navbar-absolute navbar-sub affix" id="fixed-submenu" navbar-affix>
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-xs-12">
-                    <ul class="nav nav-pills nav-pills-submenu">
-                        <li role="presentation"><a data-id="#" class="scroll-link ng-binding" href="#aboutUs">About</a></li>
-                        <li role="presentation"><a data-id="#" class="scroll-link ng-binding" href="#contactUs">Contact Us</a></li>
-                    </ul>
-                </div>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" >
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div>
+            <div class="collapse navbar-collapse">
+
+                <ul class="nav nav-pills nav-pills-submenu">
+                    <li role="presentation"><a data-id="#" class="scroll-link ng-binding" href="#homeus">Home</a></li>
+                    <li role="presentation"><a data-id="#" class="scroll-link ng-binding" href="#aboutUs">About</a></li>
+                    <li role="presentation"><a data-id="#" class="scroll-link ng-binding" href="#contactUs">Contact Us</a></li>
+                </ul>
+
             </div>
         </div>
     </nav>
 
-<div class="col-md-12">
-        <div class="container-fluid" style="margin-top: 10%;">
-            <div class="row">
-                <img class="center-block" src="../../../assets/img/Settlbetterlogo.png" style="width: 600px; " >
-            </div>
-            <div class="row">
-                <!--<div style="" class="center">-->
-                    <!--<button [routerLink]="['/standard-form']" class="btn btn-default center-block" style="background-color: #F171A7; width: 340px; height: 80px; font-size: x-large; line-height: 60px;">Settle now</button>-->
-                <!--</div>-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="singlebutton"></label>
-                    <div class="col-md-4 center-block">
-                        <a id="singlebutton" name="singlebutton" [routerLink]="['/standard-form']" class="btn btn-default center-block" style="background-color: #F171A7; width: 340px; height: 80px; font-size: x-large; line-height: 60px; margin: 0 auto;" >
-                           Settle now
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-</div>
-
-
 
     <div class="container-fluid panels ng-scope">
-        <div class="col-md-12">
-            <div class="row">
 
-
-
-                <div class="container-fluid data-block-side data-block-color-1 ng-scope" id="aboutUs">
-                    <div class="col-md-8 col-md-offset-2">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <h2 class="h2 ng-binding">About</h2>
-                                <p class="ng-binding">Small businesses are often remarkably talented at focusing on what they do best. However, that often leaves little time to search for information and contacts that can help them grow. Trade is Key gives these businesses an easy to use single point of access to that support.</p>
-                            </div>
-                            <div class="col-sm-6">
-                                <img class="img-responsive" height="500" src="../../../assets/img/img_83640573972.png" alt="Picture">
+            <div class="container-fluid data-block-side data-block-color-1 ng-scope" id="homeus">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="row">
+                        <img class="center-block" src="../../../assets/img/Settlbetterlogo.png" style="width: 600px; " >
+                    </div>
+                    <div class="row">
+                        <!--<div style="" class="center">-->
+                        <!--<button [routerLink]="['/standard-form']" class="btn btn-default center-block" style="background-color: #F171A7; width: 340px; height: 80px; font-size: x-large; line-height: 60px;">Settle now</button>-->
+                        <!--</div>-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="singlebutton"></label>
+                            <div class="col-md-4 center-block">
+                                <a id="singlebutton" name="singlebutton" [routerLink]="['/standard-form']" class="btn btn-default center-block" style="background-color: #F171A7; width: 340px; height: 80px; font-size: x-large; line-height: 60px; margin: 0 auto;" >
+                                    Settle now
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="container-fluid data-block-side data-block-color-0 ng-scope" id="contactUs">
-                    <div class="col-md-8 col-md-offset-2">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <img class="img-responsive" height="500" src="../../../assets/img/img_83640573971.png" alt="Picture">
-                            </div>
-                            <div class="col-sm-6">
-                                <h2 class="h2 ng-binding">Contact Us</h2>
-                                <p class="ng-binding">Trade barriers affect small companies far more than those with the staff and resources to overcome them. Trade is Key gives firms the ability to voice the challenges they face in their region and industry.</p>
-                                <p class="ng-binding">From dual certification demands to tariff barriers there are many policy decisions that need input from stakeholders. Trade is Key provides small businesses with a virtual advocacy tool where decision makers can easily find and address these practical obstacles to growth.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
             </div>
-        </div>
+
+
+            <div class="container-fluid data-block-side data-block-color-1 ng-scope" id="aboutUs">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h2 class="h2 ng-binding">About</h2>
+                            <p class="ng-binding">Small businesses are often remarkably talented at focusing on what they do best. However, that often leaves little time to search for information and contacts that can help them grow. Trade is Key gives these businesses an easy to use single point of access to that support.</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <img class="img-responsive" height="500" src="../../../assets/img/img_83640573972.png" alt="Picture">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid data-block-side data-block-color-0 ng-scope" id="contactUs">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <img class="img-responsive" height="500" src="../../../assets/img/img_83640573971.png" alt="Picture">
+                        </div>
+                        <div class="col-sm-6">
+                            <h2 class="h2 ng-binding">Contact Us</h2>
+                            <p class="ng-binding">Trade barriers affect small companies far more than those with the staff and resources to overcome them. Trade is Key gives firms the ability to voice the challenges they face in their region and industry.</p>
+                            <p class="ng-binding">From dual certification demands to tariff barriers there are many policy decisions that need input from stakeholders. Trade is Key provides small businesses with a virtual advocacy tool where decision makers can easily find and address these practical obstacles to growth.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
+
+
+
 </div>

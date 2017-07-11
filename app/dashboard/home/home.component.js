@@ -7,7 +7,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var initDemo = require("../../../assets/js/charts.js");
 var HomeComponent = (function () {
     function HomeComponent() {
     }
@@ -18,7 +17,7 @@ var HomeComponent = (function () {
         //     var $checkbox = $(this);
         //     $checkbox.checkbox();
         // });
-        initDemo();
+        //initDemo();
     };
     return HomeComponent;
 }());
