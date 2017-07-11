@@ -44,8 +44,7 @@ NavbarComponent = __decorate([
         selector: 'navbar-cmp',
         templateUrl: 'navbar.component.html'
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof common_1.Location !== "undefined" && common_1.Location) === "function" && _a || Object, authentication_service_1.AuthenticationService])
+    __metadata("design:paramtypes", [common_1.Location, authentication_service_1.AuthenticationService])
 ], NavbarComponent);
 exports.NavbarComponent = NavbarComponent;
-var _a;
 //# sourceMappingURL=navbar.component.js.map

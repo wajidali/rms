@@ -37,8 +37,7 @@ AppComponent = __decorate([
         moduleId: module.id,
         templateUrl: 'app.component.html'
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof common_1.Location !== "undefined" && common_1.Location) === "function" && _a || Object])
+    __metadata("design:paramtypes", [common_1.Location])
 ], AppComponent);
 exports.AppComponent = AppComponent;
-var _a;
 //# sourceMappingURL=app.component.js.map
