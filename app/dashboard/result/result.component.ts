@@ -14,19 +14,20 @@ declare var jQCloud:any;
 export class ResultComponent implements OnInit{
     totalOffers;
     top5=[];
-    currentCounty = {name: "Estonia", numbers: this.totalOffers};
+    currentCounty = {name: "Estonia", jobs: this.totalOffers};
     downloadButtonVisible=false;
     filteredURL;
     chart;
 
     ngOnInit(){
+
         setTimeout(()=>{
-            this.setTotalnumbers();
+            this.setTotalJobs();
             this.returnMap();
         },250)
     }
     ngAfterViewInit(){
-        // this.returnPie();
+
     }
     returnMap(){
         $.get('https://settlebetter.eu/api/profile/593d0288c35008000f63216e', function(data) {
@@ -127,83 +128,80 @@ export class ResultComponent implements OnInit{
                 map.mouseEnabled = false;
                 map.balloon.enabled = false;
 
+                    map.dataGenerated = true;
+                    map.validateNow();
 
-                map.dataGenerated = true;
-                map.validateNow();
+                    map.addListener("clickMapObject", function(event){
+                        context.downloadButtonVisible = true;
+                        context.currentCounty.name = event.mapObject.enTitle;
+                        context.currentCounty.jobs = event.mapObject.value;
+                        var nn = mapping[event.mapObject.enTitle]
+                        let url = 'https://settlebetter.eu/api/profile/593d0288c35008000f63216e?location.county='+ encodeURIComponent(nn)
+                            +  '&workExperienceCode=KOGEMUS_0';
+                        context.filteredURL = url
+                        context.returnPie();
 
-                map.addListener("clickMapObject", function(event){
-                    context.downloadButtonVisible = true;
-                    console.log(context.downloadButtonVisible);
-                    context.currentCounty.name = event.mapObject.enTitle;
-                    context.currentCounty.numbers = event.mapObject.value; // || 3;
-                    var nn = mapping[event.mapObject.enTitle]
-                    let url = 'https://settlebetter.eu/api/profile/593d0288c35008000f63216e?location.county='+ encodeURIComponent(nn)
-                    context.filteredURL = url
-                    // context.returnPie();
+                        console.log(event.mapObject)
+                    });
+                }
+            $('.amcharts-chart-div > a').css('visible', 'hidden');
+            }.bind(this));
 
-                    //$.get(context.filteredURL, function(data) {
-                    context.currentCounty.jobs = event.mapObject.value;
-                    //data.data.suggestions.count
-                    //});
-
-
-                });
-
-                $('.amcharts-chart-div > a').css('visible', 'hidden');
-            }
-
-        }.bind(this));
     }
 
-    setTotalnumbers(){
+    setTotalJobs(){
         $.get('https://settlebetter.eu/api/profile/593d0288c35008000f63216e', function(data) {
+            console.log(data);
             this.currentCounty.jobs = data.data.suggestions.count
         }.bind(this))
     }
 
-    // returnPie(){
-    //     return;
-    //
-    //     $.get(this.filteredURL, function(data) {
-    //         var context = this
-    //         let isco = data.data.suggestions.group.isco
-    //         let jobName = Object.keys(isco)
-    //         let newData = []
-    //
-    //         for (let el of isco){
-    //             console.log(el)
-    //         }
-    //
-    //         let chart = AmCharts.makeChart("tagCloud", {
-    //             "type": "pie",
-    //             "theme": "light",
-    //             "innerRadius": "40%",
-    //             "gradientRatio": [-0.4, -0.4, -0.4, -0.4, -0.4, -0.4, 0, 0.1, 0.2, 0.1, 0, -0.2, -0.5],
-    //             "dataProvider": [],
-    //             "balloonText": "[[value]]",
-    //             "valueField": "numbers",
-    //             "titleField": "job",
-    //             "balloon": {
-    //                 "drop": true,
-    //                 "adjustBorderColor": false,
-    //                 "color": "#FFFFFF",
-    //                 "fontSize": 16
-    //             },
-    //             "listeners": [{
-    //                 "event": "init",
-    //                 "method": updateHeatmap
-    //             }]
-    //         });
-    //         function updateHeatmap(event) {
-    //
-    //             let innstance = event.chart
-    //             innstance.dataProvider.push({
-    //                 job: "test",
-    //                 numbers: 4
-    //             })
-    //         }
-    //     }.bind(this))
-    // }
+    returnPie(){
+        $.get(this.filteredURL, function(data) {
+            var context = this
+            // let isco = data.data.suggestions.group.isco
+            // let jobName = Object.keys(isco)
+            // let newData = []
+
+            console.log(data.data.suggestions)
+
+            let chart = AmCharts.makeChart("tagCloud", {
+                "type": "pie",
+                "theme": "light",
+                "innerRadius": "40%",
+                "gradientRatio": [-0.4, -0.4, -0.4, -0.4, -0.4, -0.4, 0, 0.1, 0.2, 0.1, 0, -0.2, -0.5],
+                "dataProvider": data.data.suggestions.iscos,
+                "balloonText": "[[value]]",
+                "valueField": "numbers",
+                "titleField": "job",
+                "balloon": {
+                    "drop": true,
+                    "adjustBorderColor": false,
+                    "color": "#FFFFFF",
+                    "fontSize": 16
+                },
+                // "listeners": [{
+                //     "event": "init",
+                //     "method": updateHeatmap
+                // }]
+            });
+
+            // chart.dataProvider.push()
+
+
+
+
+            // function updateHeatmap(event) {
+            //
+            //     let innstance = event.chart
+            //     innstance.dataProvider = {
+            //         job: "test",
+            //         numbers: 4
+            //     }
+            //     console.log(innstance.dataProvider)
+            // }
+        }.bind(this))
+    }
 
     // setDataProvider(arr){
     //     for(let el of arr){

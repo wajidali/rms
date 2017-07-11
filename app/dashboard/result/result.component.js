@@ -10,51 +10,8 @@ var core_1 = require("@angular/core");
 var ResultComponent = (function () {
     function ResultComponent() {
         this.top5 = [];
-        this.currentCounty = { name: "Estonia", numbers: this.totalOffers };
+        this.currentCounty = { name: "Estonia", jobs: this.totalOffers };
         this.downloadButtonVisible = false;
-        // returnPie(){
-        //     return;
-        //
-        //     $.get(this.filteredURL, function(data) {
-        //         var context = this
-        //         let isco = data.data.suggestions.group.isco
-        //         let jobName = Object.keys(isco)
-        //         let newData = []
-        //
-        //         for (let el of isco){
-        //             console.log(el)
-        //         }
-        //
-        //         let chart = AmCharts.makeChart("tagCloud", {
-        //             "type": "pie",
-        //             "theme": "light",
-        //             "innerRadius": "40%",
-        //             "gradientRatio": [-0.4, -0.4, -0.4, -0.4, -0.4, -0.4, 0, 0.1, 0.2, 0.1, 0, -0.2, -0.5],
-        //             "dataProvider": [],
-        //             "balloonText": "[[value]]",
-        //             "valueField": "numbers",
-        //             "titleField": "job",
-        //             "balloon": {
-        //                 "drop": true,
-        //                 "adjustBorderColor": false,
-        //                 "color": "#FFFFFF",
-        //                 "fontSize": 16
-        //             },
-        //             "listeners": [{
-        //                 "event": "init",
-        //                 "method": updateHeatmap
-        //             }]
-        //         });
-        //         function updateHeatmap(event) {
-        //
-        //             let innstance = event.chart
-        //             innstance.dataProvider.push({
-        //                 job: "test",
-        //                 numbers: 4
-        //             })
-        //         }
-        //     }.bind(this))
-        // }
         // setDataProvider(arr){
         //     for(let el of arr){
         //         this.chart.dataProvider.push({job: el.job, numbers: el.numbers})
@@ -124,12 +81,11 @@ var ResultComponent = (function () {
     ResultComponent.prototype.ngOnInit = function () {
         var _this = this;
         setTimeout(function () {
-            _this.setTotalnumbers();
+            _this.setTotalJobs();
             _this.returnMap();
         }, 250);
     };
     ResultComponent.prototype.ngAfterViewInit = function () {
-        // this.returnPie();
     };
     ResultComponent.prototype.returnMap = function () {
         $.get('https://settlebetter.eu/api/profile/593d0288c35008000f63216e', function (data) {
@@ -226,25 +182,58 @@ var ResultComponent = (function () {
                 map.validateNow();
                 map.addListener("clickMapObject", function (event) {
                     context.downloadButtonVisible = true;
-                    console.log(context.downloadButtonVisible);
                     context.currentCounty.name = event.mapObject.enTitle;
-                    context.currentCounty.numbers = event.mapObject.value; // || 3;
-                    var nn = mapping[event.mapObject.enTitle];
-                    var url = 'https://settlebetter.eu/api/profile/593d0288c35008000f63216e?location.county=' + encodeURIComponent(nn);
-                    context.filteredURL = url;
-                    // context.returnPie();
-                    //$.get(context.filteredURL, function(data) {
                     context.currentCounty.jobs = event.mapObject.value;
-                    //data.data.suggestions.count
-                    //});
+                    var nn = mapping[event.mapObject.enTitle];
+                    var url = 'https://settlebetter.eu/api/profile/593d0288c35008000f63216e?location.county=' + encodeURIComponent(nn)
+                        + '&workExperienceCode=KOGEMUS_0';
+                    context.filteredURL = url;
+                    context.returnPie();
+                    console.log(event.mapObject);
                 });
-                $('.amcharts-chart-div > a').css('visible', 'hidden');
             }
+            $('.amcharts-chart-div > a').css('visible', 'hidden');
         }.bind(this));
     };
-    ResultComponent.prototype.setTotalnumbers = function () {
+    ResultComponent.prototype.setTotalJobs = function () {
         $.get('https://settlebetter.eu/api/profile/593d0288c35008000f63216e', function (data) {
+            console.log(data);
             this.currentCounty.jobs = data.data.suggestions.count;
+        }.bind(this));
+    };
+    ResultComponent.prototype.returnPie = function () {
+        $.get(this.filteredURL, function (data) {
+            var context = this;
+            // let isco = data.data.suggestions.group.isco
+            // let jobName = Object.keys(isco)
+            // let newData = []
+            console.log(data.data.suggestions);
+            var chart = AmCharts.makeChart("tagCloud", {
+                "type": "pie",
+                "theme": "light",
+                "innerRadius": "40%",
+                "gradientRatio": [-0.4, -0.4, -0.4, -0.4, -0.4, -0.4, 0, 0.1, 0.2, 0.1, 0, -0.2, -0.5],
+                "dataProvider": data.data.suggestions.iscos,
+                "balloonText": "[[value]]",
+                "valueField": "numbers",
+                "titleField": "job",
+                "balloon": {
+                    "drop": true,
+                    "adjustBorderColor": false,
+                    "color": "#FFFFFF",
+                    "fontSize": 16
+                },
+            });
+            // chart.dataProvider.push()
+            // function updateHeatmap(event) {
+            //
+            //     let innstance = event.chart
+            //     innstance.dataProvider = {
+            //         job: "test",
+            //         numbers: 4
+            //     }
+            //     console.log(innstance.dataProvider)
+            // }
         }.bind(this));
     };
     return ResultComponent;

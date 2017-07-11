@@ -139,7 +139,8 @@ StandardForm = __decorate([
         moduleId: module.id,
         templateUrl: 'standardForm.component.html'
     }),
-    __metadata("design:paramtypes", [http_1.Http, dataservice_1.DataService])
+    __metadata("design:paramtypes", [typeof (_a = typeof http_1.Http !== "undefined" && http_1.Http) === "function" && _a || Object, dataservice_1.DataService])
 ], StandardForm);
 exports.StandardForm = StandardForm;
+var _a;
 //# sourceMappingURL=standardForm.component.js.map
